@@ -24,3 +24,34 @@ To output the report to a file, the `ecganncmp` program must be run as follows (
     python ecganncmp.py ref_filename test_filename > output_filename
 
 - `output_filename` is a path to file that will be contain report of annotation comparing.
+
+Files format
+-------------------------------------------------------------------------------
+
+Input files must be in JSON format. The files contain the following data (described with C# syntax)
+
+```C#
+public class DatabaseFormat
+{
+    public Int32 Version { set; get; }
+    public String Label { set; get; }
+    public String Date { set; get; }
+    public String Software { set; get; }
+    public String ConclusionThesaurus { set; get; }
+    public String AnnotationThesaurus { set; get; }
+    public List<Record> Records { set; get; }
+}
+
+public class Record
+{
+    public String Label { set; get; }
+    public List<String> Conclusions { set; get; }
+    public List<Annotation> Annotations { set; get; }
+}
+
+public class Annotation
+{
+    public String Label { set; get; }
+    public String Time { set; get; } //A string in the HH:mm:ss.ffffff Format.
+}
+```
