@@ -108,18 +108,18 @@ Each object in array `Annotations` contains the following fields
 
 Result of comparing files have a JSON format and contains the following data
 
-| Name            | Type    | Description                                                      |
-| --------------- | ------- | ---------------------------------------------------------------- |
-| Program         | object  | Contains two string fields `Name` and `Version`                  |
-| Company         | string  | Contains company info                                            |
-| Date            | string  | Date and time of file creation in format dd/mm/yyyy HH:MM:SS     |
-| Thesaurus       | string  | Label of conclusion thesaurus in both files                      |
-| RecordsCount    | integer | Number of compared records                                       |
-| RefAnnotations  | integer | Total count of annotations in reference file                     |
-| TestAnnotations | integer | Total count of annotations in test file                          |
-| Sensitivity     | object  | Contains data for sensitivity calculation                        |
-| Specificity     | object  | Contains data for specificity calculation                        |
-| Records         | array   | Array of objects that contains comparing results for each record |
+| Name            | Type    | Description                                                                                               |
+| --------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| Program         | object  | Contains two string fields `Name` and `Version`                                                           |
+| Company         | string  | Contains company info                                                                                     |
+| Date            | string  | Date and time of file creation in format dd/mm/yyyy HH:MM:SS                                              |
+| Thesaurus       | string  | Label of conclusion thesaurus in both files                                                               |
+| RecordsCount    | integer | Number of compared records                                                                                |
+| RefAnnotations  | integer | Total count of annotations in reference file                                                              |
+| TestAnnotations | integer | Total count of annotations in test file                                                                   |
+| Sensitivity     | object  | Contains data for sensitivity calculation                                                                 |
+| Specificity     | object  | Contains data for specificity calculation                                                                 |
+| Records         | object  | An object whose fields are the names of the records and values are the comparison results for each record |
 
 Object `Sensitivity` contains the following fields
 
@@ -135,7 +135,7 @@ Object `Specificity` contains the following fields
 | ExcessAnnotations | integer | Number of excess annotaions |
 | Value             | number  | Real value of specificity   |
 
-Each object in array `Records` contains the following fields
+Each value in object `Records` contains the following fields
 
 | Name            | Type    | Description                                                                                               |
 | --------------- | ------- | --------------------------------------------------------------------------------------------------------- |
