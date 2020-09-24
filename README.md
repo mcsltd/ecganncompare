@@ -33,8 +33,8 @@ Input files must be in JSON format. The files contain the following data
 | Label               | string  | Database label                                                 |
 | Date                | string  | Date and time of file creation in format dd/mm/yyyy HH:MM:SS   |
 | Sowftware           | string  | Name and version of annotation program                         |
-| ConclusionThesaurus | string  | Label of conclusions thesaurus                                 |
-| AnnotationThesaurus | string  | Label of annotations thesaurus                                 |
+| ConclusionThesaurus | string  | Label and version of conclusions thesaurus                     |
+| AnnotationThesaurus | string  | Label and version of annotations thesaurus                     |
 | Records             | array   | Array of objects that contains analysis result for each record |
 
 Each object in array `Records` contains the following fields
@@ -108,18 +108,18 @@ Each object in array `Annotations` contains the following fields
 
 Result of comparing files have a JSON format and contains the following data
 
-| Name            | Type    | Description                                                                                               |
-| --------------- | ------- | --------------------------------------------------------------------------------------------------------- |
-| Program         | object  | Contains two string fields `Name` and `Version`                                                           |
-| Company         | string  | Contains company info                                                                                     |
-| Date            | string  | Date and time of file creation in format dd/mm/yyyy HH:MM:SS                                              |
-| Thesaurus       | string  | Label of conclusion thesaurus in both files                                                               |
-| RecordsCount    | integer | Number of compared records                                                                                |
-| RefAnnotations  | integer | Total count of annotations in reference file                                                              |
-| TestAnnotations | integer | Total count of annotations in test file                                                                   |
-| Sensitivity     | object  | Contains data for sensitivity calculation                                                                 |
-| Specificity     | object  | Contains data for specificity calculation                                                                 |
-| Records         | object  | An object whose fields are the names of the records and values are the comparison results for each record |
+| Name                | Type    | Description                                                                                               |
+| ------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| Program             | object  | Contains two string fields `Name` and `Version`                                                           |
+| Company             | string  | Contains company info                                                                                     |
+| Date                | string  | Date and time of file creation in format dd/mm/yyyy HH:MM:SS                                              |
+| ConclusionThesaurus | string  | Label of conclusion thesaurus in both files                                                               |
+| RecordsCount        | integer | Number of compared records                                                                                |
+| RefAnnotations      | integer | Total count of annotations in reference file                                                              |
+| TestAnnotations     | integer | Total count of annotations in test file                                                                   |
+| Sensitivity         | object  | Contains data for sensitivity calculation                                                                 |
+| Specificity         | object  | Contains data for specificity calculation                                                                 |
+| Records             | object  | An object whose fields are the names of the records and values are the comparison results for each record |
 
 Object `Sensitivity` contains the following fields
 
@@ -154,7 +154,7 @@ Each value in object `Records` contains the following fields
   },
   "Company": "Medical computer systems (c) 2020 - www.mks.ru",
   "Date": "23/09/2020 14:38:52",
-  "Thesaurus": "MCS",
+  "ConclusionThesaurus": "MCS",
   "RecordsCount": 340,
   "RefAnnotations": 1193,
   "TestAnnotations": 1416,
@@ -172,11 +172,11 @@ Each value in object `Records` contains the following fields
       "RefAnnotations": 5,
       "TestAnnotations": 4,
       "Codes": [
-        [ "13.1.10", "13.1.10" ],
-        [ "13.1.11", "13.1.11" ],
-        [ "3.1.6", "3.1.6" ],
-        [ "7.1.5", "7.1.5" ],
-        [ "9.1.8", null ]
+        ["13.1.10", "13.1.10"],
+        ["13.1.11", "13.1.11"],
+        ["3.1.6", "3.1.6"],
+        ["7.1.5", "7.1.5"],
+        ["9.1.8", null]
       ]
     }
   }
