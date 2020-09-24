@@ -200,3 +200,30 @@ Each object in array `Items` contains the following fields
 | ----------- | ------ | ----------------------------------------------------------------- |
 | Code        | string | Id of annotation                                                  |
 | Description | string | A textual description of the annotation in the specified language |
+
+### Files example
+
+```json
+{
+  "Thesaurus": "WFDB",
+  "Language": "en",
+  "Items": [
+    {
+      "Code": "0",
+      "Description": "not-QRS (not a getann/putann code)"
+    },
+    {
+      "Code": "1",
+      "Description": "normal beat"
+    },
+    {
+      "Code": "2",
+      "Description": "left bundle branch block beat"
+    },
+    {
+      "Code": "3",
+      "Description": "right bundle branch block beat"
+    }
+  ]
+}
+```
