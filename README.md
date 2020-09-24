@@ -143,3 +143,42 @@ Each value in object `Records` contains the following fields
 | RefAnnotations  | integer | Number of annotations for this record in reference file                                                   |
 | TestAnnotations | integer | Number of annotations for this record in test file                                                        |
 | Codes           | array   | Array of arrays with two items: reference annotation and test annotation or null if one of them is missed |
+
+### Output example
+
+```json
+{
+  "Program": {
+    "Name": "ecganncmp",
+    "Version": "1.0"
+  },
+  "Company": "Medical computer systems (c) 2020 - www.mks.ru",
+  "Date": "23/09/2020 14:38:52",
+  "Thesaurus": "MCS",
+  "RecordsCount": 340,
+  "RefAnnotations": 1193,
+  "TestAnnotations": 1416,
+  "Sensitivity": {
+    "MatchCount": 719,
+    "Value": 60.26823134953898
+  },
+  "Specificity": {
+    "ExcessAnnotations": 697,
+    "Value": 49.22316384180791
+  },
+  "Records": {
+    "40 Maksimova L A  79__Exam_1_0": {
+      "MatchCount": 4,
+      "RefAnnotations": 5,
+      "TestAnnotations": 4,
+      "Codes": [
+        [ "13.1.10", "13.1.10" ],
+        [ "13.1.11", "13.1.11" ],
+        [ "3.1.6", "3.1.6" ],
+        [ "7.1.5", "7.1.5" ],
+        [ "9.1.8", null ]
+      ]
+    }
+  }
+}
+```
