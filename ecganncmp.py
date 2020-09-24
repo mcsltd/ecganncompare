@@ -18,7 +18,7 @@ class Text():
     RECORDS = "Records"
     LABEL = "Label"
     CODES = "Codes"
-    THESAURUS = "Thesaurus"
+    CONCLUSION_THESAURUS = "ConclusionThesaurus"
 
 
 class ComparingResult():
@@ -64,9 +64,9 @@ def _read_all_annotations(ref_file, other_file):
     with open(other_file) as fin:
         other_json = json.load(fin)
 
-    thesaurus = ref_json[Text.THESAURUS]
-    if thesaurus != other_json[Text.THESAURUS]:
-        raise RuntimeError("Thesaurus versions are incompatible")
+    thesaurus = ref_json[Text.CONCLUSION_THESAURUS]
+    if thesaurus != other_json[Text.CONCLUSION_THESAURUS]:
+        raise RuntimeError("Conclusion thesaurus versions are incompatible")
 
     all_annotations = {}
     ref_records = ref_json[Text.RECORDS]
@@ -123,7 +123,7 @@ def _compare_annotations(all_annotations):
 
 def _create_report(record_results, total, thesaurus):
     data = _init_report_data()
-    data[Text.THESAURUS] = thesaurus
+    data[Text.CONCLUSION_THESAURUS] = thesaurus
     data["RecordsCount"] = len(record_results)
     data[Text.REF_ANNOTATIONS] = total.ref_codes_count
     data[Text.TEST_ANNOTATIONS] = total.test_codes_count
