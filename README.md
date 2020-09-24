@@ -247,3 +247,7 @@ To run the program, run the following command
     python histogram_demo.py cmp_result
 
 - `cmp_result` is a path to the `ecganncmp` output file that contains a results of comparison.
+
+![All annotations](./images/all_annotations.png)
+
+![Annotations comparing](./images/annotations_comparing.png)
