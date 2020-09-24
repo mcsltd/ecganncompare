@@ -51,3 +51,55 @@ Each objectin array `Annotations` contains the following fields
 | ----- | ------ | ----------------------------------------------------- |
 | Label | string | Annotation label                                      |
 | Time  | string | Offset from begin of record in format HH:MM:SS.ffffff |
+
+### Input files examples
+
+```json
+{
+  "Version": 1,
+  "Label": "CTS",
+  "Date": "09/23/2020 12:19:05",
+  "Software": "EcgInterpreter1.3.17311.0",
+  "ConclusionThesaurus": "MCS",
+  "AnnotationThesaurus": null,
+  "Records": [
+    {
+      "Label": "CAL05000",
+      "Conclusions": [ "3.1.1", "5.1.9", "7.1.5", "1.1.11" ],
+      "Annotations": null
+    },
+    {
+      "Label": "CAL10000",
+      "Conclusions": [ "3.1.1", "5.1.9", "7.1.5", "1.1.11" ],
+      "Annotations": null
+    }
+  ]
+}
+```
+
+```json
+{
+  "Version": 1,
+  "Label": "AHADB",
+  "Date": "09/23/2020 11:44:17",
+  "Software": "WFDB_10.x",
+  "ConclusionThesaurus": null,
+  "AnnotationThesaurus": "WFDB",
+  "Records": [
+    {
+      "Label": "1201",
+      "Conclusions": null,
+      "Annotations": [
+        {
+          "Label": "1",
+          "Time": "00:05:00.040000"
+        },
+        {
+          "Label": "1",
+          "Time": "00:05:01.132000"
+        }
+      ]
+    }
+  ]
+}
+```
