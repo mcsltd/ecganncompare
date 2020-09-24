@@ -182,3 +182,21 @@ Each value in object `Records` contains the following fields
   }
 }
 ```
+
+## Thesaurus files format
+
+Thesaurus files are used to map annotations code or label to textual description.
+These files are in JSON format and contain the following data
+
+| Name      | Type   | Description                                     |
+| --------- | ------ | ----------------------------------------------- |
+| Thesaurus | string | Label and version of conclusions thesaurus      |
+| Language  | string | Language of textual descriptions                |
+| Items     | array  | Array of objects that contains annotations data |
+
+Each object in array `Items` contains the following fields
+
+| Name        | Type   | Description                                                       |
+| ----------- | ------ | ----------------------------------------------------------------- |
+| Code        | string | Id of annotation                                                  |
+| Description | string | A textual description of the annotation in the specified language |
