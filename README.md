@@ -27,15 +27,15 @@ To output the report to a file, the `ecganncmp` program must be run as follows (
 
 Input files must be in JSON format. The files contain the following data
 
-| Name                | Type   | Description                                                    |
-| ------------------- | ------ | -------------------------------------------------------------- |
-| Version             | int    | Version of format                                              |
-| Label               | string | Database label                                                 |
-| Date                | string | Date and time of file creation in format dd/mm/yyyy HH:MM:SS   |
-| Sowftware           | string | Name and version of annotation program                         |
-| ConclusionThesaurus | string | Label of conclusions thesaurus                                 |
-| AnnotationThesaurus | string | Label of annotations thesaurus                                 |
-| Records             | array  | Array of objects that contains analysis result for each record |
+| Name                | Type    | Description                                                    |
+| ------------------- | ------- | -------------------------------------------------------------- |
+| Version             | integer | Version of format                                              |
+| Label               | string  | Database label                                                 |
+| Date                | string  | Date and time of file creation in format dd/mm/yyyy HH:MM:SS   |
+| Sowftware           | string  | Name and version of annotation program                         |
+| ConclusionThesaurus | string  | Label of conclusions thesaurus                                 |
+| AnnotationThesaurus | string  | Label of annotations thesaurus                                 |
+| Records             | array   | Array of objects that contains analysis result for each record |
 
 Each object in array `Records` contains the following fields
 
@@ -45,7 +45,7 @@ Each object in array `Records` contains the following fields
 | Conclusions | array  | Array of strings with text codes of conclusions that generated for the record |
 | Annotations | array  | Array of objects that contains annotations for the record                     |
 
-Each objectin array `Annotations` contains the following fields
+Each object in array `Annotations` contains the following fields
 
 | Name  | Type   | Description                                           |
 | ----- | ------ | ----------------------------------------------------- |
@@ -65,12 +65,12 @@ Each objectin array `Annotations` contains the following fields
   "Records": [
     {
       "Label": "CAL05000",
-      "Conclusions": [ "3.1.1", "5.1.9", "7.1.5", "1.1.11" ],
+      "Conclusions": ["3.1.1", "5.1.9", "7.1.5", "1.1.11"],
       "Annotations": null
     },
     {
       "Label": "CAL10000",
-      "Conclusions": [ "3.1.1", "5.1.9", "7.1.5", "1.1.11" ],
+      "Conclusions": ["3.1.1", "5.1.9", "7.1.5", "1.1.11"],
       "Annotations": null
     }
   ]
@@ -103,3 +103,43 @@ Each objectin array `Annotations` contains the following fields
   ]
 }
 ```
+
+## Output format
+
+Result of comparing files have a JSON format and contains the following data
+
+| Name            | Type    | Description                                                      |
+| --------------- | ------- | ---------------------------------------------------------------- |
+| Program         | object  | Contains two string fields `Name` and `Version`                  |
+| Company         | string  | Contains company info                                            |
+| Date            | string  | Date and time of file creation in format dd/mm/yyyy HH:MM:SS     |
+| Thesaurus       | string  | Label of conclusion thesaurus in both files                      |
+| RecordsCount    | integer | Number of compared records                                       |
+| RefAnnotations  | integer | Total count of annotations in reference file                     |
+| TestAnnotations | integer | Total count of annotations in test file                          |
+| Sensitivity     | object  | Contains data for sensitivity calculation                        |
+| Specificity     | object  | Contains data for specificity calculation                        |
+| Records         | array   | Array of objects that contains comparing results for each record |
+
+Object `Sensitivity` contains the following fields
+
+| Name       | Type    | Description                   |
+| ---------- | ------- | ----------------------------- |
+| MatchCount | integer | Number of matched annotations |
+| Value      | number  | Real value of sensitivity     |
+
+Object `Specificity` contains the following fields
+
+| Name              | Type    | Description                 |
+| ----------------- | ------- | --------------------------- |
+| ExcessAnnotations | integer | Number of excess annotaions |
+| Value             | number  | Real value of specificity   |
+
+Each object in array `Records` contains the following fields
+
+| Name            | Type    | Description                                                                                               |
+| --------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| MatchCount      | integer | Number of matched annotations in this record                                                              |
+| RefAnnotations  | integer | Number of annotations for this record in reference file                                                   |
+| TestAnnotations | integer | Number of annotations for this record in test file                                                        |
+| Codes           | array   | Array of arrays with two items: reference annotation and test annotation or null if one of them is missed |
