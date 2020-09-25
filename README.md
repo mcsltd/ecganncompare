@@ -29,6 +29,9 @@ To output the report to a file, the `ecganncmp` program must be run as follows (
 
 - `output_filename` is a path to file that will be contain report of annotation comparing.
 
+## Documentation an usage
+
+See the input and output [`format description`](./formats.md).
 
 ## Comparing result usage example
 
