@@ -248,6 +248,14 @@ To run the program, run the following command
 
 - `cmp_result` is a path to the `ecganncmp` output file that contains a results of comparison.
 
+Results of `histogram_demo` shown on the following images.  
+
 ![All annotations](./images/all_annotations.png)
 
+- The top histogram shows the distribution of reference annotations.
+- The bottom histogram shows the distribution of test annotations.
+
 ![Annotations comparing](./images/annotations_comparing.png)
+
+- The top histogram shows the distribution of matched annotations.
+- The bottom histogram shows the distribution of missed and excess annotations.
