@@ -32,3 +32,5 @@ To output the report to a file, the `ecganncmp` program must be run as follows (
 ## Documentation an usage
 
 See the input and output [`format description`](./formats.md).
+
+See file [`usage.md`](./usage.md) for an example of using the comparison results.
