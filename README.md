@@ -2,6 +2,11 @@
 
 The program is used to compare annotation files obtained as a result of processing a set of ECG records.
 
+## Resources
+
+Professional tool for physicians and biomedical engineers  
+https://ecg.ru/
+
 ## Usage
 
 Python (2.6 or later) must be installed on the user's computer to run the program.
@@ -231,7 +236,7 @@ Each object in array `Items` contains the following fields
 ## Comparing result usage example
 
 To demonstrate the use of comparison results, the program `histogram_demo` was developed.
-This program uses the `matplotlib` and `pandas` packages, which are not included in the standard Python library. 
+This program uses the [`matplotlib`](https://matplotlib.org/) and [`pandas`](https://pandas.pydata.org/) packages, which are not included in the standard Python library. 
 To install them, you need to run the following command
 
     pip install matplotlib pandas
