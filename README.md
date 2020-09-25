@@ -1,6 +1,7 @@
 # Ecganncompare
 
-The program is used to compare annotation files obtained as a result of processing a set of ECG records.
+The program is used to compare annotation files obtained as a result of processing a set of ECG records. 
+Annotation to databases are available on [ecg.ru](https://ecg.ru/).
 
 ## Resources
 
