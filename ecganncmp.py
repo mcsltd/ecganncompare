@@ -18,6 +18,7 @@ class Text():
     RECORDS = "Records"
     LABEL = "Label"
     CODES = "Codes"
+    CONCLUSIONS = "Conclusions"
     CONCLUSION_THESAURUS = "ConclusionThesaurus"
 
 
@@ -76,8 +77,8 @@ def _read_all_annotations(ref_file, other_file):
         other_record = _pop_record(other_records, label)
         if other_record is None:
             continue
-        other_codes = sorted(other_record[Text.CODES])
-        codes = sorted(record[Text.CODES])
+        other_codes = sorted(other_record[Text.CONCLUSIONS])
+        codes = sorted(record[Text.CONCLUSIONS])
         all_annotations[label] = _merge_annotations(codes, other_codes)
     return all_annotations, thesaurus
 
