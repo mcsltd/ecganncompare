@@ -30,7 +30,7 @@ def _read_cmp_result(input_filename):
     result.sensitivity = content["Sensitivity"]["Value"]
     result.specificity = content["Specificity"]["Value"]
     for rec in content["Records"].values():
-        for pair in rec["Codes"]:
+        for pair in rec["Labels"]:
             result.codes.append(pair)
     return result
 
