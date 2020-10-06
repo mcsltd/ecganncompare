@@ -17,7 +17,7 @@ class Text():
 
     RECORDS = "Records"
     LABEL = "Label"
-    CODES = "Codes"
+    LABELS = "Labels"
     CONCLUSIONS = "Conclusions"
     CONCLUSION_THESAURUS = "ConclusionThesaurus"
 
@@ -145,7 +145,7 @@ def _create_report(record_results, total, thesaurus):
         dict_result[Text.MATCH_COUNT] = rec_result.match_count
         dict_result[Text.REF_ANNOTATIONS] = rec_result.ref_codes_count
         dict_result[Text.TEST_ANNOTATIONS] = rec_result.test_codes_count
-        dict_result[Text.CODES] = rec_result.codes
+        dict_result[Text.LABELS] = rec_result.codes
         records[rec_result.name] = dict_result
     data[Text.RECORDS] = records
     return data
