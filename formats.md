@@ -117,7 +117,7 @@ Each value in object `Records` contains the following fields
 | MatchCount      | integer | Number of matched annotations in this record                                                              |
 | RefAnnotations  | integer | Number of annotations for this record in reference file                                                   |
 | TestAnnotations | integer | Number of annotations for this record in test file                                                        |
-| Codes           | array   | Array of arrays with two items: reference annotation and test annotation or null if one of them is missed |
+| Labels           | array   | Array of arrays with two items: reference annotation and test annotation or null if one of them is missed |
 
 ## Output example
 
@@ -146,7 +146,7 @@ Each value in object `Records` contains the following fields
       "MatchCount": 4,
       "RefAnnotations": 5,
       "TestAnnotations": 4,
-      "Codes": [
+      "Labels": [
         ["13.1.10", "13.1.10"],
         ["13.1.11", "13.1.11"],
         ["3.1.6", "3.1.6"],
