@@ -173,7 +173,7 @@ Each object in array `Items` contains the following fields
 
 | Name        | Type   | Description                                                       |
 | ----------- | ------ | ----------------------------------------------------------------- |
-| Code        | string | Id of annotation                                                  |
+| Label       | string | Id of annotation                                                  |
 | Description | string | A textual description of the annotation in the specified language |
 
 ## Files example
@@ -184,19 +184,19 @@ Each object in array `Items` contains the following fields
   "Language": "en",
   "Items": [
     {
-      "Code": "0",
+      "Label": "0",
       "Description": "not-QRS (not a getann/putann code)"
     },
     {
-      "Code": "1",
+      "Label": "1",
       "Description": "normal beat"
     },
     {
-      "Code": "2",
+      "Label": "2",
       "Description": "left bundle branch block beat"
     },
     {
-      "Code": "3",
+      "Label": "3",
       "Description": "right bundle branch block beat"
     }
   ]
