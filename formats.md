@@ -7,7 +7,7 @@ Input files must be in JSON format. The files contain the following data
 | Version             | integer | Version of format                                              |
 | Label               | string  | Database label                                                 |
 | Date                | string  | Date and time of file creation in format dd/mm/yyyy HH:MM:SS   |
-| Sowftware           | string  | Name and version of annotation program                         |
+| Annotator           | string  | Name and version of annotation program                         |
 | ConclusionThesaurus | string  | Label and version of conclusions thesaurus                     |
 | AnnotationThesaurus | string  | Label and version of annotations thesaurus                     |
 | Records             | array   | Array of objects that contains analysis result for each record |
@@ -34,7 +34,7 @@ Each object in array `Annotations` contains the following fields
   "Version": 1,
   "Label": "CTS",
   "Date": "09/23/2020 12:19:05",
-  "Software": "EcgInterpreter1.3.17311.0",
+  "Annotator": "EcgInterpreter1.3.17311.0",
   "ConclusionThesaurus": "MCS",
   "AnnotationThesaurus": null,
   "Records": [
@@ -57,7 +57,7 @@ Each object in array `Annotations` contains the following fields
   "Version": 1,
   "Label": "AHADB",
   "Date": "09/23/2020 11:44:17",
-  "Software": "WFDB_10.x",
+  "Annotator": "WFDB_10.x",
   "ConclusionThesaurus": null,
   "AnnotationThesaurus": "WFDB",
   "Records": [
