@@ -7,7 +7,7 @@ Input files must be in JSON format. The files contain the following data
 | Version             | integer | Version of format                                              |
 | Label               | string  | Database label                                                 |
 | Date                | string  | Date and time of file creation in format dd/mm/yyyy HH:MM:SS   |
-| Annotator           | string  | Name and version of annotation program                         |
+| Annotator           | string  | Annotator's label                                              |
 | ConclusionThesaurus | string  | Version of conclusions thesaurus                               |
 | AnnotationThesaurus | string  | Version of annotations thesaurus                               |
 | Records             | array   | Array of objects that contains analysis result for each record |
