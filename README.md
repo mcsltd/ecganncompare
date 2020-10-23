@@ -8,6 +8,12 @@ Annotation to databases are available on [ecg.ru](https://ecg.ru/).
 Professional tool for physicians and biomedical engineers  
 https://ecg.ru/
 
+## Documentation and examples
+
+See the input and output [`format description`](./formats.md).
+
+See file [`usage.md`](./usage.md) for an example of using the comparison results.
+
 ## Usage
 
 Python (2.6 or later) must be installed on the user's computer to run the program.
@@ -28,9 +34,3 @@ To output the report to a file, the `ecganncmp` program must be run as follows (
     python ecganncmp.py ref_filename test_filename > output_filename
 
 - `output_filename` is a path to file that will be contain report of annotation comparing.
-
-## Documentation and examples
-
-See the input and output [`format description`](./formats.md).
-
-See file [`usage.md`](./usage.md) for an example of using the comparison results.
