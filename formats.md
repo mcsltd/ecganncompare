@@ -8,8 +8,8 @@ Input files must be in JSON format. The files contain the following data
 | Label               | string  | Database label                                                 |
 | Date                | string  | Date and time of file creation in format dd/mm/yyyy HH:MM:SS   |
 | Annotator           | string  | Name and version of annotation program                         |
-| ConclusionThesaurus | string  | Label and version of conclusions thesaurus                     |
-| AnnotationThesaurus | string  | Label and version of annotations thesaurus                     |
+| ConclusionThesaurus | string  | Version of conclusions thesaurus                               |
+| AnnotationThesaurus | string  | Version of annotations thesaurus                               |
 | Records             | array   | Array of objects that contains analysis result for each record |
 
 Each object in array `Records` contains the following fields
@@ -117,7 +117,7 @@ Each value in object `Records` contains the following fields
 | MatchCount      | integer | Number of matched annotations in this record                                                              |
 | RefAnnotations  | integer | Number of annotations for this record in reference file                                                   |
 | TestAnnotations | integer | Number of annotations for this record in test file                                                        |
-| Labels           | array   | Array of arrays with two items: reference annotation and test annotation or null if one of them is missed |
+| Labels          | array   | Array of arrays with two items: reference annotation and test annotation or null if one of them is missed |
 
 ## Output example
 
@@ -165,7 +165,7 @@ These files are in JSON format and contain the following data
 
 | Name      | Type   | Description                                     |
 | --------- | ------ | ----------------------------------------------- |
-| Thesaurus | string | Label and version of conclusions thesaurus      |
+| Thesaurus | string | Version of conclusions thesaurus                |
 | Language  | string | Language of textual descriptions                |
 | Items     | array  | Array of objects that contains annotations data |
 
