@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "date": "2020-10-22T10:18:35.091Z",
+  "annotator": "annotator1@ecg.ru",
+  "database": "Moscow Day #67",
+  "record": "patient_00001",
+  "conclusionThesaurus": "MCS",
+  "conclusions": ["1.1.1", "3.1.5", "6.1.1"]
+}
