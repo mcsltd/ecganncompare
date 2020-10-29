@@ -46,14 +46,14 @@ class TotalResult():
 
 
 def main():
-    ref_file, other_file = _parse_filenames(os.sys.argv)
-    all_annotations, thesaurus = _read_all_annotations(ref_file, other_file)
+    ref_input, other_input = _parse_args(os.sys.argv)
+    all_annotations, thesaurus = _read_all_annotations(ref_input, other_input)
     results, total = _compare_annotations(all_annotations)
     report = _create_report(results, total, thesaurus)
     _write_report(report)
 
 
-def _parse_filenames(args):
+def _parse_args(args):
     if len(args) < 3:
         raise RuntimeError("Not enough arguments")
     return args[1], args[2]
