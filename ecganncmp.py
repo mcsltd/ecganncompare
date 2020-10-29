@@ -48,10 +48,13 @@ class TotalResult():
 def main():
     ref_input, other_input = _parse_args(os.sys.argv)
     _check_input(ref_input, other_input)
-    all_annotations, thesaurus = _read_all_annotations(ref_input, other_input)
-    results, total = _compare_annotations(all_annotations)
-    report = _create_report(results, total, thesaurus)
-    _write_report(report)
+    if os.path.isdir(ref_input):
+        _compare_folders(ref_input, other_input)
+    else:
+        all_annotations, thesaurus = _read_all_annotations(ref_input, other_input)
+        results, total = _compare_annotations(all_annotations)
+        report = _create_report(results, total, thesaurus)
+        _write_report(report)
 
 
 def _parse_args(args):
@@ -177,6 +180,10 @@ def _check_input(ref_input, other_input):
                  os.path.isdir(ref_input) and os.path.isdir(other_input))
     if not same_type:
         raise RuntimeError("Both paths must point to files or folders")
+
+
+def _compare_folders(ref_input, other_input):
+    raise RuntimeError("Not implemented")
 
 
 if __name__ == "__main__":
