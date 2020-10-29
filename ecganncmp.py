@@ -47,6 +47,7 @@ class TotalResult():
 
 def main():
     ref_input, other_input = _parse_args(os.sys.argv)
+    _check_input(ref_input, other_input)
     all_annotations, thesaurus = _read_all_annotations(ref_input, other_input)
     results, total = _compare_annotations(all_annotations)
     report = _create_report(results, total, thesaurus)
@@ -167,6 +168,15 @@ def _write_report(report, writable=None):
         writable = os.sys.stdout
     text = json.dumps(report, indent=2)
     writable.write(text)
+
+
+def _check_input(ref_input, other_input):
+    if not (os.path.exists(ref_input) and os.path.exists(other_input)):
+        raise RuntimeError("Path not exists")
+    same_type = (os.path.isfile(ref_input) and os.path.isfile(other_input) or
+                 os.path.isdir(ref_input) and os.path.isdir(other_input))
+    if not same_type:
+        raise RuntimeError("Both paths must point to files or folders")
 
 
 if __name__ == "__main__":
