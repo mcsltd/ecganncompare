@@ -51,10 +51,7 @@ def main():
     if os.path.isdir(ref_input):
         _compare_folders(ref_input, other_input)
     else:
-        all_annotations, thesaurus = _read_all_annotations(ref_input, other_input)
-        results, total = _compare_annotations(all_annotations)
-        report = _create_report(results, total, thesaurus)
-        _write_report(report)
+        _compare_files(ref_input, other_input)
 
 
 def _parse_args(args):
@@ -184,6 +181,13 @@ def _check_input(ref_input, other_input):
 
 def _compare_folders(ref_input, other_input):
     raise RuntimeError("Not implemented")
+
+
+def _compare_files(ref_input, other_input):
+    all_annotations, thesaurus = _read_all_annotations(ref_input, other_input)
+    results, total = _compare_annotations(all_annotations)
+    report = _create_report(results, total, thesaurus)
+    _write_report(report)
 
 
 if __name__ == "__main__":
