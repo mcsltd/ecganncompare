@@ -61,10 +61,8 @@ def _parse_args(args):
 
 
 def _read_all_annotations(ref_file, other_file):
-    with open(ref_file, "rt") as fin:
-        ref_json = json.load(fin)
-    with open(other_file) as fin:
-        other_json = json.load(fin)
+    ref_json = _read_json(ref_file)
+    other_json = _read_json(other_file)
 
     thesaurus = ref_json[Text.CONCLUSION_THESAURUS]
     if thesaurus != other_json[Text.CONCLUSION_THESAURUS]:
