@@ -45,6 +45,11 @@ class TotalResult():
         self.test_codes_count += record_result.test_codes_count
 
 
+class Error(Exception):
+    def __init__(self, message):
+        super(Error, self).__init__(message)
+
+
 def main():
     ref_input, other_input = _parse_args(os.sys.argv)
     _check_input(ref_input, other_input)
