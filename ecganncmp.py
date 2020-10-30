@@ -190,5 +190,10 @@ def _compare_files(ref_input, other_input):
     _write_report(report)
 
 
+def _read_json(filename):
+    with open(filename, "rt") as fin:
+        return json.load(fin)
+
+
 if __name__ == "__main__":
     main()
