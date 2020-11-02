@@ -5,24 +5,23 @@ from datetime import datetime
 
 
 class Text():
+    VALUE = "Value"
+    RECORDS = "Records"
+    LABEL = "Label"
+    LABELS = "Labels"
+
     PROGRAM_NAME = "ecganncmp"
     PROGRAM_VERSION = "1.0"
     COMPANY_INFO = "Medical computer systems (c) {0} - www.mks.ru".format(
         datetime.now().year
     )
-    REF_ANNOTATIONS = "RefAnnotations"
-    TEST_ANNOTATIONS = "TestAnnotations"
-    MATCH_COUNT = "MatchCount"
-    VALUE = "Value"
-
-    RECORDS = "Records"
-    LABEL = "Label"
-    LABELS = "Labels"
-
     DATABASE = "database"
     RECORD_ID = "record"
     CONCLUSION_THESAURUS = "conclusionThesaurus"
     CONCLUSIONS = "conclusions"
+    REF_ANNOTATIONS = "refAnnotations"
+    TEST_ANNOTATIONS = "TestAnnotations"
+    MATCH_COUNT = "MatchCount"
 
 
 class ComparingResult():
@@ -165,9 +164,8 @@ def _compare_folders(ref_input, other_input):
 
 
 def _compare_files(ref_input, other_input):
-    all_annotations, thesaurus = _read_all_annotations(ref_input, other_input)
-    results, total = _compare_annotations(all_annotations)
-    report = _create_report(results, total, thesaurus)
+    codes_pairs = _read_all_annotations(ref_input, other_input)
+    report = _create_record_report(codes_pairs, ref_input)
     _write_report(report)
 
 
@@ -184,6 +182,28 @@ def _check_record_info(ref_input, other_input):
     check_field(ref_input, other_input, Text.DATABASE)
     check_field(ref_input, other_input, Text.RECORD_ID)
     check_field(ref_input, other_input, Text.CONCLUSION_THESAURUS)
+
+
+def _create_record_report(code_pairs, record_info):
+    report = _init_report_data()
+    report[Text.CONCLUSION_THESAURUS] = record_info[Text.CONCLUSION_THESAURUS]
+    report[Text.RECORD_ID] = record_info[Text.RECORD_ID]
+    report[Text.DATABASE] = record_info[Text.DATABASE]
+
+    ref_codes_count = 0
+    match_count = 0
+    test_codes_count = 0
+    for pair in code_pairs:
+        if pair[0] is not None:
+            ref_codes_count += 1
+            if pair[0] == pair[1]:
+                match_count += 1
+        if pair[1] is not None:
+            test_codes_count += 1
+    report[Text.REF_ANNOTATIONS] = ref_codes_count
+    report[Text.TEST_ANNOTATIONS] = test_codes_count
+    report[Text.MATCH_COUNT] = match_count
+    report[Text.CONCLUSIONS] = code_pairs
 
 
 if __name__ == "__main__":
