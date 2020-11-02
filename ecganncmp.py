@@ -87,14 +87,6 @@ def _read_all_annotations(ref_file, other_file):
     return code_pairs
 
 
-def _pop_record(records_json_list, label):
-    for i, record in enumerate(records_json_list):
-        if label == record[Text.LABEL]:
-            del records_json_list[i]
-            return record
-    return None
-
-
 def _compare_annotations(all_annotations):
     results = []
     total = TotalResult()
