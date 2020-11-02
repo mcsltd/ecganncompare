@@ -67,13 +67,9 @@ def _parse_args(args):
     return args[1], args[2]
 
 
-def _read_all_annotations(ref_file, other_file):
-    ref_json = _read_json(ref_file)
-    other_json = _read_json(other_file)
-    _check_record_info(ref_json, other_json)
-
-    codes = sorted(ref_json[Text.CONCLUSIONS])
-    other_codes = set(other_json[Text.CONCLUSIONS])
+def _merge_codes(codes, other_codes):
+    codes = sorted(codes)
+    other_codes = set(other_codes)
     code_pairs = []
     for code in codes:
         if code in other_codes:
@@ -164,7 +160,12 @@ def _compare_folders(ref_input, other_input):
 
 
 def _compare_files(ref_input, other_input):
-    codes_pairs = _read_all_annotations(ref_input, other_input)
+    ref_json = _read_json(ref_file)
+    other_json = _read_json(other_file)
+    _check_record_info(ref_json, other_json)
+
+    codes_pairs = _merge_codes(ref_json[Text.CONCLUSIONS],
+                               other_json[Text.CONCLUSIONS])
     report = _create_record_report(codes_pairs, ref_input)
     _write_report(report)
 
