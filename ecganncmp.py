@@ -73,23 +73,10 @@ def _read_all_annotations(ref_file, other_file):
     other_json = _read_json(other_file)
     _check_record_info(ref_json, other_json)
 
-    codes = ref_json[Text.CONCLUSIONS]
-    other_codes = other_json[Text.CONCLUSIONS]
-    return _merge_annotations(codes, other_codes)
-
-
-def _pop_record(records_json_list, label):
-    for i, record in enumerate(records_json_list):
-        if label == record[Text.LABEL]:
-            del records_json_list[i]
-            return record
-    return None
-
-
-def _merge_annotations(codes, other_codes):
-    other_codes = set(other_codes)
+    codes = sorted(ref_json[Text.CONCLUSIONS])
+    other_codes = set(other_json[Text.CONCLUSIONS])
     code_pairs = []
-    for code in sorted(codes):
+    for code in codes:
         if code in other_codes:
             code_pairs.append((code, code))
         else:
@@ -98,6 +85,14 @@ def _merge_annotations(codes, other_codes):
     for code in other_codes:
         code_pairs.append((None, code))
     return code_pairs
+
+
+def _pop_record(records_json_list, label):
+    for i, record in enumerate(records_json_list):
+        if label == record[Text.LABEL]:
+            del records_json_list[i]
+            return record
+    return None
 
 
 def _compare_annotations(all_annotations):
