@@ -160,13 +160,13 @@ def _compare_folders(ref_input, other_input):
 
 
 def _compare_files(ref_input, other_input):
-    ref_json = _read_json(ref_file)
-    other_json = _read_json(other_file)
+    ref_json = _read_json(ref_input)
+    other_json = _read_json(other_input)
     _check_record_info(ref_json, other_json)
 
     codes_pairs = _merge_codes(ref_json[Text.CONCLUSIONS],
                                other_json[Text.CONCLUSIONS])
-    report = _create_record_report(codes_pairs, ref_input)
+    report = _create_record_report(codes_pairs, ref_json)
     _write_report(report)
 
 
@@ -205,6 +205,7 @@ def _create_record_report(code_pairs, record_info):
     report[Text.TEST_ANNOTATIONS] = test_codes_count
     report[Text.MATCH_COUNT] = match_count
     report[Text.CONCLUSIONS] = code_pairs
+    return report
 
 
 if __name__ == "__main__":
