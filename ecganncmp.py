@@ -18,11 +18,11 @@ class Text():
     RECORDS = "Records"
     LABEL = "Label"
     LABELS = "Labels"
-    CONCLUSIONS = "Conclusions"
 
     DATABASE = "database"
     RECORD_ID = "record"
     CONCLUSION_THESAURUS = "conclusionThesaurus"
+    CONCLUSIONS = "conclusions"
 
 
 class ComparingResult():
@@ -71,23 +71,11 @@ def _parse_args(args):
 def _read_all_annotations(ref_file, other_file):
     ref_json = _read_json(ref_file)
     other_json = _read_json(other_file)
+    _check_record_info(ref_json, other_json)
 
-    thesaurus = ref_json[Text.CONCLUSION_THESAURUS]
-    if thesaurus != other_json[Text.CONCLUSION_THESAURUS]:
-        raise RuntimeError("Conclusion thesaurus versions are incompatible")
-
-    all_annotations = {}
-    ref_records = ref_json[Text.RECORDS]
-    other_records = other_json[Text.RECORDS]
-    for record in ref_records:
-        label = record[Text.LABEL]
-        other_record = _pop_record(other_records, label)
-        if other_record is None:
-            continue
-        other_codes = sorted(other_record[Text.CONCLUSIONS])
-        codes = sorted(record[Text.CONCLUSIONS])
-        all_annotations[label] = _merge_annotations(codes, other_codes)
-    return all_annotations, thesaurus
+    codes = ref_json[Text.CONCLUSIONS]
+    other_codes = other_json[Text.CONCLUSIONS]
+    return _merge_annotations(codes, other_codes)
 
 
 def _pop_record(records_json_list, label):
@@ -101,7 +89,7 @@ def _pop_record(records_json_list, label):
 def _merge_annotations(codes, other_codes):
     other_codes = set(other_codes)
     code_pairs = []
-    for code in codes:
+    for code in sorted(codes):
         if code in other_codes:
             code_pairs.append((code, code))
         else:
