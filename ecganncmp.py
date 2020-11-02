@@ -19,7 +19,10 @@ class Text():
     LABEL = "Label"
     LABELS = "Labels"
     CONCLUSIONS = "Conclusions"
-    CONCLUSION_THESAURUS = "ConclusionThesaurus"
+
+    DATABASE = "database"
+    RECORD_ID = "record"
+    CONCLUSION_THESAURUS = "conclusionThesaurus"
 
 
 class ComparingResult():
@@ -196,6 +199,16 @@ def _compare_files(ref_input, other_input):
 def _read_json(filename):
     with open(filename, "rt") as fin:
         return json.load(fin)
+
+
+def _check_record_info(ref_input, other_input):
+    def check_field(ref_input, other_input, fieldname):
+        if ref_input[fieldname] != other_input[fieldname]:
+            raise Error("Incompatible '{0}' values".format(fieldname))
+
+    check_field(ref_input, other_input, Text.DATABASE)
+    check_field(ref_input, other_input, Text.RECORD_ID)
+    check_field(ref_input, other_input, Text.CONCLUSION_THESAURUS)
 
 
 if __name__ == "__main__":
