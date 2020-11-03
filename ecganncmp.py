@@ -240,10 +240,28 @@ def _same_annotator(dataset):
     return all(x[Text.ANNOTATOR] == annotator for x in dataset)
 
 
+def _create_reports(ref_data, other_data):
+    reports = []
+    other_data = _dataset_to_table(other_data)
+    for ref_item in ref_data:
+        ths = ref_item[Text.CONCLUSION_THESAURUS]
+        db = ref_item[Text.DATABASE]
+        name = ref_item[Text.RECORD_ID]
+        try:
+            other_item = other_data[ths][db][name]
+        except KeyError:
+            continue
+        code_pairs = _merge_codes(ref_item[Text.CONCLUSIONS],
+                                  other_item[Text.CONCLUSIONS])
+        new_report = _create_record_report(code_pairs, ref_item, other_item)
+        reports.append(new_report)
+    return reports
+
+
 def _dataset_to_table(dataset):
     table = {}
     for item in dataset:
-        table.setdefault(dataset[Text.ANNOTATOR], {})\
+        table.setdefault(dataset[Text.CONCLUSION_THESAURUS], {})\
              .setdefault(dataset[Text.DATABASE], {})\
              .setdefault(dataset[Text.RECORD_ID], item)
     return table
