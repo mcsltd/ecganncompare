@@ -160,7 +160,9 @@ def _check_input(ref_input, other_input):
 
 
 def _compare_folders(ref_input, other_input):
-    raise RuntimeError("Not implemented")
+    ref_files = _read_json_folder(ref_input)
+    other_files = _read_json_folder(other_input)
+    _check_folders_data(ref_files, other_input)
 
 
 def _compare_files(ref_input, other_input):
@@ -225,6 +227,11 @@ def _read_json_folder(dirname):
             except ValueError:
                 continue
     return results
+
+
+def _same_annotator(dataset):
+    annotator = dataset[0][Text.ANNOTATOR]
+    return all(x[Text.ANNOTATOR] == annotator for x in dataset)
 
 
 if __name__ == "__main__":
