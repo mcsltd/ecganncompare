@@ -8,8 +8,6 @@ from collections import OrderedDict
 class Text():
     VALUE = "Value"
     RECORDS = "Records"
-    LABEL = "Label"
-    LABELS = "Labels"
 
     PROGRAM_NAME = "ecganncmp"
     PROGRAM_VERSION = "1.0"
