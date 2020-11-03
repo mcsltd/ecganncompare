@@ -20,8 +20,8 @@ class Text():
     CONCLUSION_THESAURUS = "conclusionThesaurus"
     CONCLUSIONS = "conclusions"
     REF_ANNOTATIONS = "refAnnotations"
-    TEST_ANNOTATIONS = "TestAnnotations"
-    MATCH_COUNT = "MatchCount"
+    TEST_ANNOTATIONS = "testAnnotations"
+    MATCH_COUNT = "matchCount"
 
 
 class ComparingResult():
