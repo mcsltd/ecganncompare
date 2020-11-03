@@ -229,6 +229,11 @@ def _read_json_folder(dirname):
     return results
 
 
+def _check_folders_data(ref_files, other_input):
+    if not (_same_annotator(ref_files) and _same_annotator(other_input)):
+        raise Error("Files from one folder must have the same annotator")
+
+
 def _same_annotator(dataset):
     annotator = dataset[0][Text.ANNOTATOR]
     return all(x[Text.ANNOTATOR] == annotator for x in dataset)
