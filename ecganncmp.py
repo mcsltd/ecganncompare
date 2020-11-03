@@ -104,35 +104,6 @@ def _compare_annotations(all_annotations):
     return results, total
 
 
-def _create_report(record_results, total, thesaurus):
-    data = _init_report_data()
-    data[Text.CONCLUSION_THESAURUS] = thesaurus
-    data["RecordsCount"] = len(record_results)
-    data[Text.REF_ANNOTATIONS] = total.ref_codes_count
-    data[Text.TEST_ANNOTATIONS] = total.test_codes_count
-    sensitivity = float(total.match_count) / total.ref_codes_count
-    data["Sensitivity"] = {
-        Text.MATCH_COUNT: total.match_count,
-        Text.VALUE: sensitivity * 100
-    }
-    excess_count = total.test_codes_count - total.match_count
-    specificity = float(excess_count) / total.test_codes_count
-    data["Specificity"] = {
-        "ExcessAnnotations": excess_count,
-        Text.VALUE: specificity * 100
-    }
-    records = {}
-    for rec_result in record_results:
-        dict_result = {}
-        dict_result[Text.MATCH_COUNT] = rec_result.match_count
-        dict_result[Text.REF_ANNOTATIONS] = rec_result.ref_codes_count
-        dict_result[Text.TEST_ANNOTATIONS] = rec_result.test_codes_count
-        dict_result[Text.LABELS] = rec_result.codes
-        records[rec_result.name] = dict_result
-    data[Text.RECORDS] = records
-    return data
-
-
 def _init_report_data():
     return OrderedDict([
         ("Program", {
