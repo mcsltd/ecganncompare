@@ -22,6 +22,9 @@ class Text():
     REF_ANNOTATIONS = "refAnnotations"
     TEST_ANNOTATIONS = "testAnnotations"
     MATCH_COUNT = "matchCount"
+    REF_ANNOTATOR = "refAnnotator"
+    TEST_ANNOTATOR = "testAnnotator"
+    ANNOTATOR = "annotator"
 
 
 class ComparingResult():
@@ -166,7 +169,7 @@ def _compare_files(ref_input, other_input):
 
     codes_pairs = _merge_codes(ref_json[Text.CONCLUSIONS],
                                other_json[Text.CONCLUSIONS])
-    report = _create_record_report(codes_pairs, ref_json)
+    report = _create_record_report(codes_pairs, ref_json, other_json)
     _write_report(report)
 
 
@@ -185,11 +188,14 @@ def _check_record_info(ref_input, other_input):
     check_field(ref_input, other_input, Text.CONCLUSION_THESAURUS)
 
 
-def _create_record_report(code_pairs, record_info):
+def _create_record_report(code_pairs, ref_data, other_data):
     report = _init_report_data()
-    report[Text.CONCLUSION_THESAURUS] = record_info[Text.CONCLUSION_THESAURUS]
-    report[Text.RECORD_ID] = record_info[Text.RECORD_ID]
-    report[Text.DATABASE] = record_info[Text.DATABASE]
+
+    report[Text.CONCLUSION_THESAURUS] = ref_data[Text.CONCLUSION_THESAURUS]
+    report[Text.RECORD_ID] = ref_data[Text.RECORD_ID]
+    report[Text.DATABASE] = ref_data[Text.DATABASE]
+    report[Text.REF_ANNOTATOR] = other_data[Text.ANNOTATOR]
+    report[Text.TEST_ANNOTATOR] = other_data[Text.ANNOTATOR]
 
     ref_codes_count = 0
     match_count = 0
