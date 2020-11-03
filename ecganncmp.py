@@ -78,7 +78,7 @@ def _merge_codes(codes, other_codes):
     return code_pairs
 
 
-def _init_report_data():
+def _report_header():
     return OrderedDict([
         ("program", {
             "name": Text.PROGRAM_NAME,
@@ -141,7 +141,7 @@ def _check_record_info(ref_input, other_input):
 
 
 def _create_record_report(code_pairs, ref_data, other_data):
-    report = _init_report_data()
+    report = _report_header()
 
     report[Text.RECORD_ID] = ref_data[Text.RECORD_ID]
     report[Text.DATABASE] = ref_data[Text.DATABASE]
@@ -218,7 +218,7 @@ def _dataset_to_table(dataset):
 
 
 def _create_general_report(records_reports):
-    report = _init_report_data()
+    report = _report_header()
     report[Text.TEST_ANNOTATOR] = records_reports[0][Text.TEST_ANNOTATOR]
     report[Text.REF_ANNOTATOR] = records_reports[0][Text.REF_ANNOTATOR]
     report[Text.CONCLUSION_THESAURUS] = records_reports[0][Text.CONCLUSION_THESAURUS]
