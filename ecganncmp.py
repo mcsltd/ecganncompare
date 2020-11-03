@@ -29,15 +29,6 @@ class Text():
     MISSES_COUNT = "missesCount"
 
 
-class ComparingResult():
-    def __init__(self, name, codes):
-        self.name = name
-        self.match_count = 0
-        self.ref_codes_count = 0
-        self.test_codes_count = 0
-        self.codes = codes
-
-
 class TotalResult():
     def __init__(self):
         self.total_count = 0
