@@ -163,7 +163,9 @@ def _compare_folders(ref_input, other_input):
     ref_data = _read_json_folder(ref_input)
     other_data = _read_json_folder(other_input)
     _check_folders_data(ref_data, other_data)
-    reports = _create_reports(ref_data, other_data)
+    record_reports = _create_reports(ref_data, other_data)
+    general_report = _create_general_report(record_reports)
+    _write_report(general_report)
 
 
 def _compare_files(ref_input, other_input):
@@ -231,13 +233,15 @@ def _read_json_folder(dirname):
 
 
 def _check_folders_data(ref_files, other_input):
-    if not (_same_annotator(ref_files) and _same_annotator(other_input)):
-        raise Error("Files from one folder must have the same annotator")
-
-
-def _same_annotator(dataset):
-    annotator = dataset[0][Text.ANNOTATOR]
-    return all(x[Text.ANNOTATOR] == annotator for x in dataset)
+    def _check_field_value(dataset, fieldname):
+        message_template = "Files from one folder must have the same '{0}'"
+        value = dataset[0][fieldname]
+        if any(x[fieldname] != value for x in dataset[fieldname]):
+            raise Error(message_template.format(fieldname))
+    _check_field_value(ref_files, Text.ANNOTATOR)
+    _check_field_value(ref_files, Text.CONCLUSION_THESAURUS)
+    _check_field_value(other_input, Text.ANNOTATOR)
+    _check_field_value(other_input, Text.CONCLUSION_THESAURUS)
 
 
 def _create_reports(ref_data, other_data):
