@@ -160,9 +160,10 @@ def _check_input(ref_input, other_input):
 
 
 def _compare_folders(ref_input, other_input):
-    ref_files = _read_json_folder(ref_input)
-    other_files = _read_json_folder(other_input)
-    _check_folders_data(ref_files, other_input)
+    ref_data = _read_json_folder(ref_input)
+    other_data = _read_json_folder(other_input)
+    _check_folders_data(ref_data, other_data)
+    reports = _create_reports(ref_data, other_data)
 
 
 def _compare_files(ref_input, other_input):
@@ -237,6 +238,15 @@ def _check_folders_data(ref_files, other_input):
 def _same_annotator(dataset):
     annotator = dataset[0][Text.ANNOTATOR]
     return all(x[Text.ANNOTATOR] == annotator for x in dataset)
+
+
+def _dataset_to_table(dataset):
+    table = {}
+    for item in dataset:
+        table.setdefault(dataset[Text.ANNOTATOR], {})\
+             .setdefault(dataset[Text.DATABASE], {})\
+             .setdefault(dataset[Text.RECORD_ID], item)
+    return table
 
 
 if __name__ == "__main__":
