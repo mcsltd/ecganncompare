@@ -121,7 +121,8 @@ def _compare_files(ref_input, other_input):
 
     codes_pairs = _merge_codes(ref_json[Text.CONCLUSIONS],
                                other_json[Text.CONCLUSIONS])
-    report = _create_record_report(codes_pairs, ref_json, other_json)
+    report = _report_header()
+    report.update(_create_record_report(codes_pairs, ref_json, other_json))
     _write_report(report)
 
 
@@ -141,8 +142,7 @@ def _check_record_info(ref_input, other_input):
 
 
 def _create_record_report(code_pairs, ref_data, other_data):
-    report = _report_header()
-
+    report = OrderedDict()
     report[Text.RECORD_ID] = ref_data[Text.RECORD_ID]
     report[Text.DATABASE] = ref_data[Text.DATABASE]
     report[Text.CONCLUSION_THESAURUS] = ref_data[Text.CONCLUSION_THESAURUS]
