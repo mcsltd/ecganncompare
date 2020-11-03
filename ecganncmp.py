@@ -2,6 +2,7 @@
 import os
 import json
 from datetime import datetime
+from collections import OrderedDict
 
 
 class Text():
@@ -132,14 +133,14 @@ def _create_report(record_results, total, thesaurus):
 
 
 def _init_report_data():
-    return {
-        "Program": {
+    return OrderedDict([
+        ("Program", {
             "Name": Text.PROGRAM_NAME,
             "Version": Text.PROGRAM_VERSION
-        },
-        "Company": Text.COMPANY_INFO,
-        "Date": datetime.utcnow().isoformat() + "Z"
-    }
+        }),
+        ("Company", Text.COMPANY_INFO),
+        ("Date", datetime.utcnow().isoformat() + "Z")
+    ])
 
 
 def _write_report(report, writable=None):
@@ -191,9 +192,9 @@ def _check_record_info(ref_input, other_input):
 def _create_record_report(code_pairs, ref_data, other_data):
     report = _init_report_data()
 
-    report[Text.CONCLUSION_THESAURUS] = ref_data[Text.CONCLUSION_THESAURUS]
     report[Text.RECORD_ID] = ref_data[Text.RECORD_ID]
     report[Text.DATABASE] = ref_data[Text.DATABASE]
+    report[Text.CONCLUSION_THESAURUS] = ref_data[Text.CONCLUSION_THESAURUS]
     report[Text.REF_ANNOTATOR] = other_data[Text.ANNOTATOR]
     report[Text.TEST_ANNOTATOR] = other_data[Text.ANNOTATOR]
 
