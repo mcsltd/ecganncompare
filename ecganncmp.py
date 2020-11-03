@@ -215,5 +215,17 @@ def _create_record_report(code_pairs, ref_data, other_data):
     return report
 
 
+def _read_json_folder(dirname):
+    results = []
+    for filename in os.listdir(dirname):
+        filename = os.path.join(dirname, filename)
+        with open(filename, "rt") as fin:
+            try:
+                results.append(json.load(fin))
+            except ValueError:
+                continue
+    return results
+
+
 if __name__ == "__main__":
     main()
