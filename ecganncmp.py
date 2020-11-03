@@ -230,6 +230,9 @@ def _create_general_report(records_reports):
         total.ref_codes_count += item[Text.REF_ANNOTATIONS]
         total.test_codes_count += item[Text.TEST_ANNOTATIONS]
         total.total_count += len(item[Text.CONCLUSIONS])
+        del item[Text.TEST_ANNOTATOR]
+        del item[Text.REF_ANNOTATOR]
+        del item[Text.CONCLUSION_THESAURUS]
 
     report[Text.REF_ANNOTATIONS] = total.ref_codes_count
     report[Text.TEST_ANNOTATIONS] = total.test_codes_count
