@@ -26,6 +26,7 @@ class Text():
     REF_ANNOTATOR = "refAnnotator"
     TEST_ANNOTATOR = "testAnnotator"
     ANNOTATOR = "annotator"
+    RECORDS_COUNT = "recordsCount"
 
 
 class ComparingResult():
@@ -269,6 +270,36 @@ def _dataset_to_table(dataset):
              .setdefault(dataset[Text.DATABASE], {})\
              .setdefault(dataset[Text.RECORD_ID], item)
     return table
+
+
+def _create_general_report(records_reports):
+    report = _init_report_data()
+    report[Text.TEST_ANNOTATOR] = records_reports[0][Text.TEST_ANNOTATOR]
+    report[Text.REF_ANNOTATOR] = records_reports[0][Text.REF_ANNOTATOR]
+    report[Text.CONCLUSION_THESAURUS] = records_reports[0][Text.CONCLUSION_THESAURUS]
+    report[Text.RECORDS_COUNT] = len(records_reports)
+
+    total = TotalResult()
+    for item in records_reports:
+        total.match_count += item[Text.MATCH_COUNT]
+        total.ref_codes_count += item[Text.REF_ANNOTATIONS]
+        total.test_codes_count += item[Text.TEST_ANNOTATIONS]
+        total.total_count += len(item[Text.CONCLUSIONS])
+
+    report[Text.REF_ANNOTATIONS] = total.ref_codes_count
+    report[Text.TEST_ANNOTATIONS] = total.test_codes_count
+    sensitivity = float(total.match_count) / total.ref_codes_count
+    report["Sensitivity"] = {
+        Text.MATCH_COUNT: total.match_count,
+        Text.VALUE: sensitivity * 100
+    }
+    excess_count = total.test_codes_count - total.match_count
+    specificity = float(excess_count) / total.test_codes_count
+    report["Specificity"] = {
+        "ExcessAnnotations": excess_count,
+        Text.VALUE: specificity * 100
+    }
+    report[Text.RECORDS] = records_reports
 
 
 if __name__ == "__main__":
