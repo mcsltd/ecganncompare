@@ -87,23 +87,6 @@ def _merge_codes(codes, other_codes):
     return code_pairs
 
 
-def _compare_annotations(all_annotations):
-    results = []
-    total = TotalResult()
-    for name, code_pairs in all_annotations.items():
-        record_result = ComparingResult(name, code_pairs)
-        for pair in code_pairs:
-            if pair[0] is not None:
-                record_result.ref_codes_count += 1
-                if pair[0] == pair[1]:
-                    record_result.match_count += 1
-            if pair[1] is not None:
-                record_result.test_codes_count += 1
-        total.add(record_result, len(code_pairs))
-        results.append(record_result)
-    return results, total
-
-
 def _init_report_data():
     return OrderedDict([
         ("Program", {
