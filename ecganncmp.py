@@ -237,7 +237,7 @@ def _check_folders_data(ref_files, other_input):
     def _check_field_value(dataset, fieldname):
         message_template = "Files from one folder must have the same '{0}'"
         value = dataset[0][fieldname]
-        if any(x[fieldname] != value for x in dataset[fieldname]):
+        if any(x[fieldname] != value for x in dataset):
             raise Error(message_template.format(fieldname))
     _check_field_value(ref_files, Text.ANNOTATOR)
     _check_field_value(ref_files, Text.CONCLUSION_THESAURUS)
@@ -266,9 +266,9 @@ def _create_reports(ref_data, other_data):
 def _dataset_to_table(dataset):
     table = {}
     for item in dataset:
-        table.setdefault(dataset[Text.CONCLUSION_THESAURUS], {})\
-             .setdefault(dataset[Text.DATABASE], {})\
-             .setdefault(dataset[Text.RECORD_ID], item)
+        table.setdefault(item[Text.CONCLUSION_THESAURUS], {})\
+             .setdefault(item[Text.DATABASE], {})\
+             .setdefault(item[Text.RECORD_ID], item)
     return table
 
 
@@ -300,6 +300,7 @@ def _create_general_report(records_reports):
         Text.VALUE: specificity * 100
     }
     report[Text.RECORDS] = records_reports
+    return report
 
 
 if __name__ == "__main__":
