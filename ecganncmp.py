@@ -6,9 +6,6 @@ from collections import OrderedDict
 
 
 class Text():
-    VALUE = "Value"
-    RECORDS = "Records"
-
     PROGRAM_NAME = "ecganncmp"
     PROGRAM_VERSION = "1.0"
     COMPANY_INFO = "Medical computer systems (c) {0} - www.mks.ru".format(
@@ -25,6 +22,11 @@ class Text():
     TEST_ANNOTATOR = "testAnnotator"
     ANNOTATOR = "annotator"
     RECORDS_COUNT = "recordsCount"
+    VALUE = "value"
+    RECORDS = "records"
+    SENSITIVITY = "sensitivity"
+    SPECIFICITY = "specificity"
+    MISSES_COUNT = "missesCount"
 
 
 class ComparingResult():
@@ -87,12 +89,12 @@ def _merge_codes(codes, other_codes):
 
 def _init_report_data():
     return OrderedDict([
-        ("Program", {
-            "Name": Text.PROGRAM_NAME,
-            "Version": Text.PROGRAM_VERSION
+        ("program", {
+            "name": Text.PROGRAM_NAME,
+            "version": Text.PROGRAM_VERSION
         }),
-        ("Company", Text.COMPANY_INFO),
-        ("Date", datetime.utcnow().isoformat() + "Z")
+        ("company", Text.COMPANY_INFO),
+        ("date", datetime.utcnow().isoformat() + "Z")
     ])
 
 
@@ -241,14 +243,14 @@ def _create_general_report(records_reports):
     report[Text.REF_ANNOTATIONS] = total.ref_codes_count
     report[Text.TEST_ANNOTATIONS] = total.test_codes_count
     sensitivity = float(total.match_count) / total.ref_codes_count
-    report["Sensitivity"] = {
+    report[Text.SENSITIVITY] = {
         Text.MATCH_COUNT: total.match_count,
         Text.VALUE: sensitivity * 100
     }
     excess_count = total.test_codes_count - total.match_count
     specificity = float(excess_count) / total.test_codes_count
-    report["Specificity"] = {
-        "ExcessAnnotations": excess_count,
+    report[Text.SPECIFICITY] = {
+        Text.MISSES_COUNT: excess_count,
         Text.VALUE: specificity * 100
     }
     report[Text.RECORDS] = records_reports
