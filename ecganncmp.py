@@ -135,7 +135,7 @@ def _init_report_data():
             "Version": Text.PROGRAM_VERSION
         },
         "Company": Text.COMPANY_INFO,
-        "Date": datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+        "Date": datetime.utcnow().isoformat() + "Z"
     }
 
 
