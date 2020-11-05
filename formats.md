@@ -66,7 +66,7 @@ Result of comparing files have a JSON format and contains the following data
   "conclusions": [
     ["1.1.1", "1.1.1"],
     ["3.1.5", "3.1.5"],
-    ["6.1.1", null] 
+    ["6.1.1", null], 
     [null, "7.1.1"]
   ]
 }
