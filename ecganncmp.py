@@ -146,7 +146,7 @@ def _create_record_report(code_pairs, ref_data, other_data):
     report[Text.RECORD_ID] = ref_data[Text.RECORD_ID]
     report[Text.DATABASE] = ref_data[Text.DATABASE]
     report[Text.CONCLUSION_THESAURUS] = ref_data[Text.CONCLUSION_THESAURUS]
-    report[Text.REF_ANNOTATOR] = other_data[Text.ANNOTATOR]
+    report[Text.REF_ANNOTATOR] = ref_data[Text.ANNOTATOR]
     report[Text.TEST_ANNOTATOR] = other_data[Text.ANNOTATOR]
 
     ref_codes_count = 0
@@ -219,8 +219,8 @@ def _dataset_to_table(dataset):
 
 def _create_general_report(records_reports):
     report = _report_header()
-    report[Text.TEST_ANNOTATOR] = records_reports[0][Text.TEST_ANNOTATOR]
     report[Text.REF_ANNOTATOR] = records_reports[0][Text.REF_ANNOTATOR]
+    report[Text.TEST_ANNOTATOR] = records_reports[0][Text.TEST_ANNOTATOR]
     report[Text.CONCLUSION_THESAURUS] = records_reports[0][Text.CONCLUSION_THESAURUS]
     report[Text.RECORDS_COUNT] = len(records_reports)
 
