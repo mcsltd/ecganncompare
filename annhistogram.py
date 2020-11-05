@@ -1,6 +1,7 @@
 import sys
-from matplotlib import pyplot as plt
 import json
+from matplotlib import pyplot as plt
+import numpy as np
 from ecganncmp import Text
 
 
@@ -31,10 +32,16 @@ def _plot_histogram(codes):
     for i, column in enumerate(hist_data):
         for rec_codes in codes:
             column += (p[i] for p in rec_codes if p[i] is not None)
-    # TODO: show annotators id
-    plt.hist(hist_data, density=True, histtype='bar', label=["reference", "test"])
-    plt.title("Records count: %d" % len(codes))
+    heights = [[], []]
+    bins = [[], []]
+    heights[0], bins[0] = np.histogram(hist_data[0])
+    heights[1], bins[1] = np.histogram(hist_data[1])
+    width = (bins[0][1] - bins[0][0]) / 3
+
+    plt.bar(bins[0][:-1], heights[0], width=width, label="reference")
+    plt.bar(bins[1][:-1] + width, heights[1], width=width, label="test")
     plt.legend()
+    plt.title("Records count: %d" % len(codes))
 
 
 if __name__ == "__main__":
