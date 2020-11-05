@@ -49,17 +49,20 @@ class Error(Exception):
 
 
 def main():
-    ref_input, other_input = _parse_args(os.sys.argv)
-    _check_input(ref_input, other_input)
-    if os.path.isdir(ref_input):
-        _compare_folders(ref_input, other_input)
-    else:
-        _compare_files(ref_input, other_input)
+    try:
+        ref_input, other_input = _parse_args(os.sys.argv)
+        _check_input(ref_input, other_input)
+        if os.path.isdir(ref_input):
+            _compare_folders(ref_input, other_input)
+        else:
+            _compare_files(ref_input, other_input)
+    except Error as exc:
+        print("Error: " + exc.message)
 
 
 def _parse_args(args):
     if len(args) < 3:
-        raise RuntimeError("Not enough arguments")
+        raise Error("Not enough arguments")
     return args[1], args[2]
 
 
@@ -98,11 +101,11 @@ def _write_report(report, writable=None):
 
 def _check_input(ref_input, other_input):
     if not (os.path.exists(ref_input) and os.path.exists(other_input)):
-        raise RuntimeError("Path not exists")
+        raise Error("Path not exists")
     same_type = (os.path.isfile(ref_input) and os.path.isfile(other_input) or
                  os.path.isdir(ref_input) and os.path.isdir(other_input))
     if not same_type:
-        raise RuntimeError("Both paths must point either to files or folders.")
+        raise Error("Both paths must point either to files or folders.")
 
 
 def _compare_folders(ref_input, other_input):
