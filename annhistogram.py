@@ -34,6 +34,7 @@ def _plot_histogram(codes):
     # TODO: show annotators id
     plt.hist(hist_data, density=True, histtype='bar', label=["reference", "test"])
     plt.title("Records count: %d" % len(codes))
+    plt.legend()
 
 
 if __name__ == "__main__":
