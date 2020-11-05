@@ -4,28 +4,12 @@ Input files must be in JSON format. The files contain the following data
 
 | Name                | Type    | Description                                                    |
 | ------------------- | ------- | -------------------------------------------------------------- |
-| Version             | integer | Version of format                                              |
-| Label               | string  | Database label                                                 |
-| Date                | string  | Date and time of file creation in format dd/mm/yyyy HH:MM:SS   |
-| Annotator           | string  | Annotator's label                                              |
-| ConclusionThesaurus | string  | Version of conclusions thesaurus                               |
-| AnnotationThesaurus | string  | Version of annotations thesaurus                               |
-| Records             | array   | Array of objects that contains analysis result for each record |
-
-Each object in array `Records` contains the following fields
-
-| Name        | Type   | Description                                                                   |
-| ----------- | ------ | ----------------------------------------------------------------------------- |
-| Label       | string | Record label                                                                  |
-| Conclusions | array  | Array of strings with text codes of conclusions that generated for the record |
-| Annotations | array  | Array of objects that contains annotations for the record                     |
-
-Each object in array `Annotations` contains the following fields
-
-| Name  | Type   | Description                                           |
-| ----- | ------ | ----------------------------------------------------- |
-| Label | string | Annotation label                                      |
-| Time  | string | Offset from begin of record in format HH:MM:SS.ffffff |
+| version             | integer | Version of format                                              |
+| database               | string  | Database name                                                |
+| date                | string  | Date and time of file creation in UTC format  |
+| annotator           | string  | Annotator's name                                            |
+| conclusionThesaurus | string  | Version of conclusions thesaurus                               |
+| conclusions             | array   | Array of ids of conclusions that was set for the record |
 
 ## Input files examples
 
