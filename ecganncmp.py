@@ -102,7 +102,7 @@ def _check_input(ref_input, other_input):
     same_type = (os.path.isfile(ref_input) and os.path.isfile(other_input) or
                  os.path.isdir(ref_input) and os.path.isdir(other_input))
     if not same_type:
-        raise RuntimeError("Both paths must point to files or folders")
+        raise RuntimeError("Both paths must point either to files or folders.")
 
 
 def _compare_folders(ref_input, other_input):
