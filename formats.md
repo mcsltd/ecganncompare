@@ -30,41 +30,20 @@ Input files must be in JSON format. The files contain the following data
 
 Result of comparing files have a JSON format and contains the following data
 
-| Name                | Type    | Description                                                                                               |
-| ------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
-| Program             | object  | Contains two string fields `Name` and `Version`                                                           |
-| Company             | string  | Contains company info                                                                                     |
-| Date                | string  | Date and time of file creation in format dd/mm/yyyy HH:MM:SS                                              |
-| ConclusionThesaurus | string  | Label of conclusion thesaurus in both files                                                               |
-| RecordsCount        | integer | Number of compared records                                                                                |
-| RefAnnotations      | integer | Total count of annotations in reference file                                                              |
-| TestAnnotations     | integer | Total count of annotations in test file                                                                   |
-| Sensitivity         | object  | Contains data for sensitivity calculation                                                                 |
-| Specificity         | object  | Contains data for specificity calculation                                                                 |
-| Records             | object  | An object whose fields are the names of the records and values are the comparison results for each record |
-
-Object `Sensitivity` contains the following fields
-
-| Name       | Type    | Description                   |
-| ---------- | ------- | ----------------------------- |
-| MatchCount | integer | Number of matched annotations |
-| Value      | number  | Real value of sensitivity     |
-
-Object `Specificity` contains the following fields
-
-| Name              | Type    | Description                 |
-| ----------------- | ------- | --------------------------- |
-| ExcessAnnotations | integer | Number of excess annotaions |
-| Value             | number  | Real value of specificity   |
-
-Each value in object `Records` contains the following fields
-
-| Name            | Type    | Description                                                                                               |
-| --------------- | ------- | --------------------------------------------------------------------------------------------------------- |
-| MatchCount      | integer | Number of matched annotations in this record                                                              |
-| RefAnnotations  | integer | Number of annotations for this record in reference file                                                   |
-| TestAnnotations | integer | Number of annotations for this record in test file                                                        |
-| Labels          | array   | Array of arrays with two items: reference annotation and test annotation or null if one of them is missed |
+| Name                | Type    | Description                                                                               |
+| ------------------- | ------- | ----------------------------------------------------------------------------------------- |
+| program             | object  | Contains two string fields `name` and `version`                                           |
+| company             | string  | Contains company info                                                                     |
+| date                | string  | Date and time of file creation in UTC format                                              |
+| record              | string  | Record's name                                                                             |
+| database            | string  | Database name                                                                             |
+| conclusionThesaurus | string  | Label of conclusion thesaurus in both files                                               |
+| refAnnotator        | string  | Annotator of reference file name                                                          |
+| testAnnotator       | string  | Annotator of test file name                                                               |
+| refAnnotations      | integer | Total count of annotations in reference file                                              |
+| testAnnotations     | integer | Total count of annotations in test file                                                   |
+| matchCount          | integer | Number of matched annotations in this record                                              |
+| conclusion          | array   | Array of pairs: reference annotation and test annotation or null if one of them is missed |
 
 ## Output example
 
