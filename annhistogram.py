@@ -9,5 +9,11 @@ def main():
     plt.show()
 
 
+def _parse_args(args):
+    if len(args) < 2:
+        raise RuntimeError("Not enough arguments")
+    return args[1]
+
+
 if __name__ == "__main__":
     main()
