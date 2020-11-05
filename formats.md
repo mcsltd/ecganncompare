@@ -2,14 +2,15 @@
 
 Input files must be in JSON format. The files contain the following data
 
-| Name                | Type    | Description                                                    |
-| ------------------- | ------- | -------------------------------------------------------------- |
-| version             | integer | Version of format                                              |
-| database               | string  | Database name                                                |
-| date                | string  | Date and time of file creation in UTC format  |
-| annotator           | string  | Annotator's name                                            |
-| conclusionThesaurus | string  | Version of conclusions thesaurus                               |
-| conclusions             | array   | Array of ids of conclusions that was set for the record |
+| Name                | Type    | Description                                             |
+| ------------------- | ------- | ------------------------------------------------------- |
+| version             | integer | Version of format                                       |
+| date                | string  | Date and time of file creation in UTC format            |
+| annotator           | string  | Annotator's name                                        |
+| database            | string  | Database name                                           |
+| record              | string  | Record's name                                           |
+| conclusionThesaurus | string  | Version of conclusions thesaurus                        |
+| conclusions         | array   | Array of ids of conclusions that was set for the record |
 
 ## Input files examples
 
