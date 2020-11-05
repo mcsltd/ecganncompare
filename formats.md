@@ -96,24 +96,38 @@ Each object in array `groups` contains the following fields
 
 ```json
 {
-  "Thesaurus": "WFDB",
-  "Language": "en",
-  "Items": [
+  "thesaurus": "MCS",
+  "language": "en",
+  "groups": [
     {
-      "Label": "0",
-      "Description": "not-QRS (not a getann/putann code)"
+      "id": "1.1",
+      "name": "General Conditions",
+      "multiple": true,
+      "reports": [
+        {
+          "id": "1.1.1",
+          "name": "Short record, partial analysis performed"
+        },
+        {
+          "id": "1.1.2",
+          "name": "Lead I or II absent"
+        }
+      ]
     },
     {
-      "Label": "1",
-      "Description": "normal beat"
-    },
-    {
-      "Label": "2",
-      "Description": "left bundle branch block beat"
-    },
-    {
-      "Label": "3",
-      "Description": "right bundle branch block beat"
+      "id": "3.1",
+      "name": "Axis",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "3.1.2",
+          "name": "Left axis deviation"
+        },
+        {
+          "id": "3.1.6",
+          "name": "Normal axis"
+        }
+      ]
     }
   ]
 }
