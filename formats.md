@@ -49,38 +49,26 @@ Result of comparing files have a JSON format and contains the following data
 
 ```json
 {
-  "Program": {
-    "Name": "ecganncmp",
-    "Version": "1.0"
+  "program": {
+    "version": "1.0",
+    "name": "ecganncmp"
   },
-  "Company": "Medical computer systems (c) 2020 - www.mks.ru",
-  "Date": "23/09/2020 14:38:52",
-  "ConclusionThesaurus": "MCS",
-  "RecordsCount": 340,
-  "RefAnnotations": 1193,
-  "TestAnnotations": 1416,
-  "Sensitivity": {
-    "MatchCount": 719,
-    "Value": 60.26823134953898
-  },
-  "Specificity": {
-    "ExcessAnnotations": 697,
-    "Value": 49.22316384180791
-  },
-  "Records": {
-    "40 Maksimova L A  79__Exam_1_0": {
-      "MatchCount": 4,
-      "RefAnnotations": 5,
-      "TestAnnotations": 4,
-      "Labels": [
-        ["13.1.10", "13.1.10"],
-        ["13.1.11", "13.1.11"],
-        ["3.1.6", "3.1.6"],
-        ["7.1.5", "7.1.5"],
-        ["9.1.8", null]
-      ]
-    }
-  }
+  "company": "Medical computer systems (c) 2020 - www.mks.ru",
+  "date": "2020-11-05T09:17:19.452000Z",
+  "record": "patient_00001",
+  "database": "Moscow Day #67",
+  "conclusionThesaurus": "MCS",
+  "refAnnotator": "annotator1@ecg.ru",
+  "testAnnotator": "annotator2@ecg.ru",
+  "refAnnotations": 3,
+  "testAnnotations": 3,
+  "matchCount": 3,
+  "conclusions": [
+    ["1.1.1", "1.1.1"],
+    ["3.1.5", "3.1.5"],
+    ["6.1.1", null]
+    [null, "7.1.1"]
+  ]
 }
 ```
 
