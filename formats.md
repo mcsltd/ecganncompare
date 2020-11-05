@@ -15,51 +15,13 @@ Input files must be in JSON format. The files contain the following data
 
 ```json
 {
-  "Version": 1,
-  "Label": "CTS",
-  "Date": "09/23/2020 12:19:05",
-  "Annotator": "EcgInterpreter1.3.17311.0",
-  "ConclusionThesaurus": "MCS",
-  "AnnotationThesaurus": null,
-  "Records": [
-    {
-      "Label": "CAL05000",
-      "Conclusions": ["3.1.1", "5.1.9", "7.1.5", "1.1.11"],
-      "Annotations": null
-    },
-    {
-      "Label": "CAL10000",
-      "Conclusions": ["3.1.1", "5.1.9", "7.1.5", "1.1.11"],
-      "Annotations": null
-    }
-  ]
-}
-```
-
-```json
-{
-  "Version": 1,
-  "Label": "AHADB",
-  "Date": "09/23/2020 11:44:17",
-  "Annotator": "WFDB_10.x",
-  "ConclusionThesaurus": null,
-  "AnnotationThesaurus": "WFDB",
-  "Records": [
-    {
-      "Label": "1201",
-      "Conclusions": null,
-      "Annotations": [
-        {
-          "Label": "1",
-          "Time": "00:05:00.040000"
-        },
-        {
-          "Label": "1",
-          "Time": "00:05:01.132000"
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "date": "2020-10-22T10:18:35.091Z",
+  "annotator": "annotator1@ecg.ru",
+  "database": "Moscow Day #67",
+  "record": "patient_00001",
+  "conclusionThesaurus": "MCS",
+  "conclusions": ["1.1.1", "3.1.5", "6.1.1"]
 }
 ```
 
