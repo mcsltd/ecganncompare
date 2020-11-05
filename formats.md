@@ -66,7 +66,7 @@ Result of comparing files have a JSON format and contains the following data
   "conclusions": [
     ["1.1.1", "1.1.1"],
     ["3.1.5", "3.1.5"],
-    ["6.1.1", null]
+    ["6.1.1", null] 
     [null, "7.1.1"]
   ]
 }
@@ -77,18 +77,20 @@ Result of comparing files have a JSON format and contains the following data
 Thesaurus files are used to map annotations code or label to textual description.
 These files are in JSON format and contain the following data
 
-| Name      | Type   | Description                                     |
-| --------- | ------ | ----------------------------------------------- |
-| Thesaurus | string | Version of conclusions thesaurus                |
-| Language  | string | Language of textual descriptions                |
-| Items     | array  | Array of objects that contains annotations data |
+| Name      | Type   | Description                                             |
+| --------- | ------ | ------------------------------------------------------- |
+| thesaurus | string | Name and version of conclusions thesaurus               |
+| language  | string | Language of textual descriptions                        |
+| groups    | array  | Array of objects that contains grouped annotations data |
 
-Each object in array `Items` contains the following fields
+Each object in array `groups` contains the following fields
 
-| Name        | Type   | Description                                                       |
-| ----------- | ------ | ----------------------------------------------------------------- |
-| Label       | string | Id of annotation                                                  |
-| Description | string | A textual description of the annotation in the specified language |
+| Name     | Type    | Description                                                               |
+| -------- | ------- | ------------------------------------------------------------------------- |
+| id       | string  | Id of group                                                               |
+| name     | string  | Group's name                                                              |
+| multiple | boolean | Flag indicating the ability to select multiple conclusions from the group |
+| reports  | array   | Array of objects with `id` and `name` of conclusion item                  |
 
 ## Files example
 
