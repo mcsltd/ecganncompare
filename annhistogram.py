@@ -1,8 +1,6 @@
 import sys
 from matplotlib import pyplot as plt
 import json
-from operator import itemgetter
-
 from ecganncmp import Text
 
 
@@ -29,14 +27,13 @@ def _read_annotations(filename):
 
 
 def _plot_histogram(codes):
-    records_count = len(codes)
     hist_data = [[], []]
-    for rec_codes in codes:
-        for i, column in enumerate(hist_data):
-            column += map(itemgetter(i), rec_codes)
+    for i, column in enumerate(hist_data):
+        for rec_codes in codes:
+            column += (p[i] for p in rec_codes if p[i] is not None)
     # TODO: show annotators id
     plt.hist(hist_data, density=True, histtype='bar', label=["reference", "test"])
-    plt.title("Records count: %d" % records_count)
+    plt.title("Records count: %d" % len(codes))
 
 
 if __name__ == "__main__":
