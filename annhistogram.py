@@ -30,16 +30,10 @@ def _read_annotations(filename):
 
 
 def _plot_histogram(codes):
-    temp = _create_dataframe(codes, ['reference', 'test'])
-    hist_data = [[], []]
-    for i, column in enumerate(hist_data):
-        for rec_codes in codes:
-            column += (p[i] for p in rec_codes if p[i] is not None)
-
     # TODO: annotator name is label
-    _plot_items_hist(hist_data[0], plt.axes(), "blue", "Reference")
-    _plot_items_hist(hist_data[1], plt.axes(), "red", "Test")
-    plt.legend()
+    dataframe = _create_dataframe(codes, ['reference', 'test'])
+    dataframe.sort_index(inplace=True)
+    dataframe.plot(ax=plt.axes(), kind="bar", legend=True)
     plt.title("Records count: %d" % len(codes))
 
 
