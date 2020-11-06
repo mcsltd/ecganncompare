@@ -30,14 +30,15 @@ def _read_annotations(filename):
 
 
 def _plot_histogram(codes):
-    # TODO: annotator name is label
-    dataframe = _create_dataframe(codes, ['reference', 'test'])
+    dataframe = _create_dataframe(codes)
+    # TODO: rename columns to annotator names
+    dataframe.rename(columns={0: 'reference', 1: 'test'}, inplace=True)
     dataframe.sort_index(inplace=True)
     dataframe.plot(ax=plt.axes(), kind="bar", legend=True)
     plt.title("Records count: %d" % len(codes))
 
 
-def _create_dataframe(codes, columns_names):
+def _create_dataframe(codes):
     hist_data = [[], []]
     for i, column in enumerate(hist_data):
         for rec_codes in codes:
@@ -46,8 +47,7 @@ def _create_dataframe(codes, columns_names):
     code_set = set(counters[0].viewkeys()).union(counters[1].viewkeys())
     united_counts = dict((code, [counters[0][code], counters[1][code]])
                          for code in code_set)
-    return pandas.DataFrame.from_dict(united_counts, orient="index",
-                                      columns=columns_names)
+    return pandas.DataFrame.from_dict(united_counts, orient="index")
 
 
 if __name__ == "__main__":
