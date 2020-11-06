@@ -1,16 +1,19 @@
 import sys
 import json
-from collections import Counter
+from collections import namedtuple
 from matplotlib import pyplot as plt
-import numpy as np
 import pandas
 from ecganncmp import Text
 
 
+ComparingInfo = namedtuple("ComparingInfo",
+                           ["ref_annotator", "test_annotator"])
+
+
 def main():
     filename = _parse_args(sys.argv)
-    codes = _read_annotations(filename)
-    _plot_histogram(codes)
+    codes, info = _read_annotations(filename)
+    _plot_histogram(codes, info)
     plt.show()
 
 
@@ -26,13 +29,17 @@ def _read_annotations(filename):
     codes = []
     for rec_data in data[Text.RECORDS]:
         codes.append(rec_data[Text.CONCLUSIONS])
-    return codes
+    info = ComparingInfo(
+        ref_annotator=data[Text.REF_ANNOTATOR],
+        test_annotator=data[Text.TEST_ANNOTATOR]
+    )
+    return codes, info
 
 
-def _plot_histogram(codes):
+def _plot_histogram(codes, info):
     dataframe = _create_dataframe(codes)
-    # TODO: rename columns to annotator names
-    dataframe.rename(columns={0: 'reference', 1: 'test'}, inplace=True)
+    conlumn_names = {0: info.ref_annotator, 1: info.test_annotator}
+    dataframe.rename(columns=conlumn_names, inplace=True)
     dataframe.sort_index(inplace=True)
     dataframe.plot(ax=plt.axes(), kind="bar", legend=True)
     plt.title("Records count: %d" % len(codes))
