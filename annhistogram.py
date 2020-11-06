@@ -35,17 +35,18 @@ def _plot_histogram(codes):
         for rec_codes in codes:
             column += (p[i] for p in rec_codes if p[i] is not None)
 
-    _plot_items_hist(hist_data[0], plt.axes(), "blue")
-    _plot_items_hist(hist_data[1], plt.axes(), "red")
+    # TODO: annotator name is label
+    _plot_items_hist(hist_data[0], plt.axes(), "blue", "Reference")
+    _plot_items_hist(hist_data[1], plt.axes(), "red", "Test")
     plt.legend()
     plt.title("Records count: %d" % len(codes))
 
 
-def _plot_items_hist(items, axes, color):
+def _plot_items_hist(items, axes, color, label):
     counts = Counter(items)
-    dataframe = pandas.DataFrame.from_dict(counts, orient="index")
+    dataframe = pandas.DataFrame.from_dict(counts, orient="index",
+                                           columns=[label])
     dataframe.sort_index(inplace=True)
-    # TODO: legend
     dataframe.plot(ax=axes, kind="bar", legend=False, color=color)
 
 
