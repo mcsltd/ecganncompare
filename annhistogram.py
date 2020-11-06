@@ -37,14 +37,6 @@ def _plot_histogram(codes):
     plt.title("Records count: %d" % len(codes))
 
 
-def _plot_items_hist(items, axes, color, label):
-    counts = Counter(items)
-    dataframe = pandas.DataFrame.from_dict(counts, orient="index",
-                                           columns=[label])
-    dataframe.sort_index(inplace=True)
-    dataframe.plot(ax=axes, kind="bar", legend=False, color=color)
-
-
 def _create_dataframe(codes, columns_names):
     hist_data = [[], []]
     for i, column in enumerate(hist_data):
