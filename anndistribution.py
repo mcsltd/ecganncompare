@@ -37,12 +37,14 @@ def _read_annotations(filename):
 
 
 def _plot_histogram(codes, info):
+    title = "Annotations distribution"
     dataframe = _create_dataframe(codes)
     conlumn_names = {0: info.ref_annotator, 1: info.test_annotator}
     dataframe.rename(columns=conlumn_names, inplace=True)
     dataframe.sort_index(inplace=True)
     dataframe.plot(ax=plt.axes(), kind="bar", legend=True)
-    plt.title("Records count: %d" % len(codes))
+    plt.title(title + ". Records count: %d" % len(codes))
+    plt.gcf().canvas.set_window_title(title)
 
 
 def _create_dataframe(codes):
