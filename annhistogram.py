@@ -39,15 +39,15 @@ def _plot_histogram(codes):
 
 
 def _create_dataframe(codes):
-    hist_data = [[], []]
-    for i, column in enumerate(hist_data):
-        for rec_codes in codes:
-            column += (p[i] for p in rec_codes if p[i] is not None)
-    counters = [Counter(col) for col in hist_data]
-    code_set = set(counters[0].viewkeys()).union(counters[1].viewkeys())
-    united_counts = dict((code, [counters[0][code], counters[1][code]])
-                         for code in code_set)
-    return pandas.DataFrame.from_dict(united_counts, orient="index")
+    counts = {}
+    for rec_pairs in codes:
+        for pair in rec_pairs:
+            for i, code in enumerate(pair):
+                if code is None:
+                    continue
+                code_counts = counts.setdefault(code, [0, 0])
+                code_counts[i] += 1
+    return pandas.DataFrame.from_dict(counts, orient="index")
 
 
 if __name__ == "__main__":
