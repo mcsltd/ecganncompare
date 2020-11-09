@@ -11,9 +11,9 @@ ComparingInfo = namedtuple("ComparingInfo",
 
 
 def main():
-    filename = _parse_args(sys.argv)
-    codes, info = _read_annotations(filename)
-    _plot_histogram(codes, info)
+    folders = _parse_args(sys.argv)
+    codes, annotators = _read_annotations(folders)
+    _plot_histogram(codes, annotators)
     plt.show()
 
 
