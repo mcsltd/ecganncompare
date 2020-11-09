@@ -7,13 +7,17 @@ To install them, you need to run the following command
 
     pip install matplotlib pandas
 
-The program `anndistribution` reads the `ecganncmp` result and makes histogram that contains distributions of annotations in the reference and test sets.
+The program `anndistribution` reads folders with annotation files. 
+All files in one folder should be made by the same annotator. 
+All files should be made with the same thesaurus.
+The program makes histogram that contains distributions annotations for each annotator.
 
 To run the program, run the following command
 
-    python anndistribution.py cmp_result
+    python anndistribution.py folder_path1 folder_path2
 
-- `cmp_result` is a path to the `ecganncmp` output file that contains a results of comparison.
+- `folder_path1` and `folder_path2` is a paths to folders with annotation files.
+- more folder paths can be passed.
 
 Results of `anndistribution` shown on the following image.  
 
