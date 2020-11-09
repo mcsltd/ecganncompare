@@ -60,6 +60,16 @@ def main():
         print("Error: " + exc.message)
 
 
+def check_folder_data(json_set):
+    def _check_field_value(dataset, fieldname):
+        message_template = "Files from one folder must have the same '{0}'"
+        value = dataset[0][fieldname]
+        if any(x[fieldname] != value for x in dataset):
+            raise Error(message_template.format(fieldname))
+    _check_field_value(json_set, Text.ANNOTATOR)
+    _check_field_value(json_set, Text.CONCLUSION_THESAURUS)
+
+
 def _parse_args(args):
     if len(args) < 3:
         raise Error("Not enough arguments")
@@ -110,8 +120,10 @@ def _check_input(ref_input, other_input):
 
 def _compare_folders(ref_input, other_input):
     ref_data = _read_json_folder(ref_input)
+    check_folder_data(ref_data)
     other_data = _read_json_folder(other_input)
-    _check_folders_data(ref_data, other_data)
+    check_folder_data(other_data)
+
     record_reports = _create_reports(ref_data, other_data)
     general_report = _create_general_report(record_reports)
     _write_report(general_report)
@@ -179,18 +191,6 @@ def _read_json_folder(dirname):
             except ValueError:
                 continue
     return results
-
-
-def _check_folders_data(ref_files, other_input):
-    def _check_field_value(dataset, fieldname):
-        message_template = "Files from one folder must have the same '{0}'"
-        value = dataset[0][fieldname]
-        if any(x[fieldname] != value for x in dataset):
-            raise Error(message_template.format(fieldname))
-    _check_field_value(ref_files, Text.ANNOTATOR)
-    _check_field_value(ref_files, Text.CONCLUSION_THESAURUS)
-    _check_field_value(other_input, Text.ANNOTATOR)
-    _check_field_value(other_input, Text.CONCLUSION_THESAURUS)
 
 
 def _create_reports(ref_data, other_data):
