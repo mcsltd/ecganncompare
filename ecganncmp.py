@@ -70,6 +70,18 @@ def check_folder_data(json_set):
     _check_field_value(json_set, Text.CONCLUSION_THESAURUS)
 
 
+def read_json_folder(dirname):
+    results = []
+    for filename in os.listdir(dirname):
+        filename = os.path.join(dirname, filename)
+        with open(filename, "rt") as fin:
+            try:
+                results.append(json.load(fin))
+            except ValueError:
+                continue
+    return results
+
+
 def _parse_args(args):
     if len(args) < 3:
         raise Error("Not enough arguments")
@@ -119,9 +131,9 @@ def _check_input(ref_input, other_input):
 
 
 def _compare_folders(ref_input, other_input):
-    ref_data = _read_json_folder(ref_input)
+    ref_data = read_json_folder(ref_input)
     check_folder_data(ref_data)
-    other_data = _read_json_folder(other_input)
+    other_data = read_json_folder(other_input)
     check_folder_data(other_data)
 
     record_reports = _create_reports(ref_data, other_data)
@@ -179,18 +191,6 @@ def _create_record_report(code_pairs, ref_data, other_data):
     report[Text.MATCH_COUNT] = match_count
     report[Text.CONCLUSIONS] = code_pairs
     return report
-
-
-def _read_json_folder(dirname):
-    results = []
-    for filename in os.listdir(dirname):
-        filename = os.path.join(dirname, filename)
-        with open(filename, "rt") as fin:
-            try:
-                results.append(json.load(fin))
-            except ValueError:
-                continue
-    return results
 
 
 def _create_reports(ref_data, other_data):
