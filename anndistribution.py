@@ -11,7 +11,9 @@ ComparingInfo = namedtuple("ComparingInfo",
 
 def main():
     folders = _parse_args(sys.argv)
-    codes, annotators = _read_annotations(folders)
+    all_data = _read_folders(folders)
+    codes = _get_all_codes(all_data)
+    annotators = _get_annotators(all_data)
     _plot_histogram(codes, annotators)
     plt.show()
 
@@ -20,19 +22,6 @@ def _parse_args(args):
     if len(args) < 2:
         raise RuntimeError("Not enough arguments")
     return args[1:]
-
-
-def _read_annotations(folders):
-    all_data = _read_folders(folders)
-    all_codes = []
-    annotators = []
-    for folder_data in all_data:
-        codes = []
-        for rec in folder_data:
-            codes += rec[eac.Text.CONCLUSIONS]
-        all_codes.append(codes)
-        annotators.append(folder_data[0][eac.Text.ANNOTATOR])
-    return all_codes, annotators
 
 
 def _read_folders(folders):
