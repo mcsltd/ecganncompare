@@ -53,7 +53,7 @@ def _plot_histogram(codes, annotators):
     dataframe =\
         _create_dataframe(codes).rename(columns=conlumn_names).sort_index()
     dataframe.plot(ax=plt.gca(), kind="bar", legend=True)
-    plt.title(title + ". Records count: %d" % len(codes))
+    plt.title(title)
     plt.gcf().canvas.set_window_title(title)
 
 
