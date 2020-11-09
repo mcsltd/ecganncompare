@@ -1,9 +1,8 @@
 import sys
-import json
 from collections import namedtuple
 from matplotlib import pyplot as plt
 import pandas
-from ecganncmp import Text
+import ecganncmp as eac
 
 
 ComparingInfo = namedtuple("ComparingInfo",
@@ -23,17 +22,23 @@ def _parse_args(args):
     return args[1:]
 
 
-def _read_annotations(filename):
-    with open(filename, "rt") as fin:
-        data = json.load(fin)
-    codes = []
-    for rec_data in data[Text.RECORDS]:
-        codes.append(rec_data[Text.CONCLUSIONS])
-    info = ComparingInfo(
-        ref_annotator=data[Text.REF_ANNOTATOR],
-        test_annotator=data[Text.TEST_ANNOTATOR]
-    )
-    return codes, info
+def _read_annotations(folders):
+    data = []
+    annotators = []
+    for dirname in folders:
+        folder_data = eac.read_json_folder(dirname)
+        try:
+            eac.check_folder_data(folder_data)
+        except eac.Error as err:
+            print("Reading " + dirname " error:")
+            print(err)
+        else:
+            codes = []
+            for rec in folder_data:
+                codes += rec[eac.Text.CONCLUSIONS]
+            data.append(codes)
+            annotators.append(folder_data[0][eac.Text.ANNOTATOR])
+    return data, annotators
 
 
 def _plot_histogram(codes, info):
