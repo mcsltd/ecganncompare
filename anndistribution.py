@@ -1,12 +1,7 @@
 import sys
-from collections import namedtuple
 from matplotlib import pyplot as plt
 import pandas
 import ecganncmp as eac
-
-
-ComparingInfo = namedtuple("ComparingInfo",
-                           ["ref_annotator", "test_annotator"])
 
 
 def main():
