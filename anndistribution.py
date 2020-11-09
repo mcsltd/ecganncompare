@@ -49,6 +49,10 @@ def _read_folders(folders):
     return all_data
 
 
+def _get_annotators(all_data):
+    return [x[0][eac.Text.ANNOTATOR] for x in all_data]
+
+
 def _plot_histogram(codes, info):
     title = "Annotations distribution"
     dataframe = _create_dataframe(codes)
