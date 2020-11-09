@@ -52,12 +52,11 @@ def _get_annotators(all_data):
     return [x[0][eac.Text.ANNOTATOR] for x in all_data]
 
 
-def _plot_histogram(codes, info):
-    title = "Annotations distribution"
-    dataframe = _create_dataframe(codes)
-    conlumn_names = {0: info.ref_annotator, 1: info.test_annotator}
-    dataframe.rename(columns=conlumn_names, inplace=True)
-    dataframe.sort_index(inplace=True)
+def _plot_histogram(codes, annotators):
+    title = "Annotations distributions"
+    conlumn_names = dict(enumerate(annotators))
+    dataframe =\
+        _create_dataframe(codes).rename(columns=conlumn_names).sort_index()
     dataframe.plot(ax=plt.gca(), kind="bar", legend=True)
     plt.title(title + ". Records count: %d" % len(codes))
     plt.gcf().canvas.set_window_title(title)
