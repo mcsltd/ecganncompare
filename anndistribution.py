@@ -23,22 +23,30 @@ def _parse_args(args):
 
 
 def _read_annotations(folders):
-    data = []
+    all_data = _read_folders(folders)
+    all_codes = []
     annotators = []
+    for folder_data in all_data:
+        codes = []
+        for rec in folder_data:
+            codes += rec[eac.Text.CONCLUSIONS]
+        all_codes.append(codes)
+        annotators.append(folder_data[0][eac.Text.ANNOTATOR])
+    return all_codes, annotators
+
+
+def _read_folders(folders):
+    all_data = []
     for dirname in folders:
         folder_data = eac.read_json_folder(dirname)
         try:
             eac.check_folder_data(folder_data)
         except eac.Error as err:
-            print("Reading " + dirname " error:")
+            print("Reading " + dirname + " error:")
             print(err)
         else:
-            codes = []
-            for rec in folder_data:
-                codes += rec[eac.Text.CONCLUSIONS]
-            data.append(codes)
-            annotators.append(folder_data[0][eac.Text.ANNOTATOR])
-    return data, annotators
+            all_data.append(folder_data)
+    return all_data
 
 
 def _plot_histogram(codes, info):
