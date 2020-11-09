@@ -14,7 +14,7 @@ def main():
 
 
 def _parse_args(args):
-    if len(args) < 3:
+    if len(args) < 2:
         raise RuntimeError("Not enough arguments")
     return args[1:]
 
