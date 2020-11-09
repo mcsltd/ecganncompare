@@ -42,6 +42,8 @@ def _plot_histogram(codes):
                          .sort_index()\
                          .rename(columns={0: "Matches", 1: "Misses"})
     df.plot(ax=plt.gca(), kind="bar", legend=True)
+    plt.title(title + ". Records count: {0}".format(len(codes)))
+    plt.gcf().canvas.set_window_title(title)
 
 
 def _get_code(pair):
