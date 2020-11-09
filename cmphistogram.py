@@ -41,13 +41,27 @@ def _plot_histogram(codes):
     df = pandas.DataFrame.from_dict(counts, orient="index")\
                          .sort_index()\
                          .rename(columns={0: "Matches", 1: "Misses"})
-    df.plot(ax=plt.gca(), kind="bar", legend=True)
+    _plot_bidirectional_histogram(df)
     plt.title(title + ". Records count: {0}".format(len(codes)))
     plt.gcf().canvas.set_window_title(title)
 
 
 def _get_code(pair):
     return pair[0] if pair[0] is not None else pair[1]
+
+
+def _plot_bidirectional_histogram(dataframe):
+    directions_count = 2
+    default_colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
+    for i, cname in enumerate(dataframe.columns[:directions_count]):
+        column = dataframe[cname]
+        if i == directions_count - 1:
+            column = column * (-1)
+        column.plot(ax=plt.gca(), kind="bar", legend=True,
+                    color=default_colors[i])
+    plt.axhline(c="k")
+    locs, _ = plt.yticks()
+    plt.yticks(locs, [abs(loc) for loc in locs])
 
 
 if __name__ == "__main__":
