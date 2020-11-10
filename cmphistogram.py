@@ -1,8 +1,12 @@
 import sys
 import json
 from matplotlib import pyplot as plt
+from collections import namedtuple
 import pandas
 from ecganncmp import Text
+
+ComparingInfo = namedtuple("ComparingInfo",
+                           ["ref_annotator", "test_annotator"])
 
 _WINDOW_TITLE = "Annotations comparing"
 
@@ -10,7 +14,7 @@ _WINDOW_TITLE = "Annotations comparing"
 def main():
     filenames = _parse_args(sys.argv)
     for fname in filenames:
-        codes = _read_annotations(fname)
+        codes, info = _read_annotations(fname)
         plt.figure()
         _plot_histogram(codes, _WINDOW_TITLE)
     plt.show()
@@ -28,7 +32,11 @@ def _read_annotations(filename):
     codes = []
     for rec_data in data[Text.RECORDS]:
         codes.append(rec_data[Text.CONCLUSIONS])
-    return codes
+    info = ComparingInfo(
+        ref_annotator=data[Text.REF_ANNOTATOR],
+        test_annotator=data[Text.TEST_ANNOTATOR]
+    )
+    return codes, info
 
 
 def _plot_histogram(codes, title):
