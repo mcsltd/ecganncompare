@@ -4,11 +4,13 @@ from matplotlib import pyplot as plt
 import pandas
 from ecganncmp import Text
 
+_WINDOW_TITLE = "Annotations comparing"
+
 
 def main():
     filename = _parse_args(sys.argv)
     codes = _read_annotations(filename)
-    _plot_histogram(codes)
+    _plot_histogram(codes, _WINDOW_TITLE)
     plt.show()
 
 
@@ -27,8 +29,7 @@ def _read_annotations(filename):
     return codes
 
 
-def _plot_histogram(codes):
-    title = "Annotations comparing"
+def _plot_histogram(codes, title):
     counts = {}
     for rec_pairs in codes:
         for pair in rec_pairs:
@@ -43,7 +44,7 @@ def _plot_histogram(codes):
     df.columns = ["Matches", "Misses"]
     _plot_bidirectional_histogram(df)
     plt.title(title + ". Records count: {0}".format(len(codes)))
-    plt.gcf().canvas.set_window_title(title)
+    plt.gcf().canvas.set_window_title(_WINDOW_TITLE)
 
 
 def _get_code(pair):
