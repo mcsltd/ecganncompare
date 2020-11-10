@@ -57,7 +57,7 @@ def main():
         else:
             _compare_files(ref_input, other_input)
     except Error as exc:
-        print("Error: " + exc.message)
+        print("Error: " + str(exc))
 
 
 def check_folder_data(json_set):
