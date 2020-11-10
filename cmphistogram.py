@@ -8,16 +8,18 @@ _WINDOW_TITLE = "Annotations comparing"
 
 
 def main():
-    filename = _parse_args(sys.argv)
-    codes = _read_annotations(filename)
-    _plot_histogram(codes, _WINDOW_TITLE)
+    filenames = _parse_args(sys.argv)
+    for fname in filenames:
+        codes = _read_annotations(fname)
+        plt.figure()
+        _plot_histogram(codes, _WINDOW_TITLE)
     plt.show()
 
 
 def _parse_args(args):
     if len(args) < 2:
         raise RuntimeError("Not enough arguments")
-    return args[1]
+    return args[1:]
 
 
 def _read_annotations(filename):
