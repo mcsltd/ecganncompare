@@ -1,0 +1,317 @@
+{
+  "program": {
+    "version": "1.0",
+    "name": "ecganncmp"
+  },
+  "company": "Medical computer systems (c) 2020 - www.mks.ru",
+  "date": "2020-11-10T11:46:11.121000Z",
+  "refAnnotator": "cardio03@mail.ru",
+  "testAnnotator": "n_polyanskaya@list.ru",
+  "conclusionThesaurus": "MCS",
+  "recordsCount": 9,
+  "refAnnotations": 32,
+  "testAnnotations": 40,
+  "sensitivity": {
+    "matchCount": 19,
+    "value": 59.375
+  },
+  "specificity": {
+    "missesCount": 21,
+    "value": 52.5
+  },
+  "records": [
+    {
+      "record": "MA1_001",
+      "database": "CSE Common Standards for ECG",
+      "refAnnotations": 6,
+      "testAnnotations": 7,
+      "matchCount": 4,
+      "conclusions": [
+        [
+          302,
+          null
+        ],
+        [
+          504,
+          504
+        ],
+        [
+          506,
+          506
+        ],
+        [
+          1401,
+          null
+        ],
+        [
+          2101,
+          2101
+        ],
+        [
+          2603,
+          2603
+        ],
+        [
+          null,
+          112
+        ],
+        [
+          null,
+          9208
+        ],
+        [
+          null,
+          403
+        ]
+      ]
+    },
+    {
+      "record": "MA1_002",
+      "database": "CSE Common Standards for ECG",
+      "refAnnotations": 4,
+      "testAnnotations": 7,
+      "matchCount": 4,
+      "conclusions": [
+        [
+          302,
+          302
+        ],
+        [
+          401,
+          401
+        ],
+        [
+          1203,
+          1203
+        ],
+        [
+          2102,
+          2102
+        ],
+        [
+          null,
+          802
+        ],
+        [
+          null,
+          506
+        ],
+        [
+          null,
+          1310
+        ]
+      ]
+    },
+    {
+      "record": "MA1_003",
+      "database": "CSE Common Standards for ECG",
+      "refAnnotations": 5,
+      "testAnnotations": 4,
+      "matchCount": 3,
+      "conclusions": [
+        [
+          302,
+          302
+        ],
+        [
+          506,
+          null
+        ],
+        [
+          1204,
+          null
+        ],
+        [
+          2102,
+          2102
+        ],
+        [
+          2601,
+          2601
+        ],
+        [
+          null,
+          510
+        ]
+      ]
+    },
+    {
+      "record": "MA1_004",
+      "database": "CSE Common Standards for ECG",
+      "refAnnotations": 2,
+      "testAnnotations": 2,
+      "matchCount": 1,
+      "conclusions": [
+        [
+          306,
+          null
+        ],
+        [
+          2101,
+          2101
+        ],
+        [
+          null,
+          305
+        ]
+      ]
+    },
+    {
+      "record": "MA1_005",
+      "database": "CSE Common Standards for ECG",
+      "refAnnotations": 3,
+      "testAnnotations": 4,
+      "matchCount": 2,
+      "conclusions": [
+        [
+          304,
+          304
+        ],
+        [
+          401,
+          null
+        ],
+        [
+          2102,
+          2102
+        ],
+        [
+          null,
+          402
+        ],
+        [
+          null,
+          9108
+        ]
+      ]
+    },
+    {
+      "record": "MA1_007",
+      "database": "CSE Common Standards for ECG",
+      "refAnnotations": 3,
+      "testAnnotations": 3,
+      "matchCount": 2,
+      "conclusions": [
+        [
+          306,
+          null
+        ],
+        [
+          705,
+          705
+        ],
+        [
+          2102,
+          2102
+        ],
+        [
+          null,
+          305
+        ]
+      ]
+    },
+    {
+      "record": "MA1_008",
+      "database": "CSE Common Standards for ECG",
+      "refAnnotations": 2,
+      "testAnnotations": 3,
+      "matchCount": 1,
+      "conclusions": [
+        [
+          306,
+          null
+        ],
+        [
+          2101,
+          2101
+        ],
+        [
+          null,
+          510
+        ],
+        [
+          null,
+          303
+        ]
+      ]
+    },
+    {
+      "record": "MA1_009",
+      "database": "CSE Common Standards for ECG",
+      "refAnnotations": 4,
+      "testAnnotations": 5,
+      "matchCount": 1,
+      "conclusions": [
+        [
+          301,
+          null
+        ],
+        [
+          504,
+          null
+        ],
+        [
+          1206,
+          null
+        ],
+        [
+          2101,
+          2101
+        ],
+        [
+          null,
+          9608
+        ],
+        [
+          null,
+          403
+        ],
+        [
+          null,
+          503
+        ],
+        [
+          null,
+          303
+        ]
+      ]
+    },
+    {
+      "record": "MA1_011",
+      "database": "CSE Common Standards for ECG",
+      "refAnnotations": 3,
+      "testAnnotations": 5,
+      "matchCount": 1,
+      "conclusions": [
+        [
+          306,
+          null
+        ],
+        [
+          1310,
+          null
+        ],
+        [
+          2101,
+          2101
+        ],
+        [
+          null,
+          1402
+        ],
+        [
+          null,
+          403
+        ],
+        [
+          null,
+          510
+        ],
+        [
+          null,
+          303
+        ]
+      ]
+    }
+  ]
+}
