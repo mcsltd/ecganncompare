@@ -15,8 +15,9 @@ def main():
     filenames = _parse_args(sys.argv)
     for fname in filenames:
         codes, info = _read_annotations(fname)
+        title = _get_title(info)
         plt.figure()
-        _plot_histogram(codes, _WINDOW_TITLE)
+        _plot_histogram(codes, title)
     plt.show()
 
 
@@ -73,6 +74,10 @@ def _plot_bidirectional_histogram(dataframe):
     plt.axhline(c="k")
     locs, _ = plt.yticks()
     plt.yticks(locs, [abs(loc) for loc in locs])
+
+
+def _get_title(info):
+    return "Comparing {0} and {1} annotations".format(info.ref_annotator, info.test_annotator)
 
 
 if __name__ == "__main__":
