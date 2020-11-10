@@ -39,8 +39,8 @@ def _plot_histogram(codes):
             else:
                 code_counts[1] += 1
     df = pandas.DataFrame.from_dict(counts, orient="index")\
-                         .sort_index()\
-                         .rename(columns={0: "Matches", 1: "Misses"})
+                         .sort_index()
+    df.columns = ["Matches", "Misses"]
     _plot_bidirectional_histogram(df)
     plt.title(title + ". Records count: {0}".format(len(codes)))
     plt.gcf().canvas.set_window_title(title)
