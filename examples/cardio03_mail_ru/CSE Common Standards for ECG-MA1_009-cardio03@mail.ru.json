@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "date": "2020-10-15T19:39:56.933Z",
+  "annotator": "cardio03@mail.ru",
+  "database": "CSE Common Standards for ECG",
+  "record": "MA1_009",
+  "conclusionThesaurus": "MCS",
+  "conclusions": [
+    301,
+    504,
+    1206,
+    2101
+  ]
+}
