@@ -27,9 +27,12 @@ Results of `anndistribution` shown on the following image.
 
 The program `cmphistogram` reads the `ecganncmp` result and makes histogram that contains distributions of annotations matches and misses.
 
-To run the program, run the following command (similar to `anndistribution`)
+To run the program, run the following command
 
-    python cmphistogram.py cmp_result
+    python cmphistogram.py cmp_result1 cmp_result2
+
+- `cmp_result1` and `cmp_result2` are paths to files with `ecganncmp` result
+- more filepaths can be passed.
 
 Results of `cmphistogram` shown on the following image.
 
