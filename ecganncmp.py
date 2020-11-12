@@ -164,16 +164,6 @@ def _read_json(filename):
         return json.load(fin)
 
 
-def _check_record_info(ref_input, other_input):
-    def check_field(ref_input, other_input, fieldname):
-        if ref_input[fieldname] != other_input[fieldname]:
-            raise Error("Incompatible '{0}' values".format(fieldname))
-
-    check_field(ref_input, other_input, Text.DATABASE)
-    check_field(ref_input, other_input, Text.RECORD_ID)
-    check_field(ref_input, other_input, Text.CONCLUSION_THESAURUS)
-
-
 def _create_record_report(code_pairs, ref_data, other_data):
     report = OrderedDict()
     report[Text.RECORD_ID] = ref_data[Text.RECORD_ID]
