@@ -82,6 +82,17 @@ def read_json_folder(dirname):
     return results
 
 
+def read_json_files(filenames):
+    results = []
+    for filename in filenames:
+        with open(filename, "rt") as fin:
+            try:
+                results.append(json.load(fin))
+            except ValueError:
+                continue
+    return results
+
+
 def _parse_args(args):
     if len(args) < 3:
         raise Error("Not enough arguments")
