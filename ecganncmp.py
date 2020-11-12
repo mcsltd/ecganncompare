@@ -241,5 +241,13 @@ def _get_all_files(dirname):
     return [p for p in all_paths if os.path.isfile(p)]
 
 
+def _compare_inside_folder(dirname):
+    all_files = _get_all_files(dirname)
+    all_jsons = read_json_files(all_files)
+    groups = _group_by_annotator(all_jsons)
+    ref_data, other_data = _select_comparing_groups(groups)
+    _compare_filesets(ref_data, other_data)
+
+
 if __name__ == "__main__":
     main()
