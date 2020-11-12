@@ -66,15 +66,8 @@ def check_folder_data(json_set):
 
 
 def read_json_folder(dirname):
-    results = []
-    for filename in os.listdir(dirname):
-        filename = os.path.join(dirname, filename)
-        with open(filename, "rt") as fin:
-            try:
-                results.append(json.load(fin))
-            except ValueError:
-                continue
-    return results
+    all_files = _get_all_files(dirname)
+    return read_json_files(all_files)
 
 
 def read_json_files(filenames):
