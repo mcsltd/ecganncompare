@@ -86,11 +86,10 @@ def read_json_folder(dirname):
 def read_json_files(filenames):
     results = []
     for filename in filenames:
-        with open(filename, "rt") as fin:
-            try:
-                results.append(json.load(fin))
-            except ValueError:
-                continue
+        try:
+            results.append(_read_json(filename))
+        except ValueError:
+            continue
     return results
 
 
