@@ -159,18 +159,6 @@ def _compare_filesets(ref_fileset, other_fileset):
     _write_report(general_report)
 
 
-def _compare_files(ref_input, other_input):
-    ref_json = _read_json(ref_input)
-    other_json = _read_json(other_input)
-    _check_record_info(ref_json, other_json)
-
-    codes_pairs = _merge_codes(ref_json[Text.CONCLUSIONS],
-                               other_json[Text.CONCLUSIONS])
-    report = _report_header()
-    report.update(_create_record_report(codes_pairs, ref_json, other_json))
-    _write_report(report)
-
-
 def _read_json(filename):
     with open(filename, "rt") as fin:
         return json.load(fin)
