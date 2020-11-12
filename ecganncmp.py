@@ -36,12 +36,6 @@ class TotalResult():
         self.ref_codes_count = 0
         self.test_codes_count = 0
 
-    def add(self, record_result, add_total):
-        self.total_count += add_total
-        self.match_count += record_result.match_count
-        self.ref_codes_count += record_result.ref_codes_count
-        self.test_codes_count += record_result.test_codes_count
-
 
 class Error(Exception):
     def __init__(self, message):
