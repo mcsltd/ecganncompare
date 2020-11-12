@@ -257,5 +257,13 @@ def _group_by_annotator(dataset):
     return groups
 
 
+def _select_comparing_groups(groups):
+    # TODO: select ref_data by date (older)
+    if len(groups) == 2:
+        return tuple(groups.values())
+    raise NotImplementedError(
+        "Comparison of more than two annotators is not supported")
+
+
 if __name__ == "__main__":
     main()
