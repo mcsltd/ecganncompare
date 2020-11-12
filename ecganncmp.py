@@ -142,14 +142,9 @@ def _check_input(ref_input, other_input):
 
 
 def _compare_folders(ref_input, other_input):
-    ref_data = read_json_folder(ref_input)
-    check_folder_data(ref_data)
-    other_data = read_json_folder(other_input)
-    check_folder_data(other_data)
-
-    record_reports = _create_reports(ref_data, other_data)
-    general_report = _create_general_report(record_reports)
-    _write_report(general_report)
+    ref_files = _get_all_files(ref_input)
+    other_files = _get_all_files(other_input)
+    _compare_filesets(ref_files, other_files)
 
 
 def _compare_filesets(ref_fileset, other_fileset):
