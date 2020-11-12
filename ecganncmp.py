@@ -2,7 +2,7 @@
 import os
 import json
 from datetime import datetime
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 
 
 class Text():
@@ -247,6 +247,13 @@ def _compare_inside_folder(dirname):
     groups = _group_by_annotator(all_jsons)
     ref_data, other_data = _select_comparing_groups(groups)
     _compare_filesets(ref_data, other_data)
+
+
+def _group_by_annotator(dataset):
+    groups = defaultdict(list)
+    for data in dataset:
+        groups[data[Text.ANNOTATOR]].append(data)
+    return groups
 
 
 if __name__ == "__main__":
