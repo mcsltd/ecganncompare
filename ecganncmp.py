@@ -82,7 +82,7 @@ def read_json_files(filenames):
 
 def _parse_args(args):
     if len(args) < 3:
-        raise Error("Not enough arguments")
+        return None, None
     return args[1], args[2]
 
 
@@ -253,6 +253,7 @@ def _compare_inside_folder(dirname):
     report = _compare_filesets(ref_data, other_data)
     with open(report_filename, "wt") as fout:
         fout.write(report)
+    os.system("pause")
 
 
 def _group_by_annotator(dataset):
