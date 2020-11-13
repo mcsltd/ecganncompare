@@ -154,7 +154,11 @@ def _compare_datasets(ref_data, other_data):
     _check_dataset(ref_data)
     _check_dataset(other_data)
     code_pairs = _create_code_pairs(ref_data, other_data)
-    return _create_general_report(code_pairs)
+    return ComparingResult(
+        ref_data[Text.ANNOTATOR],
+        other_data[Text.ANNOTATOR],
+        code_pairs
+    )
 
 
 def _check_dataset(dataset):
