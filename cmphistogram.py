@@ -20,10 +20,8 @@ _WINDOW_TITLE = "Annotations comparing"
 
 def main():
     filenames = _parse_args(sys.argv)
-    for fname in filenames:
-        result = _read_annotations(fname)
-        plt.figure()
-        _plot_histogram(result)
+    comparing_results = [_read_annotations(fname) for fname in filenames]
+    _plot_comparing_results(comparing_results)
     plt.show()
 
 
