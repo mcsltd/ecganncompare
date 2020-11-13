@@ -255,7 +255,7 @@ def _compare_inside_folder(dirname):
     if os.path.exists(report_filename):
         os.remove(report_filename)
     all_jsons = read_json_folder(dirname)
-    groups = _group_by_annotator(all_jsons)
+    groups = _group_by(all_jsons, Text.ANNOTATOR)
     if len(groups) < 2:
         message_format = (
             "Cannot compare files in folder {0}. Prepare a folder or "
@@ -269,10 +269,10 @@ def _compare_inside_folder(dirname):
     os.system("pause")
 
 
-def _group_by_annotator(dataset):
+def _group_by(dataset, fieldname):
     groups = defaultdict(list)
     for data in dataset:
-        groups[data[Text.ANNOTATOR]].append(data)
+        groups[data[fieldname]].append(data)
     return groups
 
 
