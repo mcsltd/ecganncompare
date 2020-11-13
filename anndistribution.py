@@ -79,6 +79,15 @@ def _create_dataframe(codes):
     return pandas.DataFrame.from_dict(counts, orient="index")
 
 
+def _read_json_files(filenames):
+    results = []
+    for fname in filenames:
+        try:
+            results.append(_read_json(fname))
+        except ValueError:
+            continue
+    return results
+
 def _read_json(filename):
     with open(filename, "rt") as fin:
         return json.load(fin)
