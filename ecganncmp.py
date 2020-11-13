@@ -150,6 +150,15 @@ def _compare_filesets(ref_fileset, other_fileset):
     return text
 
 
+def _compare_datasets(ref_data, other_data):
+    check_folder_data(ref_data)
+    check_folder_data(other_data)
+    record_reports = _create_reports(ref_data, other_data)
+    general_report = _create_general_report(record_reports)
+    text = _write_report(general_report)
+    return text
+
+
 def _read_json(filename):
     with open(filename, "rt") as fin:
         return json.load(fin)
