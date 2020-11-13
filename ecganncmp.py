@@ -262,7 +262,7 @@ def _compare_inside_folder(dirname):
         )
         raise Error(message_format.format(dirname))
     ref_data, other_data = _select_comparing_groups(groups)
-    report = _compare_filesets(ref_data, other_data)
+    report = _compare_datasets(ref_data, other_data)
     with open(report_filename, "wt") as fout:
         fout.write(report)
     os.system("pause")
