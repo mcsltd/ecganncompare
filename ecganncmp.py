@@ -69,7 +69,7 @@ def check_folder_data(json_set):
 
 
 def read_json_folder(dirname):
-    all_files = _get_all_files(dirname)
+    all_files = _get_all_files(dirname, ".json")
     return read_json_files(all_files)
 
 
