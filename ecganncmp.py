@@ -119,7 +119,7 @@ def _write_report(report, writable=None):
     if writable is None:
         writable = os.sys.stdout
     text = json.dumps(report, indent=2)
-    writable.write(text)
+    writable.write(text + "\n")
     return text
 
 
