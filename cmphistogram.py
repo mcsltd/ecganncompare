@@ -130,5 +130,12 @@ def _read_json(filename):
         return json.load(fin)
 
 
+def _group_by(iterable_data, fieldname):
+    groups = defaultdict(list)
+    for data in iterable_data:
+        groups[data[fieldname]].append(data)
+    return groups
+
+
 if __name__ == "__main__":
     main()
