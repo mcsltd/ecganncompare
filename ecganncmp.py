@@ -254,8 +254,7 @@ def _compare_inside_folder(dirname):
     report_filename = os.path.join(dirname, "cmp_result.txt")
     if os.path.exists(report_filename):
         os.remove(report_filename)
-    all_files = _get_all_files(dirname)
-    all_jsons = read_json_files(all_files)
+    all_jsons = read_json_folder(dirname)
     groups = _group_by_annotator(all_jsons)
     if len(groups) < 2:
         message_format = (
