@@ -89,5 +89,11 @@ def _get_title(ref_annotator, test_annotator):
     )
 
 
+def _plot_comparing_results(cresults):
+    for cr in cresults:
+        plt.figure()
+        _plot_histogram(cr)
+
+
 if __name__ == "__main__":
     main()
