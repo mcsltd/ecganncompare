@@ -183,5 +183,15 @@ def _create_reports(ref_data, other_data):
     return reports
 
 
+def _dataset_to_table(dataset):
+    table = defaultdict(lambda: defaultdict(dict))
+    for item in dataset:
+        thesaurus = item[Text.CONCLUSION_THESAURUS]
+        database = item[Text.DATABASE]
+        record = item[Text.RECORD_ID]
+        table[thesaurus][database][record] = item
+    return table
+
+
 if __name__ == "__main__":
     main()
