@@ -245,9 +245,9 @@ def _create_general_report(records_reports):
     return report
 
 
-def _get_all_files(dirname):
+def _get_all_files(dirname, ext=""):
     all_paths = (os.path.join(dirname, x) for x in os.listdir(dirname))
-    return [p for p in all_paths if os.path.isfile(p)]
+    return [p for p in all_paths if os.path.isfile(p) and p.endswith(ext)]
 
 
 def _compare_inside_folder(dirname):
