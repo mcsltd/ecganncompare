@@ -20,6 +20,7 @@ class Error(Exception):
 def main():
     folders = _parse_args(sys.argv)
     all_data = _read_folders(folders)
+    # TODO: check thesaurus
     codes = _get_all_codes(all_data)
     annotators = _get_annotators(all_data)
     _plot_histogram(codes, annotators)
