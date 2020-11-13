@@ -4,6 +4,11 @@ import pandas
 import ecganncmp as eac
 
 
+class Text():
+    CONCLUSIONS = "conclusions"
+    ANNOTATOR = "annotator"
+
+
 def main():
     folders = _parse_args(sys.argv)
     all_data = _read_folders(folders)
@@ -38,13 +43,13 @@ def _get_all_codes(all_data):
     for folder_data in all_data:
         codes = []
         for rec in folder_data:
-            codes += rec[eac.Text.CONCLUSIONS]
+            codes += rec[Text.CONCLUSIONS]
         all_codes.append(codes)
     return all_codes
 
 
 def _get_annotators(all_data):
-    return [x[0][eac.Text.ANNOTATOR] for x in all_data]
+    return [x[0][Text.ANNOTATOR] for x in all_data]
 
 
 def _plot_histogram(codes, annotators):
