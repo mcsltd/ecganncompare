@@ -13,7 +13,7 @@ class Text(object):
 
 
 ComparingResult = namedtuple("ComparingResult",
-                             ["ref_annotator", "test_annotator", "codes"],)
+                             ["ref_annotator", "test_annotator", "codes"])
 
 _WINDOW_TITLE = "Annotations comparing"
 
