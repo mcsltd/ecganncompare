@@ -55,7 +55,8 @@ def main():
                 # TODO: update output format description
                 _compare_filesets([ref_input], [other_input])
     except Error as exc:
-        print("Error: " + str(exc))
+        print("Error: {0}\n".format(exc))
+        os.system("pause")
 
 
 def check_folder_data(json_set):
