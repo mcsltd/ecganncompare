@@ -122,8 +122,7 @@ def _group_by(iterable_data, fieldname):
 
 
 def _extract_annotators_codes(folders_data):
-    flat_data = (d for dataset in folders_data for d in dataset)
-    return _group_by(flat_data, Text.ANNOTATOR)
+    return _group_by(_to_flat(folders_data), Text.ANNOTATOR)
 
 
 def _to_flat(iterable_matrix):
