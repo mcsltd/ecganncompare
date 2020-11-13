@@ -1,3 +1,4 @@
+import os
 import sys
 import json
 from matplotlib import pyplot as plt
@@ -77,6 +78,13 @@ def _create_dataframe(codes):
                 code, [0 for _ in range(len(codes))])
             code_counts[column_index] += 1
     return pandas.DataFrame.from_dict(counts, orient="index")
+
+
+def _read_json_folder(dirname):
+    all_paths = (os.path.join(dirname, x) for x in os.listdir(dirname))
+    all_files = [p for p in all_paths
+                 if os.path.isfile(p) and p.lower().endswith(".json")]
+    return _read_json_files(all_files)
 
 
 def _read_json_files(filenames):
