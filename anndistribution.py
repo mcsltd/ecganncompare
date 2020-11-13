@@ -9,6 +9,11 @@ class Text():
     ANNOTATOR = "annotator"
 
 
+class Error(Exception):
+    def __init__(self, message):
+        super(Error, self).__init__(message)
+
+
 def main():
     folders = _parse_args(sys.argv)
     all_data = _read_folders(folders)
