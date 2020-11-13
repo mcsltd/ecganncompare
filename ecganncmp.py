@@ -117,6 +117,7 @@ def _write_report(report, writable=None):
         writable = os.sys.stdout
     text = json.dumps(report, indent=2)
     writable.write(text)
+    return text
 
 
 def _check_input(ref_input, other_input):
