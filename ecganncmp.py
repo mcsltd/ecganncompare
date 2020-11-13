@@ -252,6 +252,12 @@ def _compare_inside_folder(dirname):
     all_files = _get_all_files(dirname)
     all_jsons = read_json_files(all_files)
     groups = _group_by_annotator(all_jsons)
+    if len(groups) < 2:
+        message_format = (
+            "Cannot compare files in folder {0}. Prepare a folder or "
+            "explicitly specify two folders."
+        )
+        raise Error(message_format.format(dirname))
     ref_data, other_data = _select_comparing_groups(groups)
     report = _compare_filesets(ref_data, other_data)
     with open(report_filename, "wt") as fout:
