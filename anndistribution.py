@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+from collections import defaultdict
 from matplotlib import pyplot as plt
 import pandas
 
@@ -110,6 +111,13 @@ def _check_folder_data(json_set):
             raise Error(message_template.format(fieldname))
     _check_field_value(json_set, Text.ANNOTATOR)
     _check_field_value(json_set, Text.CONCLUSION_THESAURUS)
+
+
+def _group_by(iterable_data, fieldname):
+    groups = defaultdict(list)
+    for data in iterable_data:
+        groups[data[fieldname]].append(data)
+    return groups
 
 
 if __name__ == "__main__":
