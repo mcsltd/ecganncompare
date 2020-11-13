@@ -100,7 +100,7 @@ def _plot_comparing_results(cresults):
 
 
 def _compare_inside_folder(dirname):
-    all_jsons = read_json_folder(dirname)
+    all_jsons = _read_json_folder(dirname)
     groups = _group_by(all_jsons, Text.ANNOTATOR)
     if len(groups) < 2:
         message_format = (
@@ -110,6 +110,19 @@ def _compare_inside_folder(dirname):
         raise Error(message_format.format(dirname))
     ref_data, other_data = _select_comparing_groups(groups)
     return [_compare_datasets(ref_data, other_data)]
+
+
+def _read_json_folder(dirname):
+    all_paths = (os.path.join(dirname, x) for x in os.listdir(dirname))
+    all_files = [p for p in all_paths
+                 if os.path.isfile(p) and p.lower().endswith(".json")]
+    results = []
+    for fname in all_files:
+        try:
+            results.append(_read_json(fname))
+        except ValueError:
+            continue
+    return results
 
 
 def _read_json(filename):
