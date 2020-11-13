@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 import pandas
 
 
-class Text():
+class Text(object):
     CONCLUSIONS = "conclusions"
     ANNOTATOR = "annotator"
     CONCLUSION_THESAURUS = "conclusionThesaurus"

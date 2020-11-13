@@ -5,7 +5,7 @@ from datetime import datetime
 from collections import OrderedDict, defaultdict
 
 
-class Text():
+class Text(object):
     PROGRAM_NAME = "ecganncmp"
     PROGRAM_VERSION = "1.0"
     COMPANY_INFO = "Medical computer systems (c) {0} - www.mks.ru".format(
