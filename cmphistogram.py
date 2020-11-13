@@ -1,7 +1,7 @@
 import sys
 import json
-from matplotlib import pyplot as plt
 from collections import namedtuple
+from matplotlib import pyplot as plt
 import pandas
 from ecganncmp import Text
 
@@ -50,8 +50,7 @@ def _plot_histogram(codes, title):
                 code_counts[0] += 1
             else:
                 code_counts[1] += 1
-    df = pandas.DataFrame.from_dict(counts, orient="index")\
-                         .sort_index()
+    df = pandas.DataFrame.from_dict(counts, orient="index").sort_index()
     df.columns = ["Matches", "Misses"]
     _plot_bidirectional_histogram(df)
     plt.title(title + ". Records count: {0}".format(len(codes)))
