@@ -21,9 +21,8 @@ def main():
     folders = _parse_args(sys.argv)
     all_data = _read_folders(folders)
     # TODO: check thesaurus
-    codes = _get_all_codes(all_data)
-    annotators = _get_annotators(all_data)
-    _plot_histogram(codes, annotators)
+    codes_groups = _extract_annotators_codes(all_data)
+    _plot_histogram(codes_groups.values(), codes_groups.keys())
     plt.show()
 
 
@@ -130,7 +129,7 @@ def _extract_annotators_codes(folders_data):
 
 
 def _to_flat(iterable_matrix):
-    return (item for row in iterable_matrix for item in iterable_matrix)
+    return (item for row in iterable_matrix for item in row)
 
 
 if __name__ == "__main__":
