@@ -22,7 +22,7 @@ def main():
     filenames = _parse_args(sys.argv)
     for fname in filenames:
         result = _read_annotations(fname)
-        title = _get_title(result)
+        title = _get_title(result.ref_annotator, result.test_annotator)
         plt.figure()
         _plot_histogram(result.codes, title)
     plt.show()
@@ -83,8 +83,10 @@ def _plot_bidirectional_histogram(dataframe):
     plt.yticks(locs, [abs(loc) for loc in locs])
 
 
-def _get_title(info):
-    return "Comparing {0} and {1} annotations".format(info.ref_annotator, info.test_annotator)
+def _get_title(ref_annotator, test_annotator):
+    return "Comparing {0} and {1} annotations".format(
+        ref_annotator, test_annotator
+    )
 
 
 if __name__ == "__main__":
