@@ -153,8 +153,8 @@ def _select_comparing_groups(groups):
 def _compare_datasets(ref_data, other_data):
     _check_dataset(ref_data)
     _check_dataset(other_data)
-    record_reports = _create_reports(ref_data, other_data)
-    return _create_general_report(record_reports)
+    code_pairs = _create_code_pairs(ref_data, other_data)
+    return _create_general_report(code_pairs)
 
 
 def _check_dataset(dataset):
@@ -167,8 +167,8 @@ def _check_dataset(dataset):
     _check_field_value(dataset, Text.CONCLUSION_THESAURUS)
 
 
-def _create_reports(ref_data, other_data):
-    reports = []
+def _create_code_pairs(ref_data, other_data):
+    code_pairs = []
     other_data = _dataset_to_table(other_data)
     for ref_item in ref_data:
         db = ref_item[Text.DATABASE]
@@ -177,11 +177,9 @@ def _create_reports(ref_data, other_data):
             other_item = other_data[db][name]
         except KeyError:
             continue
-        code_pairs = _merge_codes(ref_item[Text.CONCLUSIONS],
-                                  other_item[Text.CONCLUSIONS])
-        new_report = _create_record_report(code_pairs, ref_item, other_item)
-        reports.append(new_report)
-    return reports
+        code_pairs += _merge_codes(ref_item[Text.CONCLUSIONS],
+                                   other_item[Text.CONCLUSIONS])
+    return code_pairs
 
 
 def _dataset_to_table(dataset):
