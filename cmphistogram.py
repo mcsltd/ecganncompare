@@ -12,6 +12,7 @@ class Text(object):
     REF_ANNOTATOR = "refAnnotator"
     TEST_ANNOTATOR = "testAnnotator"
     ANNOTATOR = "annotator"
+    CONCLUSION_THESAURUS = "conclusionThesaurus"
 
 
 class Error(Exception):
@@ -148,10 +149,20 @@ def _select_comparing_groups(groups):
 
 
 def _compare_datasets(ref_data, other_data):
-    _check_folder_data(ref_data)
-    _check_folder_data(other_data)
+    _check_dataset(ref_data)
+    _check_dataset(other_data)
     record_reports = _create_reports(ref_data, other_data)
     return _create_general_report(record_reports)
+
+
+def _check_dataset(dataset):
+    def _check_field_value(dataset, fieldname):
+        message_template = "Files from one folder must have the same '{0}'"
+        value = dataset[0][fieldname]
+        if any(x[fieldname] != value for x in dataset):
+            raise Error(message_template.format(fieldname))
+    _check_field_value(dataset, Text.ANNOTATOR)
+    _check_field_value(dataset, Text.CONCLUSION_THESAURUS)
 
 
 if __name__ == "__main__":
