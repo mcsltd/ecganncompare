@@ -21,7 +21,7 @@ def main():
     folders = _parse_args(sys.argv)
     all_data = _read_folders(folders)
     # TODO: check thesaurus
-    codes_groups = _extract_annotators_codes(all_data)
+    codes_groups = _extract_annotators_codes(_to_flat(all_data))
     _plot_histogram(codes_groups.values(), codes_groups.keys())
     plt.show()
 
@@ -120,8 +120,8 @@ def _group_by(iterable_data, fieldname):
     return groups
 
 
-def _extract_annotators_codes(folders_data):
-    groups = _group_by(_to_flat(folders_data), Text.ANNOTATOR)
+def _extract_annotators_codes(all_data):
+    groups = _group_by(all_data, Text.ANNOTATOR)
     for gname in groups:
         dataset = groups[gname]
         groups[gname] = _to_flat(d[Text.CONCLUSIONS] for d in dataset)
