@@ -45,12 +45,15 @@ class Error(Exception):
 def main():
     try:
         ref_input, other_input = _parse_args(os.sys.argv)
-        _check_input(ref_input, other_input)
-        if os.path.isdir(ref_input):
-            _compare_folders(ref_input, other_input)
+        if ref_input is None:
+            _compare_inside_folder(os.path.dirname(__file__))
         else:
-            # TODO: update output format description
-            _compare_filesets([ref_input], [other_input])
+            _check_input(ref_input, other_input)
+            if os.path.isdir(ref_input):
+                _compare_folders(ref_input, other_input)
+            else:
+                # TODO: update output format description
+                _compare_filesets([ref_input], [other_input])
     except Error as exc:
         print("Error: " + str(exc))
 
