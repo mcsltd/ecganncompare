@@ -133,9 +133,9 @@ def _check_input(ref_input, other_input):
 
 
 def _compare_folders(ref_input, other_input):
-    ref_files = _get_all_files(ref_input)
-    other_files = _get_all_files(other_input)
-    return _compare_filesets(ref_files, other_files)
+    ref_files = read_json_folder(ref_input)
+    other_files = read_json_folder(other_input)
+    return _compare_datasets(ref_files, other_files)
 
 
 def _compare_filesets(ref_fileset, other_fileset):
