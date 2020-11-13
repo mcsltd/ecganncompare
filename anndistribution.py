@@ -120,5 +120,10 @@ def _group_by(iterable_data, fieldname):
     return groups
 
 
+def _extract_annotators_codes(folders_data):
+    flat_data = (d for dataset in folders_data for d in dataset)
+    return _group_by(flat_data, Text.ANNOTATOR)
+
+
 if __name__ == "__main__":
     main()
