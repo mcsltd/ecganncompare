@@ -171,11 +171,10 @@ def _create_reports(ref_data, other_data):
     reports = []
     other_data = _dataset_to_table(other_data)
     for ref_item in ref_data:
-        ths = ref_item[Text.CONCLUSION_THESAURUS]
         db = ref_item[Text.DATABASE]
         name = ref_item[Text.RECORD_ID]
         try:
-            other_item = other_data[ths][db][name]
+            other_item = other_data[db][name]
         except KeyError:
             continue
         code_pairs = _merge_codes(ref_item[Text.CONCLUSIONS],
@@ -188,11 +187,9 @@ def _create_reports(ref_data, other_data):
 def _dataset_to_table(dataset):
     table = defaultdict(lambda: defaultdict(dict))
     for item in dataset:
-        # TODO: must be only one thesaurus
-        thesaurus = item[Text.CONCLUSION_THESAURUS]
         database = item[Text.DATABASE]
         record = item[Text.RECORD_ID]
-        table[thesaurus][database][record] = item
+        table[database][record] = item
     return table
 
 
