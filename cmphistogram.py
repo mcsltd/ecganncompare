@@ -147,5 +147,12 @@ def _select_comparing_groups(groups):
     )
 
 
+def _compare_datasets(ref_data, other_data):
+    _check_folder_data(ref_data)
+    _check_folder_data(other_data)
+    record_reports = _create_reports(ref_data, other_data)
+    return _create_general_report(record_reports)
+
+
 if __name__ == "__main__":
     main()
