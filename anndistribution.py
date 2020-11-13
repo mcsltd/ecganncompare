@@ -35,7 +35,7 @@ def _read_folders(folders):
         folder_data = eac.read_json_folder(dirname)
         try:
             eac.check_folder_data(folder_data)
-        except eac.Error as err:
+        except Error as err:
             print("Reading " + dirname + " error:")
             print(err)
         else:
