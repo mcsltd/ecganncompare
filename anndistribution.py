@@ -1,7 +1,7 @@
 import os
 import sys
 import json
-from collections import defaultdict
+from collections import defaultdict, Counter
 from matplotlib import pyplot as plt
 import pandas
 
@@ -134,6 +134,12 @@ def _extract_annotators_codes(all_data):
 
 def _to_flat(iterable_matrix):
     return (item for row in iterable_matrix for item in row)
+
+
+def _remove_deviations(dataset, fieldname):
+    counts = Counter(data[fieldname] for data in dataset)
+    common_value = counts.most_common()[0]
+    return [data for data in dataset if data[fieldname] == common_value]
 
 
 if __name__ == "__main__":
