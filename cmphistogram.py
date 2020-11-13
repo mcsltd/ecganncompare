@@ -10,6 +10,7 @@ class Text(object):
     RECORDS = "records"
     REF_ANNOTATOR = "refAnnotator"
     TEST_ANNOTATOR = "testAnnotator"
+    ANNOTATOR = "annotator"
 
 
 ComparingResult = namedtuple("ComparingResult",
