@@ -74,14 +74,12 @@ def _plot_histogram(codes, annotators):
 
 
 def _create_dataframe(codes):
-    counts = {}
+    counts = defaultdict(lambda: [0 for _ in range(len(codes))])
     for column_index, folder_codes in enumerate(codes):
         for code in folder_codes:
             if code is None:
                 continue
-            code_counts = counts.setdefault(
-                code, [0 for _ in range(len(codes))])
-            code_counts[column_index] += 1
+            counts[code][column_index] += 1
     return pandas.DataFrame.from_dict(counts, orient="index")
 
 
