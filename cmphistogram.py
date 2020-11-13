@@ -1,6 +1,6 @@
 import sys
 import json
-from collections import namedtuple
+from collections import namedtuple, defaultdict
 from matplotlib import pyplot as plt
 import pandas
 
@@ -12,8 +12,8 @@ class Text(object):
     TEST_ANNOTATOR = "testAnnotator"
 
 
-ComparingInfo = namedtuple("ComparingInfo",
-                           ["ref_annotator", "test_annotator"])
+ComparingResult = namedtuple("ComparingResult",
+                             ["ref_annotator", "test_annotator", "codes"],)
 
 _WINDOW_TITLE = "Annotations comparing"
 
@@ -40,19 +40,20 @@ def _read_annotations(filename):
     codes = []
     for rec_data in data[Text.RECORDS]:
         codes.append(rec_data[Text.CONCLUSIONS])
-    info = ComparingInfo(
+    info = ComparingResult(
         ref_annotator=data[Text.REF_ANNOTATOR],
-        test_annotator=data[Text.TEST_ANNOTATOR]
+        test_annotator=data[Text.TEST_ANNOTATOR],
+        codes=codes
     )
     return codes, info
 
 
 def _plot_histogram(codes, title):
-    counts = {}
+    counts = defaultdict(lambda: [0, 0])
     for rec_pairs in codes:
         for pair in rec_pairs:
             code = _get_code(pair)
-            code_counts = counts.setdefault(code, [0, 0])
+            code_counts = counts[code]
             if pair[0] == pair[1]:
                 code_counts[0] += 1
             else:
