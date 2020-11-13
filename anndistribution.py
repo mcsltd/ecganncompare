@@ -19,11 +19,11 @@ class Error(Exception):
 
 def main():
     folders = _parse_args(sys.argv)
-    if folders is None:
+    if folders is not None:
+        all_data = _read_folders(folders)
+    else:
         current_dir = os.path.dirname(os.path.abspath(__file__))
         all_data = _read_json_folder(current_dir)
-    else:
-        all_data = _read_folders(folders)
     # TODO: check thesaurus
     codes_groups = _extract_annotators_codes(all_data)
     _plot_histogram(codes_groups.values(), codes_groups.keys())
