@@ -23,8 +23,7 @@ def main():
         current_dir = os.path.dirname(os.path.abspath(__file__))
         all_data = _read_json_folder(current_dir)
     else:
-        folders_data = _read_folders(folders)
-        all_data = _to_flat(folders_data)
+        all_data = _read_folders(folders)
     # TODO: check thesaurus
     codes_groups = _extract_annotators_codes(all_data)
     _plot_histogram(codes_groups.values(), codes_groups.keys())
@@ -47,7 +46,7 @@ def _read_folders(folders):
             print("Reading " + dirname + " error:")
             print(err)
         else:
-            all_data.append(folder_data)
+            all_data += folder_data
     return all_data
 
 
