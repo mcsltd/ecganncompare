@@ -140,14 +140,8 @@ def _compare_folders(ref_input, other_input):
 
 def _compare_filesets(ref_fileset, other_fileset):
     ref_data = read_json_files(ref_fileset)
-    check_folder_data(ref_data)
     other_data = read_json_files(other_fileset)
-    check_folder_data(other_data)
-
-    record_reports = _create_reports(ref_data, other_data)
-    general_report = _create_general_report(record_reports)
-    text = _write_report(general_report)
-    return text
+    return _compare_datasets(ref_data, other_data)
 
 
 def _compare_datasets(ref_data, other_data):
