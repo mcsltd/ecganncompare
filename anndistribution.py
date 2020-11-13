@@ -34,7 +34,7 @@ def _parse_args(args):
 def _read_folders(folders):
     all_data = []
     for dirname in folders:
-        folder_data = eac.read_json_folder(dirname)
+        folder_data = _read_json_folder(dirname)
         try:
             eac.check_folder_data(folder_data)
         except Error as err:
