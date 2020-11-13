@@ -19,9 +19,10 @@ class Error(Exception):
 
 def main():
     folders = _parse_args(sys.argv)
-    all_data = _read_folders(folders)
+    folders_data = _read_folders(folders)
+    all_data = _to_flat(folders_data)
     # TODO: check thesaurus
-    codes_groups = _extract_annotators_codes(_to_flat(all_data))
+    codes_groups = _extract_annotators_codes(all_data)
     _plot_histogram(codes_groups.values(), codes_groups.keys())
     plt.show()
 
