@@ -126,5 +126,9 @@ def _extract_annotators_codes(folders_data):
     return _group_by(flat_data, Text.ANNOTATOR)
 
 
+def _to_flat(iterable_matrix):
+    return (item for row in iterable_matrix for item in iterable_matrix)
+
+
 if __name__ == "__main__":
     main()
