@@ -93,5 +93,18 @@ def _plot_comparing_results(cresults):
         _plot_histogram(cr)
 
 
+def _compare_inside_folder(dirname):
+    all_jsons = read_json_folder(dirname)
+    groups = _group_by(all_jsons, Text.ANNOTATOR)
+    if len(groups) < 2:
+        message_format = (
+            "Cannot compare files in folder {0}. Prepare a folder or "
+            "explicitly specify result files."
+        )
+        raise Error(message_format.format(dirname))
+    ref_data, other_data = _select_comparing_groups(groups)
+    return [_compare_datasets(ref_data, other_data)]
+
+
 if __name__ == "__main__":
     main()
