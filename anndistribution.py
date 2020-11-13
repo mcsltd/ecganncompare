@@ -3,7 +3,6 @@ import sys
 import json
 from matplotlib import pyplot as plt
 import pandas
-import ecganncmp as eac
 
 
 class Text():
@@ -37,7 +36,7 @@ def _read_folders(folders):
     for dirname in folders:
         folder_data = _read_json_folder(dirname)
         try:
-            eac.check_folder_data(folder_data)
+            _check_folder_data(folder_data)
         except Error as err:
             print("Reading " + dirname + " error:")
             print(err)
