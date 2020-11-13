@@ -1,4 +1,5 @@
 import sys
+import json
 from matplotlib import pyplot as plt
 import pandas
 import ecganncmp as eac
@@ -76,6 +77,11 @@ def _create_dataframe(codes):
                 code, [0 for _ in range(len(codes))])
             code_counts[column_index] += 1
     return pandas.DataFrame.from_dict(counts, orient="index")
+
+
+def _read_json(filename):
+    with open(filename, "rt") as fin:
+        return json.load(fin)
 
 
 if __name__ == "__main__":
