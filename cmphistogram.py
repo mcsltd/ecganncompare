@@ -112,5 +112,10 @@ def _compare_inside_folder(dirname):
     return [_compare_datasets(ref_data, other_data)]
 
 
+def _read_json(filename):
+    with open(filename, "rt") as fin:
+        return json.load(fin)
+
+
 if __name__ == "__main__":
     main()
