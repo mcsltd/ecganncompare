@@ -9,6 +9,7 @@ import ecganncmp as eac
 class Text():
     CONCLUSIONS = "conclusions"
     ANNOTATOR = "annotator"
+    CONCLUSION_THESAURUS = "conclusionThesaurus"
 
 
 class Error(Exception):
@@ -100,6 +101,16 @@ def _read_json_files(filenames):
 def _read_json(filename):
     with open(filename, "rt") as fin:
         return json.load(fin)
+
+
+def _check_folder_data(json_set):
+    def _check_field_value(dataset, fieldname):
+        message_template = "Files from one folder must have the same '{0}'"
+        value = dataset[0][fieldname]
+        if any(x[fieldname] != value for x in dataset):
+            raise Error(message_template.format(fieldname))
+    _check_field_value(json_set, Text.ANNOTATOR)
+    _check_field_value(json_set, Text.CONCLUSION_THESAURUS)
 
 
 if __name__ == "__main__":
