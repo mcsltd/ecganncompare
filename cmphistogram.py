@@ -21,10 +21,10 @@ _WINDOW_TITLE = "Annotations comparing"
 def main():
     filenames = _parse_args(sys.argv)
     for fname in filenames:
-        codes, info = _read_annotations(fname)
-        title = _get_title(info)
+        result = _read_annotations(fname)
+        title = _get_title(result)
         plt.figure()
-        _plot_histogram(codes, title)
+        _plot_histogram(result.codes, title)
     plt.show()
 
 
@@ -40,12 +40,12 @@ def _read_annotations(filename):
     codes = []
     for rec_data in data[Text.RECORDS]:
         codes.append(rec_data[Text.CONCLUSIONS])
-    info = ComparingResult(
+    result = ComparingResult(
         ref_annotator=data[Text.REF_ANNOTATOR],
         test_annotator=data[Text.TEST_ANNOTATOR],
         codes=codes
     )
-    return codes, info
+    return result
 
 
 def _plot_histogram(codes, title):
