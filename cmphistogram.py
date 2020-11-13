@@ -3,7 +3,14 @@ import json
 from collections import namedtuple
 from matplotlib import pyplot as plt
 import pandas
-from ecganncmp import Text
+
+
+class Text(object):
+    CONCLUSIONS = "conclusions"
+    RECORDS = "records"
+    REF_ANNOTATOR = "refAnnotator"
+    TEST_ANNOTATOR = "testAnnotator"
+
 
 ComparingInfo = namedtuple("ComparingInfo",
                            ["ref_annotator", "test_annotator"])
