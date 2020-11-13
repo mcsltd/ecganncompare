@@ -24,7 +24,7 @@ def main():
     else:
         current_dir = os.path.dirname(os.path.abspath(__file__))
         all_data = _read_json_folder(current_dir)
-    # TODO: check thesaurus
+    all_data = _remove_deviations(all_data, Text.CONCLUSION_THESAURUS)
     codes_groups = _extract_annotators_codes(all_data)
     _plot_histogram(codes_groups.values(), codes_groups.keys())
     plt.show()
@@ -138,7 +138,7 @@ def _to_flat(iterable_matrix):
 
 def _remove_deviations(dataset, fieldname):
     counts = Counter(data[fieldname] for data in dataset)
-    common_value = counts.most_common()[0]
+    common_value = counts.most_common()[0][0]
     return [data for data in dataset if data[fieldname] == common_value]
 
 
