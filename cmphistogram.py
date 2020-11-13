@@ -13,6 +13,8 @@ class Text(object):
     TEST_ANNOTATOR = "testAnnotator"
     ANNOTATOR = "annotator"
     CONCLUSION_THESAURUS = "conclusionThesaurus"
+    DATABASE = "database"
+    RECORD_ID = "record"
 
 
 class Error(Exception):
@@ -186,6 +188,7 @@ def _create_reports(ref_data, other_data):
 def _dataset_to_table(dataset):
     table = defaultdict(lambda: defaultdict(dict))
     for item in dataset:
+        # TODO: must be only one thesaurus
         thesaurus = item[Text.CONCLUSION_THESAURUS]
         database = item[Text.DATABASE]
         record = item[Text.RECORD_ID]
