@@ -251,7 +251,9 @@ def _get_all_files(dirname):
 
 
 def _compare_inside_folder(dirname):
-    report_filename = "cmp_result.txt"
+    report_filename = os.path.join(dirname, "cmp_result.txt")
+    if os.path.exists(report_filename):
+        os.remove(report_filename)
     all_files = _get_all_files(dirname)
     all_jsons = read_json_files(all_files)
     groups = _group_by_annotator(all_jsons)
