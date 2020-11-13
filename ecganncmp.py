@@ -245,11 +245,14 @@ def _get_all_files(dirname):
 
 
 def _compare_inside_folder(dirname):
+    report_filename = "cmp_result.txt"
     all_files = _get_all_files(dirname)
     all_jsons = read_json_files(all_files)
     groups = _group_by_annotator(all_jsons)
     ref_data, other_data = _select_comparing_groups(groups)
-    _compare_filesets(ref_data, other_data)
+    report = _compare_filesets(ref_data, other_data)
+    with open(report_filename, "wt") as fout:
+        fout.write(report)
 
 
 def _group_by_annotator(dataset):
