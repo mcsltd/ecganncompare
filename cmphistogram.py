@@ -22,9 +22,8 @@ def main():
     filenames = _parse_args(sys.argv)
     for fname in filenames:
         result = _read_annotations(fname)
-        title = _get_title(result.ref_annotator, result.test_annotator)
         plt.figure()
-        _plot_histogram(result.codes, title)
+        _plot_histogram(result)
     plt.show()
 
 
@@ -48,9 +47,9 @@ def _read_annotations(filename):
     return result
 
 
-def _plot_histogram(codes, title):
+def _plot_histogram(cresult):
     counts = defaultdict(lambda: [0, 0])
-    for rec_pairs in codes:
+    for rec_pairs in cresult.codes:
         for pair in rec_pairs:
             code = _get_code(pair)
             code_counts = counts[code]
@@ -61,7 +60,8 @@ def _plot_histogram(codes, title):
     df = pandas.DataFrame.from_dict(counts, orient="index").sort_index()
     df.columns = ["Matches", "Misses"]
     _plot_bidirectional_histogram(df)
-    plt.title(title + ". Records count: {0}".format(len(codes)))
+    title = _get_title(cresult.ref_annotator, cresult.test_annotator)
+    plt.title(title + ". Records count: {0}".format(len(cresult.codes)))
     plt.gcf().canvas.set_window_title(_WINDOW_TITLE)
 
 
