@@ -46,7 +46,7 @@ def main():
     try:
         ref_input, other_input = _parse_args(os.sys.argv)
         if ref_input is None:
-            _compare_inside_folder(os.path.dirname(__file__))
+            _compare_inside_folder(os.path.dirname(os.path.abspath(__file__)))
         else:
             _check_input(ref_input, other_input)
             if os.path.isdir(ref_input):
