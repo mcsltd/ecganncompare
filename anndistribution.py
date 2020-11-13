@@ -33,7 +33,7 @@ def main():
 
 def _parse_args(args):
     if len(args) < 2:
-        raise RuntimeError("Not enough arguments")
+        return None
     return args[1:]
 
 
