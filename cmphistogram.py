@@ -13,6 +13,11 @@ class Text(object):
     ANNOTATOR = "annotator"
 
 
+class Error(Exception):
+    def __init__(self, message):
+        super(Error, self).__init__(message)
+
+
 ComparingResult = namedtuple("ComparingResult",
                              ["ref_annotator", "test_annotator", "codes"])
 
