@@ -141,7 +141,7 @@ def _remove_deviations(dataset, fieldname):
 
 
 def _print_folders_names(folders):
-    print("Plotting annotation distribution histograms from folders: " +
+    print("Plotting annotation distribution histograms from folders: %s\n" %
           ", ".join(folders))
 
 
