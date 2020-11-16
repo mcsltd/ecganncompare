@@ -61,19 +61,18 @@ def _read_annotations(filename):
 
 def _plot_histogram(cresult):
     counts = defaultdict(lambda: [0, 0])
-    for rec_pairs in cresult.codes:
-        for pair in rec_pairs:
-            code = _get_code(pair)
-            code_counts = counts[code]
-            if pair[0] == pair[1]:
-                code_counts[0] += 1
-            else:
-                code_counts[1] += 1
+    for pair in cresult.codes:
+        code = _get_code(pair)
+        code_counts = counts[code]
+        if pair[0] == pair[1]:
+            code_counts[0] += 1
+        else:
+            code_counts[1] += 1
     df = pandas.DataFrame.from_dict(counts, orient="index").sort_index()
     df.columns = ["Matches", "Misses"]
     _plot_bidirectional_histogram(df)
     title = _get_title(cresult.ref_annotator, cresult.test_annotator)
-    plt.title(title + ". Records count: {0}".format(len(cresult.codes)))
+    plt.title(title)
     plt.gcf().canvas.set_window_title(_WINDOW_TITLE)
 
 
