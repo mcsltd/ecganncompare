@@ -110,6 +110,9 @@ def _plot_comparing_results(cresults):
 
 def _compare_inside_folder(dirname):
     all_jsons = _read_json_folder(dirname)
+    all_jsons, bad_json = _remove_deviations(all_jsons,
+                                             Text.CONCLUSION_THESAURUS)
+    _print_removed_items(bad_json, Text.CONCLUSION_THESAURUS)
     groups = _group_by(all_jsons, Text.ANNOTATOR)
     if len(groups) < 2:
         message_format = (
