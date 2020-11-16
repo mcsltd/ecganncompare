@@ -34,7 +34,8 @@ def main():
         current_dir = os.path.dirname(os.path.abspath(__file__))
         comparing_results = _compare_inside_folder(current_dir)
     else:
-        comparing_results = [_read_annotations(fname) for fname in filenames]
+        comparing_results = [_read_comparing_result(fname)
+                             for fname in filenames]
     _plot_comparing_results(comparing_results)
     plt.show()
 
@@ -45,7 +46,7 @@ def _parse_args(args):
     return args[1:]
 
 
-def _read_annotations(filename):
+def _read_comparing_result(filename):
     with open(filename, "rt") as fin:
         data = json.load(fin)
     codes = []
