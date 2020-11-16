@@ -37,7 +37,7 @@ def main():
     else:
         comparing_results = [_read_comparing_result(fname)
                              for fname in filenames]
-    _print_comparint_results(*comparing_results)
+    _print_comparing_results(*comparing_results)
     _plot_comparing_results(comparing_results)
     plt.show()
 
@@ -152,7 +152,8 @@ def _select_comparing_groups(groups):
     if len(groups) > 2:
         result = sorted(result, key=len, reverse=True)[:2]
         sys.stderr.write(
-            "Warning! Comparison of more than two annotators is not supported!\n"
+            "Warning! Comparison of more than two annotators is not "
+            "supported!\n"
         )
     return tuple(result)
 
@@ -218,7 +219,7 @@ def _merge_codes(codes, other_codes):
     return code_pairs
 
 
-def _print_comparint_results(*results):
+def _print_comparing_results(*results):
     for cresult in results:
         print("Comparing {0} with {1}".format(
             cresult.ref_annotator, cresult.test_annotator
