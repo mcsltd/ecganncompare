@@ -213,5 +213,9 @@ def _merge_codes(codes, other_codes):
     return code_pairs
 
 
+def _count_items(iterable, predicate):
+    return sum(1 for x in iterable if predicate(x))
+
+
 if __name__ == "__main__":
     main()
