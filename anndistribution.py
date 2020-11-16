@@ -34,6 +34,7 @@ def main():
         print("\n")
         _print_removed_items(deviations, Text.CONCLUSION_THESAURUS)
     data_groups = _group_by(all_data, Text.ANNOTATOR)
+    _print_groups_info(data_groups)
     codes_groups = _extract_annotators_codes(data_groups)
     _plot_histogram(codes_groups.values(), codes_groups.keys())
     plt.show()
@@ -151,6 +152,16 @@ def _print_removed_items(items, fieldname):
             item[fieldname]
         )
         print(message)
+
+
+def _print_groups_info(data_groups):
+    # TODO: print Thesaurus
+    for annotator in data_groups:
+        print("Annotator: " + annotator)
+        data_list = data_groups[annotator]
+        print("Records Count: %d" % len(data_list))
+        codes_count = sum(len(d[Text.CONCLUSIONS]) for d in data_list)
+        print("Conclusions count: %d\n" % codes_count)
 
 
 if __name__ == "__main__":
