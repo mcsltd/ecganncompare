@@ -242,5 +242,16 @@ def _to_flat(iterable_matrix):
     return (item for row in iterable_matrix for item in row)
 
 
+def _remove_deviations(dataset, fieldname):
+    counts = Counter(data[fieldname] for data in dataset)
+    common_value = counts.most_common()[0][0]
+    good_items, others = [], []
+    for data in dataset:
+        if data[fieldname] == common_value:
+            good_items.append(data)
+        else:
+            others.append(data)
+    return good_items, others
+
 if __name__ == "__main__":
     main()
