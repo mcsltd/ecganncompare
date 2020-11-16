@@ -50,9 +50,7 @@ def _parse_args(args):
 def _read_comparing_result(filename):
     with open(filename, "rt") as fin:
         data = json.load(fin)
-    codes = []
-    for rec_data in data[Text.RECORDS]:
-        codes.append(rec_data[Text.CONCLUSIONS])
+    codes = list(_to_flat(d[Text.CONCLUSIONS] for d in data[Text.RECORDS]))
     result = ComparingResult(
         ref_annotator=data[Text.REF_ANNOTATOR],
         test_annotator=data[Text.TEST_ANNOTATOR],
