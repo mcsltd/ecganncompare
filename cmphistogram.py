@@ -73,7 +73,7 @@ def _plot_histogram(cresult):
     df.columns = ["Matches", "Misses"]
     _plot_bidirectional_histogram(df)
     title = _get_title(cresult.ref_annotator, cresult.test_annotator)
-    plt.title(title)
+    plt.title(title + (". Records count: %d" % cresult.records_count))
     plt.gcf().canvas.set_window_title(_WINDOW_TITLE)
 
 
