@@ -26,7 +26,7 @@ def main():
         all_data = _read_json_folder(current_dir)
         folders = [current_dir]
     _print_folders_names(folders)
-    all_data = _remove_deviations(all_data, Text.CONCLUSION_THESAURUS)
+    all_data, _ = _remove_deviations(all_data, Text.CONCLUSION_THESAURUS)
     codes_groups = _extract_annotators_codes(all_data)
     _plot_histogram(codes_groups.values(), codes_groups.keys())
     plt.show()
@@ -139,7 +139,13 @@ def _to_flat(iterable_matrix):
 def _remove_deviations(dataset, fieldname):
     counts = Counter(data[fieldname] for data in dataset)
     common_value = counts.most_common()[0][0]
-    return [data for data in dataset if data[fieldname] == common_value]
+    good_items, others = [], []
+    for data in dataset:
+        if data[fieldname] == common_value:
+            good_items.append(data)
+        else:
+            others.append(data)
+    return good_items, others
 
 
 def _print_folders_names(folders):
