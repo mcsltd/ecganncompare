@@ -1,7 +1,7 @@
 import os
 import sys
 import json
-from collections import namedtuple, defaultdict
+from collections import namedtuple, defaultdict, Counter
 from matplotlib import pyplot as plt
 import pandas
 
