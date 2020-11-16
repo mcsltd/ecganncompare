@@ -10,6 +10,8 @@ class Text(object):
     CONCLUSIONS = "conclusions"
     ANNOTATOR = "annotator"
     CONCLUSION_THESAURUS = "conclusionThesaurus"
+    DATABASE = "database"
+    RECORD_ID = "record"
 
 
 class Error(Exception):
@@ -151,6 +153,15 @@ def _remove_deviations(dataset, fieldname):
 def _print_folders_names(folders):
     print("Plotting annotation distribution histograms from folders: " +
           ", ".join(folders))
+
+
+def _print_removed_items(items, fieldname):
+    for item in items:
+        message = "Removed {0}-{1} with {2} = {3}".format(
+            item[Text.DATABASE], item[Text.RECORD_ID], fieldname,
+            item[fieldname]
+        )
+        print(message)
 
 
 if __name__ == "__main__":
