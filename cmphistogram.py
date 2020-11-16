@@ -30,7 +30,11 @@ _WINDOW_TITLE = "Annotations comparing"
 
 def main():
     filenames = _parse_args(sys.argv)
-    comparing_results = [_read_annotations(fname) for fname in filenames]
+    if filenames is None:
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        comparing_results = _compare_inside_folder(current_dir)
+    else:
+        comparing_results = [_read_annotations(fname) for fname in filenames]
     _plot_comparing_results(comparing_results)
     plt.show()
 
