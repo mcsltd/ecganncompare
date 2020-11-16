@@ -37,6 +37,7 @@ def main():
     else:
         comparing_results = [_read_comparing_result(fname)
                              for fname in filenames]
+    _print_comparint_results(*comparing_results)
     _plot_comparing_results(comparing_results)
     plt.show()
 
@@ -230,7 +231,7 @@ def _print_comparint_results(*results):
         matches_count = _count_items(cresult.codes, lambda x: x[0] == x[1])
         print("Matches: %d" % matches_count)
         misses_count = _count_items(cresult.codes, lambda x: x[0] != x[1])
-        print("Misses: %d" % misses_count)
+        print("Misses: %d\n" % misses_count)
 
 
 def _count_items(iterable, predicate):
