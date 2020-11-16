@@ -31,7 +31,6 @@ def main():
     all_data, deviations = _remove_deviations(
         all_data, Text.CONCLUSION_THESAURUS)
     if deviations:
-        print("\n")
         _print_removed_items(deviations, Text.CONCLUSION_THESAURUS)
     data_groups = _group_by(all_data, Text.ANNOTATOR)
     _print_groups_info(data_groups)
@@ -152,6 +151,7 @@ def _print_removed_items(items, fieldname):
             item[fieldname]
         )
         print(message)
+    print("")
 
 
 def _print_groups_info(data_groups):
