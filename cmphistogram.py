@@ -213,6 +213,22 @@ def _merge_codes(codes, other_codes):
     return code_pairs
 
 
+def _print_comparint_results(*results):
+    for cresult in results:
+        print("Comparing {0} with {1}".format(
+            cresult.ref_annotator, cresult.test_annotator
+        ))
+        # TODO: print records_count
+        ref_count = _count_items(cresult.codes, lambda x: x[0] is not None)
+        print("Reference annotations count: %d" % ref_count)
+        test_count = _count_items(cresult.codes, lambda x: x[1] is not None)
+        print("Test annotations count: %d" % test_count)
+        matches_count = _count_items(cresult.codes, lambda x: x[0] == x[1])
+        print("Matches: %d" % matches_count)
+        misses_count = _count_items(cresult.codes, lambda x: x[0] != x[1])
+        print("Misses: %d" % misses_count)
+
+
 def _count_items(iterable, predicate):
     return sum(1 for x in iterable if predicate(x))
 
