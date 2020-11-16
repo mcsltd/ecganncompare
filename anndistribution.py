@@ -33,7 +33,8 @@ def main():
     if deviations:
         print("\n")
         _print_removed_items(deviations, Text.CONCLUSION_THESAURUS)
-    codes_groups = _extract_annotators_codes(all_data)
+    data_groups = _group_by(all_data, Text.ANNOTATOR)
+    codes_groups = _extract_annotators_codes(data_groups)
     _plot_histogram(codes_groups.values(), codes_groups.keys())
     plt.show()
 
@@ -114,12 +115,12 @@ def _group_by(iterable_data, fieldname):
     return groups
 
 
-def _extract_annotators_codes(all_data):
-    groups = _group_by(all_data, Text.ANNOTATOR)
-    for gname in groups:
-        dataset = groups[gname]
-        groups[gname] = _to_flat(d[Text.CONCLUSIONS] for d in dataset)
-    return groups
+def _extract_annotators_codes(data_groups):
+    code_groups = {}
+    for gname in data_groups:
+        dataset = data_groups[gname]
+        code_groups[gname] = _to_flat(d[Text.CONCLUSIONS] for d in dataset)
+    return code_groups
 
 
 def _to_flat(iterable_matrix):
