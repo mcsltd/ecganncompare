@@ -28,7 +28,11 @@ def main():
         all_data = _read_json_folder(current_dir)
         folders = [current_dir]
     _print_folders_names(folders)
-    all_data, _ = _remove_deviations(all_data, Text.CONCLUSION_THESAURUS)
+    all_data, deviations = _remove_deviations(
+        all_data, Text.CONCLUSION_THESAURUS)
+    if deviations:
+        print("\n")
+        _print_removed_items(deviations, Text.CONCLUSION_THESAURUS)
     codes_groups = _extract_annotators_codes(all_data)
     _plot_histogram(codes_groups.values(), codes_groups.keys())
     plt.show()
