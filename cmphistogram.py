@@ -237,5 +237,8 @@ def _count_items(iterable, predicate):
     return sum(1 for x in iterable if predicate(x))
 
 
+def _to_flat(iterable_matrix):
+    return (item for row in iterable_matrix for item in row)
+
 if __name__ == "__main__":
     main()
