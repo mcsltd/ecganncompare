@@ -222,7 +222,7 @@ def _print_comparint_results(*results):
         print("Comparing {0} with {1}".format(
             cresult.ref_annotator, cresult.test_annotator
         ))
-        # TODO: print records_count
+        print("Records count: %d" % cresult.records_count)
         ref_count = _count_items(cresult.codes, lambda x: x[0] is not None)
         print("Reference annotations count: %d" % ref_count)
         test_count = _count_items(cresult.codes, lambda x: x[1] is not None)
