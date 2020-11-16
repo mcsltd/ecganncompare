@@ -199,5 +199,20 @@ def _dataset_to_table(dataset):
     return table
 
 
+def _merge_codes(codes, other_codes):
+    codes = sorted(codes)
+    other_codes = set(other_codes)
+    code_pairs = []
+    for code in codes:
+        if code in other_codes:
+            code_pairs.append((code, code))
+        else:
+            code_pairs.append((code, None))
+    other_codes.difference_update(codes)
+    for code in other_codes:
+        code_pairs.append((None, code))
+    return code_pairs
+
+
 if __name__ == "__main__":
     main()
