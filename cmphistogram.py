@@ -147,11 +147,13 @@ def _group_by(iterable_data, fieldname):
 
 def _select_comparing_groups(groups):
     # TODO: select ref_data by date (older)
-    if len(groups) == 2:
-        return tuple(groups.values())
-    sys.stderr.write(
-        "Warning! Comparison of more than two annotators is not supported!\n"
-    )
+    result = groups.values()
+    if len(groups) > 2:
+        result = result[:2]
+        sys.stderr.write(
+            "Warning! Comparison of more than two annotators is not supported!\n"
+        )
+    return tuple(result)
 
 
 def _compare_datasets(ref_data, other_data):
