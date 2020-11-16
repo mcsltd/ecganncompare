@@ -22,8 +22,9 @@ class Error(Exception):
         super(Error, self).__init__(message)
 
 
-ComparingResult = namedtuple("ComparingResult",
-                             ["ref_annotator", "test_annotator", "codes"])
+ComparingResult = namedtuple("ComparingResult", [
+    "ref_annotator", "test_annotator", "codes", "records_count"
+])
 
 _WINDOW_TITLE = "Annotations comparing"
 
@@ -55,7 +56,8 @@ def _read_comparing_result(filename):
     result = ComparingResult(
         ref_annotator=data[Text.REF_ANNOTATOR],
         test_annotator=data[Text.TEST_ANNOTATOR],
-        codes=codes
+        codes=codes,
+        records_count=len(data[Text.RECORDS])
     )
     return result
 
@@ -161,7 +163,8 @@ def _compare_datasets(ref_data, other_data):
     return ComparingResult(
         ref_data[0][Text.ANNOTATOR],
         other_data[0][Text.ANNOTATOR],
-        code_pairs
+        code_pairs,
+        len(ref_data)
     )
 
 
