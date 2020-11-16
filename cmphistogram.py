@@ -150,7 +150,7 @@ def _select_comparing_groups(groups):
     # TODO: select ref_data by date (older)
     result = groups.values()
     if len(groups) > 2:
-        result = result[:2]
+        result = sorted(result, key=len, reverse=True)[:2]
         sys.stderr.write(
             "Warning! Comparison of more than two annotators is not supported!\n"
         )
@@ -240,6 +240,7 @@ def _count_items(iterable, predicate):
 
 def _to_flat(iterable_matrix):
     return (item for row in iterable_matrix for item in row)
+
 
 if __name__ == "__main__":
     main()
