@@ -48,13 +48,7 @@ def _read_folders(folders):
     all_data = []
     for dirname in folders:
         folder_data = _read_json_folder(dirname)
-        try:
-            _check_folder_data(folder_data)
-        except Error as err:
-            print("Reading " + dirname + " error:")
-            print(err)
-        else:
-            all_data += folder_data
+        all_data += folder_data
     return all_data
 
 
@@ -111,16 +105,6 @@ def _read_json_files(filenames):
 def _read_json(filename):
     with open(filename, "rt") as fin:
         return json.load(fin)
-
-
-def _check_folder_data(json_set):
-    def _check_field_value(dataset, fieldname):
-        message_template = "Files from one folder must have the same '{0}'"
-        value = dataset[0][fieldname]
-        if any(x[fieldname] != value for x in dataset):
-            raise Error(message_template.format(fieldname))
-    _check_field_value(json_set, Text.ANNOTATOR)
-    _check_field_value(json_set, Text.CONCLUSION_THESAURUS)
 
 
 def _group_by(iterable_data, fieldname):
