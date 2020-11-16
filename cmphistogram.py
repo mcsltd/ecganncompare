@@ -253,5 +253,16 @@ def _remove_deviations(dataset, fieldname):
             others.append(data)
     return good_items, others
 
+
+def _print_removed_items(items, fieldname):
+    for item in items:
+        message = "Removed {0}-{1} with {2} = {3}".format(
+            item[Text.DATABASE], item[Text.RECORD_ID], fieldname,
+            item[fieldname]
+        )
+        print(message)
+    print("")
+
+
 if __name__ == "__main__":
     main()
