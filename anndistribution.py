@@ -155,7 +155,7 @@ def _print_removed_items(items, fieldname):
 
 
 def _print_groups_info(data_groups):
-    annotators = data_groups.keys()
+    annotators = list(data_groups.keys())
     thesaurus = data_groups[annotators[0]][0][Text.CONCLUSION_THESAURUS]
     print("Thesaurus: %s" % thesaurus)
     print("Annotation groups:\n")
