@@ -121,8 +121,8 @@ def _compare_inside_folder(dirname):
             "explicitly specify result files."
         )
         raise Error(message_format.format(dirname))
-    ref_data, other_data = _select_comparing_pairs(groups)[0]
-    return [_compare_datasets(ref_data, other_data)]
+    comparing_pairs = _select_comparing_pairs(groups)
+    return [_compare_datasets(p[0], p[1]) for p in comparing_pairs]
 
 
 def _read_json_folder(dirname):
