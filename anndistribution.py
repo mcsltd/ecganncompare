@@ -28,6 +28,8 @@ def main():
     if deviations:
         _print_removed_items(deviations, Text.CONCLUSION_THESAURUS)
     data_groups = _group_by(all_data, Text.ANNOTATOR)
+    data_groups = _remove_excess_groups(data_groups, _get_max_groups_count())
+    # TODO: print removed groups
     _print_groups_info(data_groups)
     codes_groups = _extract_annotators_codes(data_groups)
     _plot_histogram(codes_groups.values(), codes_groups.keys())
