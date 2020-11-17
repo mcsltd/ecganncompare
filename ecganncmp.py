@@ -191,40 +191,6 @@ def _dataset_to_table(dataset):
     return table
 
 
-def _create_general_report(records_reports):
-    report = _report_header()
-    report[Text.REF_ANNOTATOR] = records_reports[0][Text.REF_ANNOTATOR]
-    report[Text.TEST_ANNOTATOR] = records_reports[0][Text.TEST_ANNOTATOR]
-    report[Text.CONCLUSION_THESAURUS] = records_reports[0][Text.CONCLUSION_THESAURUS]
-    report[Text.RECORDS_COUNT] = len(records_reports)
-
-    total = TotalResult()
-    for item in records_reports:
-        total.match_count += item[Text.MATCH_COUNT]
-        total.ref_codes_count += item[Text.REF_ANNOTATIONS]
-        total.test_codes_count += item[Text.TEST_ANNOTATIONS]
-        total.total_count += len(item[Text.CONCLUSIONS])
-        del item[Text.TEST_ANNOTATOR]
-        del item[Text.REF_ANNOTATOR]
-        del item[Text.CONCLUSION_THESAURUS]
-
-    report[Text.REF_ANNOTATIONS] = total.ref_codes_count
-    report[Text.TEST_ANNOTATIONS] = total.test_codes_count
-    sensitivity = float(total.match_count) / total.ref_codes_count
-    report[Text.SENSITIVITY] = {
-        Text.MATCH_COUNT: total.match_count,
-        Text.VALUE: sensitivity * 100
-    }
-    excess_count = total.test_codes_count - total.match_count
-    specificity = float(excess_count) / total.test_codes_count
-    report[Text.SPECIFICITY] = {
-        Text.MISSES_COUNT: excess_count,
-        Text.VALUE: specificity * 100
-    }
-    report[Text.RECORDS] = records_reports
-    return report
-
-
 def _get_all_files(dirname, ext=""):
     all_paths = (os.path.join(dirname, x) for x in os.listdir(dirname))
     return [p for p in all_paths if os.path.isfile(p) and p.endswith(ext)]
