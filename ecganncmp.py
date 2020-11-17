@@ -58,7 +58,7 @@ def main():
         os.system("pause")
 
 
-def check_folder_data(json_set):
+def _check_folder_data(json_set):
     def _check_field_value(dataset, fieldname):
         message_template = "Files from one folder must have the same '{0}'"
         value = dataset[0][fieldname]
@@ -68,12 +68,12 @@ def check_folder_data(json_set):
     _check_field_value(json_set, Text.CONCLUSION_THESAURUS)
 
 
-def read_json_folder(dirname):
+def _read_json_folder(dirname):
     all_files = _get_all_files(dirname, ".json")
-    return read_json_files(all_files)
+    return _read_json_files(all_files)
 
 
-def read_json_files(filenames):
+def _read_json_files(filenames):
     results = []
     for filename in filenames:
         try:
@@ -86,7 +86,7 @@ def read_json_files(filenames):
 def _parse_args(args):
     if len(args) < 3:
         return None, None
-    return args[1], args[2]
+    return tuple(args[:2])
 
 
 def _merge_codes(codes, other_codes):
@@ -133,20 +133,20 @@ def _check_input(ref_input, other_input):
 
 
 def _compare_folders(ref_input, other_input):
-    ref_files = read_json_folder(ref_input)
-    other_files = read_json_folder(other_input)
+    ref_files = _read_json_folder(ref_input)
+    other_files = _read_json_folder(other_input)
     return _compare_datasets(ref_files, other_files)
 
 
 def _compare_filesets(ref_fileset, other_fileset):
-    ref_data = read_json_files(ref_fileset)
-    other_data = read_json_files(other_fileset)
+    ref_data = _read_json_files(ref_fileset)
+    other_data = _read_json_files(other_fileset)
     return _compare_datasets(ref_data, other_data)
 
 
 def _compare_datasets(ref_data, other_data):
-    check_folder_data(ref_data)
-    check_folder_data(other_data)
+    _check_folder_data(ref_data)
+    _check_folder_data(other_data)
     record_reports = _create_reports(ref_data, other_data)
     general_report = _create_general_report(record_reports)
     text = _write_report(general_report)
@@ -252,7 +252,7 @@ def _compare_inside_folder(dirname):
     report_filename = os.path.join(dirname, "cmp_result.txt")
     if os.path.exists(report_filename):
         os.remove(report_filename)
-    all_jsons = read_json_folder(dirname)
+    all_jsons = _read_json_folder(dirname)
     groups = _group_by(all_jsons, Text.ANNOTATOR)
     if len(groups) < 2:
         message_format = (
