@@ -24,9 +24,10 @@ def main():
     if folders is not None:
         all_data = _read_folders(folders)
     else:
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        all_data = _read_json_folder(current_dir)
-        folders = [current_dir]
+        default_data_folder = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "data")
+        all_data = _read_json_folder(default_data_folder)
+        folders = [default_data_folder]
     _print_folders_names(folders)
     all_data, deviations = _remove_deviations(
         all_data, Text.CONCLUSION_THESAURUS)

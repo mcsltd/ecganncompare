@@ -32,8 +32,9 @@ _WINDOW_TITLE = "Annotations comparing"
 def main():
     filenames = _parse_args(sys.argv)
     if filenames is None:
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        comparing_results = _compare_inside_folder(current_dir)
+        default_data_folder = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "data")
+        comparing_results = _compare_inside_folder(default_data_folder)
     else:
         comparing_results = [_read_comparing_result(fname)
                              for fname in filenames]
