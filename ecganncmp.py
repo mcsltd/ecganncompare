@@ -282,5 +282,41 @@ def _select_comparing_groups(groups):
         "Comparison of more than two annotators is not supported")
 
 
+def _create_report(ref_data, other_data):
+    report = _report_header()
+    report[Text.REF_ANNOTATOR] = ref_data[0][Text.ANNOTATOR]
+    report[Text.TEST_ANNOTATOR] = other_data[0][Text.ANNOTATOR]
+    report[Text.CONCLUSION_THESAURUS] = ref_data[0][Text.CONCLUSION_THESAURUS]
+    report[Text.RECORDS_COUNT] = len(ref_data)
+
+    records_count = 0
+    other_data = _dataset_to_table(other_data)
+    total = TotalResult()
+    for item in ref_data:
+        total.match_count += item[Text.MATCH_COUNT]
+        total.ref_codes_count += item[Text.REF_ANNOTATIONS]
+        total.test_codes_count += item[Text.TEST_ANNOTATIONS]
+        total.total_count += len(item[Text.CONCLUSIONS])
+        del item[Text.TEST_ANNOTATOR]
+        del item[Text.REF_ANNOTATOR]
+        del item[Text.CONCLUSION_THESAURUS]
+
+    report[Text.REF_ANNOTATIONS] = total.ref_codes_count
+    report[Text.TEST_ANNOTATIONS] = total.test_codes_count
+    sensitivity = float(total.match_count) / total.ref_codes_count
+    report[Text.SENSITIVITY] = {
+        Text.MATCH_COUNT: total.match_count,
+        Text.VALUE: sensitivity * 100
+    }
+    excess_count = total.test_codes_count - total.match_count
+    specificity = float(excess_count) / total.test_codes_count
+    report[Text.SPECIFICITY] = {
+        Text.MISSES_COUNT: excess_count,
+        Text.VALUE: specificity * 100
+    }
+    report[Text.RECORDS] = records_reports
+    return report
+
+
 if __name__ == "__main__":
     main()
