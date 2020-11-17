@@ -182,23 +182,6 @@ def _create_record_report(code_pairs, ref_data, other_data):
     return report
 
 
-def _create_reports(ref_data, other_data):
-    reports = []
-    other_data = _dataset_to_table(other_data)
-    for ref_item in ref_data:
-        db = ref_item[Text.DATABASE]
-        name = ref_item[Text.RECORD_ID]
-        try:
-            other_item = other_data[db][name]
-        except KeyError:
-            continue
-        code_pairs = _merge_codes(ref_item[Text.CONCLUSIONS],
-                                  other_item[Text.CONCLUSIONS])
-        new_report = _create_record_report(code_pairs, ref_item, other_item)
-        reports.append(new_report)
-    return reports
-
-
 def _dataset_to_table(dataset):
     table = defaultdict(dict)
     for item in dataset:
