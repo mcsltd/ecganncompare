@@ -173,5 +173,10 @@ def _remove_excess_groups(data_groups):
     return dict(sorted_pairs[:max_groups_count])
 
 
+def _get_max_groups_count():
+    colros = plt.rcParams["axes.prop_cycle"].by_key()["color"]
+    return len(colors)
+
+
 if __name__ == "__main__":
     main()
