@@ -121,7 +121,7 @@ def _compare_inside_folder(dirname):
             "explicitly specify result files."
         )
         raise Error(message_format.format(dirname))
-    ref_data, other_data = _select_comparing_groups(groups)
+    ref_data, other_data = _select_comparing_groups(groups)[0]
     return [_compare_datasets(ref_data, other_data)]
 
 
@@ -159,7 +159,7 @@ def _select_comparing_groups(groups):
             "Warning! Comparison of more than two annotators is not "
             "supported!\n"
         )
-    return tuple(result)
+    return [tuple(result)]
 
 
 def _compare_datasets(ref_data, other_data):
