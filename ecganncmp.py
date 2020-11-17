@@ -157,31 +157,6 @@ def _read_json(filename):
         return json.load(fin)
 
 
-def _create_record_report(code_pairs, ref_data, other_data):
-    report = OrderedDict()
-    report[Text.RECORD_ID] = ref_data[Text.RECORD_ID]
-    report[Text.DATABASE] = ref_data[Text.DATABASE]
-    report[Text.CONCLUSION_THESAURUS] = ref_data[Text.CONCLUSION_THESAURUS]
-    report[Text.REF_ANNOTATOR] = ref_data[Text.ANNOTATOR]
-    report[Text.TEST_ANNOTATOR] = other_data[Text.ANNOTATOR]
-
-    ref_codes_count = 0
-    match_count = 0
-    test_codes_count = 0
-    for pair in code_pairs:
-        if pair[0] is not None:
-            ref_codes_count += 1
-            if pair[0] == pair[1]:
-                match_count += 1
-        if pair[1] is not None:
-            test_codes_count += 1
-    report[Text.REF_ANNOTATIONS] = ref_codes_count
-    report[Text.TEST_ANNOTATIONS] = test_codes_count
-    report[Text.MATCH_COUNT] = match_count
-    report[Text.CONCLUSIONS] = code_pairs
-    return report
-
-
 def _dataset_to_table(dataset):
     table = defaultdict(dict)
     for item in dataset:
