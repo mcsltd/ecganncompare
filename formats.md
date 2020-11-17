@@ -30,20 +30,31 @@ Input files must be in JSON format. The files contain the following data
 
 Result of comparing files have a JSON format and contains the following data
 
-| Name                | Type    | Description                                                                               |
-| ------------------- | ------- | ----------------------------------------------------------------------------------------- |
-| program             | object  | Contains two string fields `name` and `version`                                           |
-| company             | string  | Contains company info                                                                     |
-| date                | string  | Date and time of file creation in UTC format                                              |
-| record              | string  | Record's name                                                                             |
-| database            | string  | Database name                                                                             |
-| conclusionThesaurus | string  | Label of conclusion thesaurus in both files                                               |
-| refAnnotator        | string  | Annotator of reference file name                                                          |
-| testAnnotator       | string  | Annotator of test file name                                                               |
-| refAnnotations      | integer | Total count of annotations in reference file                                              |
-| testAnnotations     | integer | Total count of annotations in test file                                                   |
-| matchCount          | integer | Number of matched annotations in this record                                              |
-| conclusion          | array   | Array of pairs: reference annotation and test annotation or null if one of them is missed |
+| Name                | Type    | Description                                                       |
+| ------------------- | ------- | ----------------------------------------------------------------- |
+| program             | object  | Contains two string fields `name` and `version`                   |
+| company             | string  | Contains company info                                             |
+| date                | string  | Date and time of file creation in UTC format                      |
+| refAnnotator        | string  | Annotator of reference file name                                  |
+| testAnnotator       | string  | Annotator of test file name                                       |
+| conclusionThesaurus | string  | Label of conclusion thesaurus in both files                       |
+| reсordsCount        | integer | Count of processed records                                        |
+| refAnnotations      | integer | Total count of annotations in reference file                      |
+| testAnnotations     | integer | Total count of annotations in test file                           |
+| sensitivity         | object  | Contains two numbers: `matchCount` and `value`                    |
+| specificity         | object  | Contains two numbers: `missesCount` and `value`                   |
+| records             | array   | Array of objects with info and comaprision result for each record |
+
+Each object in array `records` contains the following fields
+
+| Name            | Type    | Description                                                                               |
+| --------------- | ------- | ----------------------------------------------------------------------------------------- |
+| record          | string  | Record's name                                                                             |
+| database        | string  | Database name                                                                             |
+| refAnnotations  | integer | Count of annotations in reference file for this record                                    |
+| testAnnotations | integer | Count of annotations in test file for this record                                         |
+| matchCount      | integer | Number of matched annotations in this record                                              |
+| conclusions     | array   | Array of pairs: reference annotation and test annotation or null if one of them is missed |
 
 ## Output example
 
@@ -66,7 +77,7 @@ Result of comparing files have a JSON format and contains the following data
   "conclusions": [
     ["1.1.1", "1.1.1"],
     ["3.1.5", "3.1.5"],
-    ["6.1.1", null], 
+    ["6.1.1", null],
     [null, "7.1.1"]
   ]
 }
