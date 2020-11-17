@@ -164,13 +164,12 @@ def _print_groups_info(data_groups):
         print("Conclusions count: %d\n" % codes_count)
 
 
-def _remove_excess_groups(data_groups):
-    max_groups_count = len(plt.rcParams["axes.prop_cycle"].by_key()["color"])
-    if len(data_groups) < max_groups_count:
+def _remove_excess_groups(data_groups, max_count):
+    if len(data_groups) < max_count:
         return data_groups
     sorted_pairs = sorted(data_groups.items(), key=(lambda p: len(p[1])),
                           reverse=True)
-    return dict(sorted_pairs[:max_groups_count])
+    return dict(sorted_pairs[:max_count])
 
 
 def _get_max_groups_count():
