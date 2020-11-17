@@ -121,7 +121,7 @@ def _compare_inside_folder(dirname):
             "explicitly specify result files."
         )
         raise Error(message_format.format(dirname))
-    ref_data, other_data = _select_comparing_groups(groups)[0]
+    ref_data, other_data = _select_comparing_pairs(groups)[0]
     return [_compare_datasets(ref_data, other_data)]
 
 
@@ -150,7 +150,7 @@ def _group_by(iterable_data, fieldname):
     return groups
 
 
-def _select_comparing_groups(groups):
+def _select_comparing_pairs(groups):
     # TODO: select ref_data by date (older)
     result = groups.values()
     if len(groups) > 2:
