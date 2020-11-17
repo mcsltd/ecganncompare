@@ -30,6 +30,8 @@ _WINDOW_TITLE = "Annotations comparing"
 
 
 def main():
+    # TODO: handle 1 param as directory for processing (if dir)
+    # TODO: handle multiple params as files with results or folders
     filenames = _parse_args(sys.argv)
     if filenames is None:
         default_data_folder = os.path.join(
