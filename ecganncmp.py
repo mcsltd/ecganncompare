@@ -86,7 +86,7 @@ def _read_json_files(filenames):
 def _parse_args(args):
     if len(args) < 3:
         return None, None
-    return tuple(args[:2])
+    return tuple(args[1:3])
 
 
 def _merge_codes(codes, other_codes):
