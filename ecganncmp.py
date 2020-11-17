@@ -29,7 +29,7 @@ class Text(object):
     MISSES_COUNT = "missesCount"
 
 
-class TotalResult():
+class TotalResult(object):
     def __init__(self):
         self.total_count = 0
         self.match_count = 0
