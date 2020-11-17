@@ -147,10 +147,8 @@ def _compare_filesets(ref_fileset, other_fileset):
 def _compare_datasets(ref_data, other_data):
     _check_folder_data(ref_data)
     _check_folder_data(other_data)
-    record_reports = _create_reports(ref_data, other_data)
-    general_report = _create_general_report(record_reports)
-    temp = _create_report(ref_data, other_data)
-    text = _write_report(general_report)
+    report = _create_report(ref_data, other_data)
+    text = _write_report(report)
     return text
 
 
