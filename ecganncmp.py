@@ -52,7 +52,6 @@ def main():
             if os.path.isdir(ref_input):
                 _compare_folders(ref_input, other_input)
             else:
-                # TODO: update output format description
                 _compare_filesets([ref_input], [other_input])
     except Error as exc:
         print("Error: {0}\n".format(exc))
