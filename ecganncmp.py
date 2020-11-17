@@ -318,5 +318,29 @@ def _create_report(ref_data, other_data):
     return report
 
 
+def _compare_record_annotations(ref_data, other_data):
+    report = OrderedDict()
+    report[Text.RECORD_ID] = ref_data[Text.RECORD_ID]
+    report[Text.DATABASE] = ref_data[Text.DATABASE]
+
+    ref_codes_count = 0
+    match_count = 0
+    test_codes_count = 0
+    code_pairs = _merge_codes(ref_data[Text.CONCLUSIONS],
+                              other_data[Text.CONCLUSIONS])
+    for pair in code_pairs:
+        if pair[0] is not None:
+            ref_codes_count += 1
+            if pair[0] == pair[1]:
+                match_count += 1
+        if pair[1] is not None:
+            test_codes_count += 1
+    report[Text.REF_ANNOTATIONS] = ref_codes_count
+    report[Text.TEST_ANNOTATIONS] = test_codes_count
+    report[Text.MATCH_COUNT] = match_count
+    report[Text.CONCLUSIONS] = code_pairs
+    return report
+
+
 if __name__ == "__main__":
     main()
