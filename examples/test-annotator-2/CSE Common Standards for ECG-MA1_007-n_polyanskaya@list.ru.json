@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2020-10-04T15:42:43.133Z",
-  "annotator": "n_polyanskaya@list.ru",
+  "annotator": "test-annotator-2",
   "database": "CSE Common Standards for ECG",
   "record": "MA1_007",
   "conclusionThesaurus": "MCS",
