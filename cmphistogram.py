@@ -154,14 +154,16 @@ def _group_by(iterable_data, fieldname):
 
 def _select_comparing_pairs(groups):
     # TODO: select ref_data by date (older)
-    result = groups.values()
-    if len(groups) > 2:
-        result = sorted(result, key=len, reverse=True)[:2]
-        sys.stderr.write(
-            "Warning! Comparison of more than two annotators is not "
-            "supported!\n"
-        )
-    return [tuple(result)]
+    groups_count = len(groups)
+    if groups_count == 2:
+        return [tuple(groups.values())]
+    pairs = []
+    names = list(groups.keys())
+    for i, gname in enumerate(names):
+        ref_data = groups[gname]
+        for test_data in names[i + 1:]:
+            pairs.append((ref_data, test_data))
+    return pairs
 
 
 def _compare_datasets(ref_data, other_data):
