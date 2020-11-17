@@ -65,20 +65,56 @@ Each object in array `records` contains the following fields
     "name": "ecganncmp"
   },
   "company": "Medical computer systems (c) 2020 - www.mks.ru",
-  "date": "2020-11-05T09:17:19.452000Z",
-  "record": "patient_00001",
-  "database": "Moscow Day #67",
-  "conclusionThesaurus": "MCS",
-  "refAnnotator": "annotator1@ecg.ru",
-  "testAnnotator": "annotator2@ecg.ru",
-  "refAnnotations": 3,
+  "date": "2020-11-10T11:46:11.121000Z",
+  "refAnnotator": "test-annotator-1",
+  "testAnnotator": "test-annotator-2",
+  "conclusionThesaurus": "test-thesaurus",
+  "recordsCount": 2,
+  "refAnnotations": 4,
   "testAnnotations": 3,
-  "matchCount": 3,
-  "conclusions": [
-    ["1.1.1", "1.1.1"],
-    ["3.1.5", "3.1.5"],
-    ["6.1.1", null],
-    [null, "7.1.1"]
+  "sensitivity": {
+    "matchCount": 3,
+    "value": 75.0
+  },
+  "specificity": {
+    "missesCount": 1,
+    "value": 25.0
+  },
+  "records": [
+    {
+      "record": "MA1_001",
+      "database": "CSE Common Standards for ECG",
+      "refAnnotations": 2,
+      "testAnnotations": 1,
+      "matchCount": 1,
+      "conclusions": [
+        [
+          302,
+          null
+        ],
+        [
+          504,
+          504
+        ]
+      ]
+    },
+    {
+      "record": "MA1_002",
+      "database": "CSE Common Standards for ECG",
+      "refAnnotations": 2,
+      "testAnnotations": 2,
+      "matchCount": 2,
+      "conclusions": [
+        [
+          302,
+          302
+        ],
+        [
+          401,
+          401
+        ]
+      ]
+    }
   ]
 }
 ```
