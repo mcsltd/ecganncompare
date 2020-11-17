@@ -20,14 +20,8 @@ class Error(Exception):
 
 
 def main():
-    folders = _parse_args(sys.argv)
-    if folders is not None:
-        all_data = _read_folders(folders)
-    else:
-        default_data_folder = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), "data")
-        all_data = _read_json_folder(default_data_folder)
-        folders = [default_data_folder]
+    folders = _get_data_folders(sys.argv)
+    all_data = _read_folders(folders)
     _print_folders_names(folders)
     all_data, deviations = _remove_deviations(
         all_data, Text.CONCLUSION_THESAURUS)
@@ -40,10 +34,12 @@ def main():
     plt.show()
 
 
-def _parse_args(args):
-    if len(args) < 2:
-        return None
-    return args[1:]
+def _get_data_folders(args):
+    if len(args) >1 :
+        return args[1:]
+    default_data_folder = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "data")
+    return [default_data_folder]
 
 
 def _read_folders(folders):
