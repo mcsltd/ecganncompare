@@ -199,10 +199,14 @@ def _group_by(dataset, fieldname):
 
 def _select_comparing_groups(groups):
     # TODO: select ref_data by date (older)
-    if len(groups) == 2:
-        return tuple(groups.values())
-    raise Error(
-        "Comparison of more than two annotators is not supported")
+    result = groups.values()
+    if len(groups) > 2:
+        result = sorted(result, key=len, reverse=True)[:2]
+        os.sys.stderr.write(
+            "Warning! Comparison of more than two annotators is not "
+            "supported!\n"
+        )
+    return tuple(result)
 
 
 def _create_report(ref_data, other_data):
