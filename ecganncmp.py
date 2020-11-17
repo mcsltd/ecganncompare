@@ -149,6 +149,7 @@ def _compare_datasets(ref_data, other_data):
     _check_folder_data(other_data)
     record_reports = _create_reports(ref_data, other_data)
     general_report = _create_general_report(record_reports)
+    temp = _create_report(ref_data, other_data)
     text = _write_report(general_report)
     return text
 
@@ -287,20 +288,25 @@ def _create_report(ref_data, other_data):
     report[Text.REF_ANNOTATOR] = ref_data[0][Text.ANNOTATOR]
     report[Text.TEST_ANNOTATOR] = other_data[0][Text.ANNOTATOR]
     report[Text.CONCLUSION_THESAURUS] = ref_data[0][Text.CONCLUSION_THESAURUS]
-    report[Text.RECORDS_COUNT] = len(ref_data)
 
-    records_count = 0
     other_data = _dataset_to_table(other_data)
     total = TotalResult()
-    for item in ref_data:
-        total.match_count += item[Text.MATCH_COUNT]
-        total.ref_codes_count += item[Text.REF_ANNOTATIONS]
-        total.test_codes_count += item[Text.TEST_ANNOTATIONS]
-        total.total_count += len(item[Text.CONCLUSIONS])
-        del item[Text.TEST_ANNOTATOR]
-        del item[Text.REF_ANNOTATOR]
-        del item[Text.CONCLUSION_THESAURUS]
+    records = []
+    for ref_item in ref_data:
+        db = ref_item[Text.DATABASE]
+        rec_id = other_item[Text.RECORD_ID]
+        try:
+            other_item = other_data[db][rec_id]
+        except KeyError:
+            continue
+        record_result = _compare_record_annotations(ref_data, other_item)
+        total.match_count += record_result[Text.MATCH_COUNT]
+        total.ref_codes_count += record_result[Text.REF_ANNOTATIONS]
+        total.test_codes_count += record_result[Text.TEST_ANNOTATIONS]
+        total.total_count += len(record_result[Text.CONCLUSIONS])
+        records.append(record_result)
 
+    report[Text.RECORDS_COUNT] = len(records)
     report[Text.REF_ANNOTATIONS] = total.ref_codes_count
     report[Text.TEST_ANNOTATIONS] = total.test_codes_count
     sensitivity = float(total.match_count) / total.ref_codes_count
@@ -314,7 +320,7 @@ def _create_report(ref_data, other_data):
         Text.MISSES_COUNT: excess_count,
         Text.VALUE: specificity * 100
     }
-    report[Text.RECORDS] = records_reports
+    report[Text.RECORDS] = records
     return report
 
 
