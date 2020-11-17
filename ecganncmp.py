@@ -294,12 +294,12 @@ def _create_report(ref_data, other_data):
     records = []
     for ref_item in ref_data:
         db = ref_item[Text.DATABASE]
-        rec_id = other_item[Text.RECORD_ID]
+        rec_id = ref_item[Text.RECORD_ID]
         try:
             other_item = other_data[db][rec_id]
         except KeyError:
             continue
-        record_result = _compare_record_annotations(ref_data, other_item)
+        record_result = _compare_record_annotations(ref_item, other_item)
         total.match_count += record_result[Text.MATCH_COUNT]
         total.ref_codes_count += record_result[Text.REF_ANNOTATIONS]
         total.test_codes_count += record_result[Text.TEST_ANNOTATIONS]
