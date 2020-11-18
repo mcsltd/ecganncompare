@@ -1,10 +1,12 @@
+# coding=utf-8
 import os
 import sys
 import json
 from collections import namedtuple, defaultdict, Counter
+import argparse
+import codecs
 from matplotlib import pyplot as plt
 import pandas
-import argparse
 
 
 class Text(object):
@@ -155,7 +157,7 @@ def _read_json_folder(dirname):
 
 
 def _read_json(filename):
-    with open(filename, "rt") as fin:
+    with codecs.open(filename, "r", encoding="utf-8") as fin:
         return json.load(fin)
 
 
