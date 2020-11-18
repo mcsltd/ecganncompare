@@ -237,8 +237,10 @@ def _merge_codes(codes, other_codes):
     return code_pairs
 
 
-def _print_comparing_results(results):
+def _print_comparing_results(results, thesaurus_path=None):
+    all_codes = set()
     for cresult in results:
+        all_codes.update(_get_code(p) for p in cresult.codes)
         print("Comparing {0} with {1}".format(
             cresult.ref_annotator, cresult.test_annotator
         ))
@@ -251,6 +253,13 @@ def _print_comparing_results(results):
         print("Matches: %d" % matches_count)
         misses_count = _count_items(cresult.codes, lambda x: x[0] != x[1])
         print("Misses: %d\n" % misses_count)
+
+    if thesaurus_path is None:
+        return
+    thesaurus = _parse_thesaurus(thesaurus_path)
+    print("Annotations descritpion:")
+    for code in sorted(all_codes):
+        print("{0}: {1}".format(code, thesaurus[code]))
 
 
 def _count_items(iterable, predicate):
