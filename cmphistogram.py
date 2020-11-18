@@ -26,6 +26,9 @@ ComparingResult = namedtuple("ComparingResult", [
     "ref_annotator", "test_annotator", "codes", "records_count"
 ])
 
+InputData = namedtuple("InputData", ["paths", "thesaurus"])
+
+
 _WINDOW_TITLE = "Annotations comparing"
 
 
