@@ -34,7 +34,7 @@ _WINDOW_TITLE = "Annotations comparing"
 
 
 def main():
-    input_paths = _parse_args(sys.argv)
+    input_paths = _parse_args(sys.argv).paths
     comparing_results = []
     for path in input_paths:
         if os.path.isfile(path):
@@ -50,12 +50,15 @@ def _parse_args(args):
     parser = argparse.ArgumentParser(
         description="Plot histograms for annotations comparing"
     )
-    parser.add_argument("input_path", nargs="*",
+    parser.add_argument("input_paths", nargs="*",
                         default=[_get_default_input_dir()],
                         help="paths to input files/folders")
     parser.add_argument("--thesaurus", help="path to thesaurus")
     data = parser.parse_args(args[1:])
-    return data.input_path
+    return InputData(
+        data.input_paths,
+        data.thesaurus
+    )
 
 
 def _read_comparing_result(filename):
