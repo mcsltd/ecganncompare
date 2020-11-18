@@ -307,7 +307,7 @@ def _parse_thesaurus(filename):
     for group in data[Text.GROUPS]:
         for ann in group[Text.REPORTS]:
             result[ann[Text.ID]] = ann[Text.NAME]
-    return data
+    return result
 
 
 if __name__ == "__main__":
