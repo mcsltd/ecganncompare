@@ -16,6 +16,10 @@ class Text(object):
     CONCLUSION_THESAURUS = "conclusionThesaurus"
     DATABASE = "database"
     RECORD_ID = "record"
+    GROUPS = "groups"
+    REPORTS = "reports"
+    ID = "id"
+    NAME = "name"
 
 
 class Error(Exception):
@@ -295,6 +299,15 @@ def _print_removed_items(items, fieldname):
 def _get_default_input_dir():
     return os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "data")
+
+
+def _parse_thesaurus(filename):
+    data = _read_json(filename)
+    result = {}
+    for group in data[Text.GROUPS]:
+        for ann in group[Text.REPORTS]:
+            result[ann[Text.ID]] = ann[Text.NAME]
+    return data
 
 
 if __name__ == "__main__":
