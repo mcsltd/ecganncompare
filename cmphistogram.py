@@ -47,12 +47,15 @@ def main():
 
 
 def _parse_args(args):
-    parser = argparse.ArgumentParser()
-    parser.add_argument("input_paths", nargs="*",
-                        default=[_get_default_input_dir()])
-    parser.add_argument("--thesaurus")
+    parser = argparse.ArgumentParser(
+        description="Plot histograms for annotations comparing"
+    )
+    parser.add_argument("input_path", nargs="*",
+                        default=[_get_default_input_dir()],
+                        help="paths to input files/folders")
+    parser.add_argument("--thesaurus", help="path to thesaurus")
     data = parser.parse_args(args[1:])
-    return data.input_paths
+    return data.input_path
 
 
 def _read_comparing_result(filename):
