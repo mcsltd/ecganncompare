@@ -276,5 +276,10 @@ def _print_removed_items(items, fieldname):
     print("")
 
 
+def _get_default_input_dir():
+    return os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "data")
+
+
 if __name__ == "__main__":
     main()
