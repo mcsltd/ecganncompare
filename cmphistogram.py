@@ -38,14 +38,14 @@ _WINDOW_TITLE = "Annotations comparing"
 
 
 def main():
-    input_paths = _parse_args(sys.argv).paths
+    input_data = _parse_args(sys.argv)
     comparing_results = []
-    for path in input_paths:
+    for path in input_data.paths:
         if os.path.isfile(path):
             comparing_results.append(_read_comparing_result(path))
         else:
             comparing_results += _compare_inside_folder(path)
-    _print_comparing_results(comparing_results)
+    _print_comparing_results(comparing_results, input_data.thesaurus)
     _plot_comparing_results(comparing_results)
     plt.show()
 
