@@ -263,7 +263,7 @@ def _print_comparing_results(results, thesaurus_path=None):
     thesaurus = _parse_thesaurus(thesaurus_path)
     print("Annotations descritpion:")
     for code in sorted(all_codes):
-        print("{0}: {1}".format(code, thesaurus[code]))
+        print(u"{0}: {1}".format(code, thesaurus[code]))
 
 
 def _count_items(iterable, predicate):
