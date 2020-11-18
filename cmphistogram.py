@@ -4,6 +4,7 @@ import json
 from collections import namedtuple, defaultdict, Counter
 from matplotlib import pyplot as plt
 import pandas
+import argparse
 
 
 class Text(object):
@@ -33,24 +34,25 @@ _WINDOW_TITLE = "Annotations comparing"
 
 
 def main():
-    # TODO: handle 1 param as directory for processing (if dir)
-    # TODO: handle multiple params as files with results or folders
-    filenames = _parse_args(sys.argv)
-    if filenames is None:
-        default_data_folder = _get_default_input_dir()
-        comparing_results = _compare_inside_folder(default_data_folder)
-    else:
-        comparing_results = [_read_comparing_result(fname)
-                             for fname in filenames]
+    input_paths = _parse_args(sys.argv)
+    comparing_results = []
+    for path in input_paths:
+        if os.path.isfile(path):
+            comparing_results.append(_read_comparing_result(path))
+        else:
+            comparing_results += _compare_inside_folder(path)
     _print_comparing_results(comparing_results)
     _plot_comparing_results(comparing_results)
     plt.show()
 
 
 def _parse_args(args):
-    if len(args) < 2:
-        return None
-    return args[1:]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input_paths", nargs="*",
+                        default=[_get_default_input_dir()])
+    parser.add_argument("--thesaurus")
+    data = parser.parse_args(args[1:])
+    return data.input_paths
 
 
 def _read_comparing_result(filename):
