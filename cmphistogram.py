@@ -37,8 +37,7 @@ def main():
     # TODO: handle multiple params as files with results or folders
     filenames = _parse_args(sys.argv)
     if filenames is None:
-        default_data_folder = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), "data")
+        default_data_folder = _get_default_input_dir()
         comparing_results = _compare_inside_folder(default_data_folder)
     else:
         comparing_results = [_read_comparing_result(fname)
