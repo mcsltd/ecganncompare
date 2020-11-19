@@ -181,6 +181,7 @@ def _compare_inside_folder(dirname):
     if os.path.exists(report_filename):
         os.remove(report_filename)
     all_jsons = _read_json_folder(dirname)
+    # TODO: check thesaurus
     groups = _group_by(all_jsons, Text.ANNOTATOR)
     if len(groups) < 2:
         message_format = (
@@ -277,6 +278,20 @@ def _compare_record_annotations(ref_data, other_data):
     report[Text.MATCH_COUNT] = match_count
     report[Text.CONCLUSIONS] = code_pairs
     return report
+
+
+def _select_comparing_pairs(groups):
+    # TODO: select ref_data by date (older)
+    groups_count = len(groups)
+    if groups_count == 2:
+        return [tuple(groups.values())]
+    pairs = []
+    names = list(groups.keys())
+    for i, gname in enumerate(names):
+        ref_data = groups[gname]
+        for test_data in names[i + 1:]:
+            pairs.append((ref_data, test_data))
+    return pairs
 
 
 if __name__ == "__main__":
