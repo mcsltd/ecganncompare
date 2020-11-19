@@ -27,7 +27,7 @@ class Error(Exception):
 
 
 def main():
-    folders = _get_data_folders(sys.argv).input_folders
+    folders = _parse_args(sys.argv).input_folders
     all_data = _read_folders(folders)
     _print_folders_names(folders)
     all_data, deviations = _remove_deviations(
@@ -43,7 +43,7 @@ def main():
     plt.show()
 
 
-def _get_data_folders(args):
+def _parse_args(args):
     default_data_folder = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "data")
     parser = argparse.ArgumentParser(
