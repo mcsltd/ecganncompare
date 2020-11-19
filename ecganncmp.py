@@ -50,12 +50,12 @@ InputData = namedtuple("InputData", ["ref_path", "test_path", "dirname"])
 def main():
     try:
         input_data = _parse_args(os.sys.argv)
-        _handle_inputs(input_data.ref_path, input_data.test_path)
+        _handle_input_data(input_data.ref_path, input_data.test_path)
     except Error as exc:
         print("Error: {0}\n".format(exc))
 
 
-def _handle_inputs(ref_input, other_input):
+def _handle_input_data(ref_input, other_input):
     if ref_input is None:
         default_data_folder = os.path.join(
             os.path.dirname(os.path.abspath(__file__)), "data")
