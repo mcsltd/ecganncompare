@@ -186,6 +186,7 @@ def _compare_inside_folder(dirname):
     if os.path.exists(report_filename):
         os.remove(report_filename)
     all_jsons = _read_json_folder(dirname)
+    all_jsons = _remove_results(all_jsons)
     # TODO: check thesaurus
     groups = _group_by(all_jsons, Text.ANNOTATOR)
     if len(groups) < 2:
