@@ -294,5 +294,10 @@ def _select_comparing_pairs(groups):
     return pairs
 
 
+def _create_report_filename(cmpresult):
+    return "{0}-{1}.json".format(
+        cmpresult[Text.TEST_ANNOTATOR], cmpresult[Text.REF_ANNOTATOR])
+
+
 if __name__ == "__main__":
     main()
