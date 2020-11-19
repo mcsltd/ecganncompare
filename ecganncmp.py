@@ -53,9 +53,10 @@ def main():
         else:
             _check_input(ref_input, other_input)
             if os.path.isdir(ref_input):
-                _compare_folders(ref_input, other_input)
+                cmpresult = _compare_folders(ref_input, other_input)
             else:
-                _compare_filesets([ref_input], [other_input])
+                cmpresult = _compare_filesets([ref_input], [other_input])
+            _write_report(cmpresult)
     except Error as exc:
         print("Error: {0}\n".format(exc))
         os.system("pause")
@@ -147,8 +148,7 @@ def _compare_folders(ref_input, other_input):
 def _compare_filesets(ref_fileset, other_fileset):
     ref_data = _read_json_files(ref_fileset)
     other_data = _read_json_files(other_fileset)
-    cmpresult = _compare_datasets(ref_data, other_data)
-    return _write_report(cmpresult)
+    return _compare_datasets(ref_data, other_data)
 
 
 def _compare_datasets(ref_data, other_data):
