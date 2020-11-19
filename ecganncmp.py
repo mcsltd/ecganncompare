@@ -28,6 +28,7 @@ class Text(object):
     SPECIFICITY = "specificity"
     MISSES_COUNT = "missesCount"
     TYPE = "type"
+    CMPRESULT = "cmpresult"
 
 
 class TotalResult(object):
@@ -306,6 +307,11 @@ def _write_results_to_files(dirname, *results):
         filename = os.path.join(dirname, filename)
         with open(filename, "w") as fout:
             _write_report(cmpres, fout)
+
+
+def _remove_results(dataset):
+    return [d for d in dataset
+            if Text.TYPE in d and d[Text.TYPE] == Text.CMPRESULT]
 
 
 if __name__ == "__main__":
