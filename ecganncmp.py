@@ -153,8 +153,8 @@ def _compare_filesets(ref_fileset, other_fileset):
 def _compare_datasets(ref_data, other_data):
     _check_folder_data(ref_data)
     _check_folder_data(other_data)
-    report = _create_report(ref_data, other_data)
-    text = _write_report(report)
+    cmpresult = _create_report(ref_data, other_data)
+    text = _write_report(cmpresult)
     return text
 
 
