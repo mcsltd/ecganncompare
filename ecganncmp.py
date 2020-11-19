@@ -2,7 +2,7 @@
 import os
 import json
 from datetime import datetime
-from collections import OrderedDict, defaultdict
+from collections import OrderedDict, defaultdict, Counter
 
 
 class Text(object):
@@ -184,7 +184,7 @@ def _get_all_jsons(dirname):
 def _compare_inside_folder(dirname):
     all_jsons = _read_json_folder(dirname)
     all_jsons = _remove_results(all_jsons)
-    # TODO: check thesaurus
+    all_jsons, _ = _remove_deviations(all_jsons, Text.CONCLUSION_THESAURUS)
     groups = _group_by(all_jsons, Text.ANNOTATOR)
     if len(groups) < 2:
         message_format = (
@@ -307,6 +307,18 @@ def _write_results_to_files(dirname, *results):
 def _remove_results(dataset):
     return [d for d in dataset
             if Text.TYPE not in d or d[Text.TYPE] != Text.CMPRESULT]
+
+
+def _remove_deviations(dataset, fieldname):
+    counts = Counter(data[fieldname] for data in dataset)
+    common_value = counts.most_common()[0][0]
+    good_items, others = [], []
+    for data in dataset:
+        if data[fieldname] == common_value:
+            good_items.append(data)
+        else:
+            others.append(data)
+    return good_items, others
 
 
 if __name__ == "__main__":
