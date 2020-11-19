@@ -49,6 +49,8 @@ def main():
             comparing_results += _compare_inside_folder(path)
     _print_comparing_results(comparing_results, input_data.thesaurus)
     _plot_comparing_results(comparing_results)
+    if input_data.thesaurus is not None:
+        _show_annotations_text(comparing_results, input_data.thesaurus)
     plt.show()
 
 
