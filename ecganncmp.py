@@ -225,9 +225,10 @@ def _select_comparing_pairs(groups):
     names = list(groups.keys())
     for i, gname in enumerate(names):
         ref_data = groups[gname]
-        for test_data in names[i + 1:]:
-            pairs.append((ref_data, test_data))
+        for other_name in names[i + 1:]:
+            pairs.append((ref_data, groups[other_name]))
     return pairs
+
 
 def _create_report(ref_data, other_data):
     report = _report_header()
@@ -292,20 +293,6 @@ def _compare_record_annotations(ref_data, other_data):
     report[Text.MATCH_COUNT] = match_count
     report[Text.CONCLUSIONS] = code_pairs
     return report
-
-
-def _select_comparing_pairs(groups):
-    # TODO: select ref_data by date (older)
-    groups_count = len(groups)
-    if groups_count == 2:
-        return [tuple(groups.values())]
-    pairs = []
-    names = list(groups.keys())
-    for i, gname in enumerate(names):
-        ref_data = groups[gname]
-        for test_data in names[i + 1:]:
-            pairs.append((ref_data, test_data))
-    return pairs
 
 
 def _write_results_to_files(dirname, *results):
