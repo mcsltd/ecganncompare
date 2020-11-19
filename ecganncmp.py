@@ -2,7 +2,7 @@
 import os
 import json
 from datetime import datetime
-from collections import OrderedDict, defaultdict, Counter
+from collections import OrderedDict, defaultdict, Counter, namedtuple
 
 
 class Text(object):
@@ -44,10 +44,13 @@ class Error(Exception):
         super(Error, self).__init__(message)
 
 
+InputData = namedtuple("InputData", ["ref_path", "test_path", "dirname"])
+
+
 def main():
     try:
-        ref_input, other_input = _parse_args(os.sys.argv)
-        _handle_inputs(ref_input, other_input)
+        input_data = _parse_args(os.sys.argv)
+        _handle_inputs(input_data.ref_path, input_data.test_path)
     except Error as exc:
         print("Error: {0}\n".format(exc))
 
@@ -94,8 +97,8 @@ def _read_json_files(filenames):
 
 def _parse_args(args):
     if len(args) < 3:
-        return None, None
-    return tuple(args[1:3])
+        return InputData(None, None, None)
+    return InputData(args[1], args[2], None)
 
 
 def _merge_codes(codes, other_codes):
