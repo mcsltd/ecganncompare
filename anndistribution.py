@@ -14,6 +14,10 @@ class Text(object):
     CONCLUSION_THESAURUS = "conclusionThesaurus"
     DATABASE = "database"
     RECORD_ID = "record"
+    GROUPS = "groups"
+    REPORTS = "reports"
+    ID = "id"
+    NAME = "name"
 
 
 class Error(Exception):
@@ -195,6 +199,15 @@ def _show_annotations_text(cresults, thesaurus_path):
         for code in sorted(all_codes):
             fout.write(u"{0}: {1}\n".format(code, thesaurus[code]))
     os.startfile(filename)
+
+
+def _parse_thesaurus(filename):
+    data = _read_json(filename)
+    result = {}
+    for group in data[Text.GROUPS]:
+        for ann in group[Text.REPORTS]:
+            result[ann[Text.ID]] = ann[Text.NAME]
+    return result
 
 
 if __name__ == "__main__":
