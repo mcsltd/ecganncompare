@@ -57,7 +57,7 @@ def _handle_inputs(ref_input, other_input):
         default_data_folder = os.path.join(
             os.path.dirname(os.path.abspath(__file__)), "data")
         cmpresult = _compare_inside_folder(default_data_folder)
-        _write_results_to_files(default_data_folder, cmpresult)
+        _write_results_to_files(default_data_folder, *cmpresult)
     else:
         _check_input(ref_input, other_input)
         if os.path.isdir(ref_input):
@@ -192,8 +192,9 @@ def _compare_inside_folder(dirname):
             "explicitly specify two folders."
         )
         raise Error(message_format.format(dirname))
-    ref_data, other_data = _select_comparing_groups(groups)
-    return _compare_datasets(ref_data, other_data)
+    data_pairs = _select_comparing_pairs(groups)
+    return [_compare_datasets(ref_data, other_data)
+            for ref_data, other_data in data_pairs]
 
 
 def _group_by(dataset, fieldname):
