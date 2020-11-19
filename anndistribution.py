@@ -133,7 +133,8 @@ def _extract_annotators_codes(data_groups):
     code_groups = {}
     for gname in data_groups:
         dataset = data_groups[gname]
-        code_groups[gname] = _to_flat(d[Text.CONCLUSIONS] for d in dataset)
+        codes = _to_flat(d[Text.CONCLUSIONS] for d in dataset)
+        code_groups[gname] = list(codes)
     return code_groups
 
 
