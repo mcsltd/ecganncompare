@@ -299,9 +299,13 @@ def _select_comparing_pairs(groups):
     return pairs
 
 
-def _create_report_filename(cmpresult):
-    return "{0}-{1}.json".format(
-        cmpresult[Text.TEST_ANNOTATOR], cmpresult[Text.REF_ANNOTATOR])
+def _write_results_to_files(dirname, *results):
+    for cmpres in results:
+        filename = "{0}-{1}.json".format(
+            cmpres[Text.TEST_ANNOTATOR], cmpres[Text.REF_ANNOTATOR])
+        filename = os.path.join(dirname, filename)
+        with open(filename, "w") as fout:
+            _write_report(cmpres, fout)
 
 
 if __name__ == "__main__":
