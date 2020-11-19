@@ -108,6 +108,7 @@ def _merge_codes(codes, other_codes):
 
 def _report_header():
     return OrderedDict([
+        ("type", "cmpresult"),
         ("program", {
             "name": Text.PROGRAM_NAME,
             "version": Text.PROGRAM_VERSION
