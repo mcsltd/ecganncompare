@@ -47,7 +47,7 @@ def main():
             comparing_results.append(_read_comparing_result(path))
         else:
             comparing_results += _compare_inside_folder(path)
-    _print_comparing_results(comparing_results, input_data.thesaurus)
+    _print_comparing_results(comparing_results)
     _plot_comparing_results(comparing_results)
     if input_data.thesaurus is not None:
         _show_annotations_text(comparing_results, input_data.thesaurus)
@@ -245,7 +245,7 @@ def _merge_codes(codes, other_codes):
     return code_pairs
 
 
-def _print_comparing_results(results, thesaurus_path=None):
+def _print_comparing_results(results):
     all_codes = set()
     for cresult in results:
         all_codes.update(_get_code(p) for p in cresult.codes)
@@ -261,13 +261,6 @@ def _print_comparing_results(results, thesaurus_path=None):
         print("Matches: %d" % matches_count)
         misses_count = _count_items(cresult.codes, lambda x: x[0] != x[1])
         print("Misses: %d\n" % misses_count)
-
-    if thesaurus_path is None:
-        return
-    thesaurus = _parse_thesaurus(thesaurus_path)
-    print("Annotations descritpion:")
-    for code in sorted(all_codes):
-        print(u"{0}: {1}".format(code, thesaurus[code]))
 
 
 def _count_items(iterable, predicate):
