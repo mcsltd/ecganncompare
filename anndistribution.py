@@ -2,6 +2,8 @@ import os
 import sys
 import json
 from collections import defaultdict, Counter
+import argparse
+
 from matplotlib import pyplot as plt
 import pandas
 
@@ -20,7 +22,7 @@ class Error(Exception):
 
 
 def main():
-    folders = _get_data_folders(sys.argv)
+    folders = _get_data_folders(sys.argv).input_folders
     all_data = _read_folders(folders)
     _print_folders_names(folders)
     all_data, deviations = _remove_deviations(
@@ -37,11 +39,17 @@ def main():
 
 
 def _get_data_folders(args):
-    if len(args) >1 :
-        return args[1:]
     default_data_folder = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "data")
-    return [default_data_folder]
+    parser = argparse.ArgumentParser(
+        description="Plot annotations destribution histograms"
+    )
+    parser.add_argument("input_folders", nargs="*",
+                        default=[default_data_folder],
+                        help="paths to input folders")
+    parser.add_argument("--thesaurus", help="path to thesaurus")
+    data = parser.parse_args(args[1:])
+    return data
 
 
 def _read_folders(folders):
@@ -175,7 +183,7 @@ def _remove_excess_groups(data_groups, max_count):
 
 
 def _get_max_groups_count():
-    colros = plt.rcParams["axes.prop_cycle"].by_key()["color"]
+    colors = plt.rcParams["axes.prop_cycle"].by_key()["color"]
     return len(colors)
 
 
