@@ -306,7 +306,7 @@ def _write_results_to_files(dirname, *results):
 
 def _remove_results(dataset):
     return [d for d in dataset
-            if Text.TYPE in d and d[Text.TYPE] == Text.CMPRESULT]
+            if Text.TYPE not in d or d[Text.TYPE] != Text.CMPRESULT]
 
 
 if __name__ == "__main__":
