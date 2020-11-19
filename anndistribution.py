@@ -3,6 +3,7 @@ import sys
 import json
 from collections import defaultdict, Counter
 import argparse
+import codecs
 
 from matplotlib import pyplot as plt
 import pandas
