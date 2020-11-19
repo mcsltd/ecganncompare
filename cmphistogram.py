@@ -312,5 +312,15 @@ def _parse_thesaurus(filename):
     return result
 
 
+def _show_annotations_text(cresults, thesaurus_path):
+    filename = "annotations_descritpion.txt"
+    thesaurus = _parse_thesaurus(thesaurus_path)
+    all_codes = set(_get_code(p) for cr in cresults for p in cr)
+    with codecs.open(filename, encoding="utf-8") as fout:
+        for code in sorted(all_codes):
+            fout.write(u"{0}: {1}\n".format(code, thesaurus[code]))
+    os.startfile(filename)
+
+
 if __name__ == "__main__":
     main()
