@@ -77,7 +77,7 @@ def _check_folder_data(json_set):
 
 
 def _read_json_folder(dirname):
-    all_files = _get_all_files(dirname, ".json")
+    all_files = _get_all_jsons(dirname)
     return _read_json_files(all_files)
 
 
@@ -144,8 +144,8 @@ def _check_input(*input_paths):
 
 
 def _compare_folders(ref_input, other_input):
-    ref_files = _get_all_files(ref_input)
-    other_files = _get_all_files(other_input)
+    ref_files = _get_all_jsons(ref_input)
+    other_files = _get_all_jsons(other_input)
     return _compare_filesets(ref_files, other_files)
 
 
@@ -175,9 +175,9 @@ def _dataset_to_table(dataset):
     return table
 
 
-def _get_all_files(dirname, ext=""):
+def _get_all_jsons(dirname):
     all_paths = (os.path.join(dirname, x) for x in os.listdir(dirname))
-    return [p for p in all_paths if os.path.isfile(p) and p.endswith(ext)]
+    return [p for p in all_paths if os.path.isfile(p) and p.endswith(".json")]
 
 
 def _compare_inside_folder(dirname):
