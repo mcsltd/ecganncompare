@@ -46,20 +46,24 @@ class Error(Exception):
 def main():
     try:
         ref_input, other_input = _parse_args(os.sys.argv)
-        if ref_input is None:
-            default_data_folder = os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), "data")
-            _compare_inside_folder(default_data_folder)
-        else:
-            _check_input(ref_input, other_input)
-            if os.path.isdir(ref_input):
-                cmpresult = _compare_folders(ref_input, other_input)
-            else:
-                cmpresult = _compare_filesets([ref_input], [other_input])
-            _write_report(cmpresult)
+        _handle_inputs(ref_input, other_input)
     except Error as exc:
         print("Error: {0}\n".format(exc))
         os.system("pause")
+
+
+def _handle_inputs(ref_input, other_input):
+    if ref_input is None:
+        default_data_folder = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "data")
+        _compare_inside_folder(default_data_folder)
+    else:
+        _check_input(ref_input, other_input)
+        if os.path.isdir(ref_input):
+            cmpresult = _compare_folders(ref_input, other_input)
+        else:
+            cmpresult = _compare_filesets([ref_input], [other_input])
+        _write_report(cmpresult)
 
 
 def _check_folder_data(json_set):
