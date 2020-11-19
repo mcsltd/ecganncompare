@@ -50,23 +50,25 @@ InputData = namedtuple("InputData", ["ref_path", "test_path", "dirname"])
 def main():
     try:
         input_data = _parse_args(os.sys.argv)
-        _handle_input_data(input_data.ref_path, input_data.test_path)
+        _handle_input_data(input_data)
     except Error as exc:
         print("Error: {0}\n".format(exc))
 
 
-def _handle_input_data(ref_input, other_input):
-    if ref_input is None:
+def _handle_input_data(input_data):
+    if input_data is None:
         default_data_folder = os.path.join(
             os.path.dirname(os.path.abspath(__file__)), "data")
         cmpresult = _compare_inside_folder(default_data_folder)
         _write_results_to_files(default_data_folder, *cmpresult)
     else:
-        _check_input(ref_input, other_input)
-        if os.path.isdir(ref_input):
-            cmpresult = _compare_folders(ref_input, other_input)
+        _check_input(input_data.ref_path, input_data.test_path)
+        if os.path.isdir(input_data.ref_path):
+            cmpresult = _compare_folders(
+                input_data.ref_path, input_data.test_path)
         else:
-            cmpresult = _compare_filesets([ref_input], [other_input])
+            cmpresult = _compare_filesets(
+                [input_data.ref_path], [input_data.test_path])
     _write_report(cmpresult)
 
 
@@ -97,7 +99,7 @@ def _read_json_files(filenames):
 
 def _parse_args(args):
     if len(args) < 3:
-        return InputData(None, None, None)
+        return None
     return InputData(args[1], args[2], None)
 
 
