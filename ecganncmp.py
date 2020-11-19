@@ -215,6 +215,19 @@ def _select_comparing_groups(groups):
     return tuple(result)
 
 
+def _select_comparing_pairs(groups):
+    # TODO: select ref_data by date (older)
+    groups_count = len(groups)
+    if groups_count == 2:
+        return [tuple(groups.values())]
+    pairs = []
+    names = list(groups.keys())
+    for i, gname in enumerate(names):
+        ref_data = groups[gname]
+        for test_data in names[i + 1:]:
+            pairs.append((ref_data, test_data))
+    return pairs
+
 def _create_report(ref_data, other_data):
     report = _report_header()
     report[Text.REF_ANNOTATOR] = ref_data[0][Text.ANNOTATOR]
