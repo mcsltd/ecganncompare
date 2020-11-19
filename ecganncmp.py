@@ -27,6 +27,7 @@ class Text(object):
     SENSITIVITY = "sensitivity"
     SPECIFICITY = "specificity"
     MISSES_COUNT = "missesCount"
+    TYPE = "type"
 
 
 class TotalResult(object):
@@ -108,7 +109,7 @@ def _merge_codes(codes, other_codes):
 
 def _report_header():
     return OrderedDict([
-        ("type", "cmpresult"),
+        (Text.TYPE, "cmpresult"),
         ("program", {
             "name": Text.PROGRAM_NAME,
             "version": Text.PROGRAM_VERSION
