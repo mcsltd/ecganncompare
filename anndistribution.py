@@ -193,6 +193,8 @@ def _get_max_groups_count():
 
 
 def _show_annotations_text(cresults, thesaurus_path):
+    def _get_code(pair):
+        return pair[0] if pair[0] is not None else pair[1]
     filename = "annotations_descritpion.txt"
     thesaurus = _parse_thesaurus(thesaurus_path)
     all_codes = set(_get_code(p) for cr in cresults for p in cr.codes)
