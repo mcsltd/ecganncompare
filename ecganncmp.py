@@ -57,14 +57,15 @@ def _handle_inputs(ref_input, other_input):
     if ref_input is None:
         default_data_folder = os.path.join(
             os.path.dirname(os.path.abspath(__file__)), "data")
-        _compare_inside_folder(default_data_folder)
+        cmpresult = _compare_inside_folder(default_data_folder)
+        _write_results_to_files(default_data_folder, cmpresult)
     else:
         _check_input(ref_input, other_input)
         if os.path.isdir(ref_input):
             cmpresult = _compare_folders(ref_input, other_input)
         else:
             cmpresult = _compare_filesets([ref_input], [other_input])
-        _write_report(cmpresult)
+    _write_report(cmpresult)
 
 
 def _check_folder_data(json_set):
@@ -193,8 +194,7 @@ def _compare_inside_folder(dirname):
         )
         raise Error(message_format.format(dirname))
     ref_data, other_data = _select_comparing_groups(groups)
-    cmpresult = _compare_datasets(ref_data, other_data)
-    _write_results_to_files(dirname, cmpresult)
+    return _compare_datasets(ref_data, other_data)
 
 
 def _group_by(dataset, fieldname):
