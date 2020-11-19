@@ -147,15 +147,14 @@ def _compare_folders(ref_input, other_input):
 def _compare_filesets(ref_fileset, other_fileset):
     ref_data = _read_json_files(ref_fileset)
     other_data = _read_json_files(other_fileset)
-    return _compare_datasets(ref_data, other_data)
+    cmpresult = _compare_datasets(ref_data, other_data)
+    return _write_report(cmpresult)
 
 
 def _compare_datasets(ref_data, other_data):
     _check_folder_data(ref_data)
     _check_folder_data(other_data)
-    cmpresult = _create_report(ref_data, other_data)
-    text = _write_report(cmpresult)
-    return text
+    return _create_report(ref_data, other_data)
 
 
 def _read_json(filename):
@@ -191,7 +190,8 @@ def _compare_inside_folder(dirname):
         )
         raise Error(message_format.format(dirname))
     ref_data, other_data = _select_comparing_groups(groups)
-    report = _compare_datasets(ref_data, other_data)
+    cmpresult = _compare_datasets(ref_data, other_data)
+    report = _write_report(cmpresult)
     with open(report_filename, "wt") as fout:
         fout.write(report)
     os.system("pause")
