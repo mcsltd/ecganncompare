@@ -125,12 +125,14 @@ def _write_report(report, writable=None):
     return text
 
 
-def _check_input(ref_input, other_input):
-    if not (os.path.exists(ref_input) and os.path.exists(other_input)):
+def _check_input(*input_paths):
+    def _for_all_paths(predicate):
+        return all(predicate(p) for p in input_paths)
+
+    if not _for_all_paths(os.path.exists):
         raise Error("Path not exists")
-    same_type = (os.path.isfile(ref_input) and os.path.isfile(other_input) or
-                 os.path.isdir(ref_input) and os.path.isdir(other_input))
-    if not same_type:
+
+    if not (_for_all_paths(os.path.isfile) or _for_all_paths(os.path.isdir)):
         raise Error("Both paths must point either to files or folders.")
 
 
