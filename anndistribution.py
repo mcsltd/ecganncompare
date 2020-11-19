@@ -40,6 +40,8 @@ def main():
     _print_groups_info(data_groups)
     codes_groups = _extract_annotators_codes(data_groups)
     _plot_histogram(codes_groups.values(), codes_groups.keys())
+    if data.thesaurus is not None:
+        _show_annotations_text(codes_groups, data.thesaurus)
     plt.show()
 
 
