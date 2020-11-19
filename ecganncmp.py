@@ -50,7 +50,6 @@ def main():
         _handle_inputs(ref_input, other_input)
     except Error as exc:
         print("Error: {0}\n".format(exc))
-        os.system("pause")
 
 
 def _handle_inputs(ref_input, other_input):
