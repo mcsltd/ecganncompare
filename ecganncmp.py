@@ -182,9 +182,6 @@ def _get_all_jsons(dirname):
 
 
 def _compare_inside_folder(dirname):
-    report_filename = os.path.join(dirname, "cmp_result.txt")
-    if os.path.exists(report_filename):
-        os.remove(report_filename)
     all_jsons = _read_json_folder(dirname)
     all_jsons = _remove_results(all_jsons)
     # TODO: check thesaurus
@@ -197,10 +194,7 @@ def _compare_inside_folder(dirname):
         raise Error(message_format.format(dirname))
     ref_data, other_data = _select_comparing_groups(groups)
     cmpresult = _compare_datasets(ref_data, other_data)
-    report = _write_report(cmpresult)
-    with open(report_filename, "wt") as fout:
-        fout.write(report)
-    os.system("pause")
+    _write_results_to_files(dirname, cmpresult)
 
 
 def _group_by(dataset, fieldname):
