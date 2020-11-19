@@ -27,9 +27,9 @@ class Error(Exception):
 
 
 def main():
-    folders = _parse_args(sys.argv).input_folders
-    all_data = _read_folders(folders)
-    _print_folders_names(folders)
+    data = _parse_args(sys.argv)
+    all_data = _read_folders(data.input_folders)
+    _print_folders_names(data.input_folders)
     all_data, deviations = _remove_deviations(
         all_data, Text.CONCLUSION_THESAURUS)
     if deviations:
