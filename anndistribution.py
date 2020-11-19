@@ -192,12 +192,10 @@ def _get_max_groups_count():
     return len(colors)
 
 
-def _show_annotations_text(cresults, thesaurus_path):
-    def _get_code(pair):
-        return pair[0] if pair[0] is not None else pair[1]
+def _show_annotations_text(code_groups, thesaurus_path):
     filename = "annotations_descritpion.txt"
     thesaurus = _parse_thesaurus(thesaurus_path)
-    all_codes = set(_get_code(p) for cr in cresults for p in cr.codes)
+    all_codes = set(c for gname in code_groups for c in code_groups[gname])
     with codecs.open(filename, "w", encoding="utf-8") as fout:
         for code in sorted(all_codes):
             fout.write(u"{0}: {1}\n".format(code, thesaurus[code]))
