@@ -251,6 +251,7 @@ def _create_report(ref_data, other_data):
     total = TotalResult()
     records = []
     for ref_item in ref_data:
+        # TODO: handle pairs with no common records
         db = ref_item[Text.DATABASE]
         rec_id = ref_item[Text.RECORD_ID]
         try:
