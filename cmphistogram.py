@@ -362,6 +362,7 @@ def _print_bad_results(cresults):
     message_format = "Cannot compare {0} with {1}, common records not found"
     for cr in cresults:
         print(message_format.format(cr.ref_annotator, cr.test_annotator))
+    print("")
 
 
 if __name__ == "__main__":
