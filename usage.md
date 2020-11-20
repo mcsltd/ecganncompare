@@ -41,3 +41,13 @@ Results of `cmphistogram` shown on the following image.
 - The graph legend describe colors of the bars (matches and misses).
 
 Both programs can be run without parameters, then the input data search will be performed in the folder `data` in the current folder.
+
+Also both parameters can be run with parameter `--thesaurus` as follows
+
+    python utility_name.py input_path --thesaurus=path_to_thesaurus
+
+- `path_to_thesaurus` is a path to thesaurus file
+
+In this case, along with histograms, text values corresponding to annotations will be displayed on the screen, as shown in the screenshot below.
+
+![Annotations description](./images/annotations_description.png)
