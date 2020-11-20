@@ -49,10 +49,11 @@ def main():
             comparing_results.append(_read_comparing_result(path))
         else:
             comparing_results += _compare_inside_folder(path)
-    _print_comparing_results(comparing_results)
-    _plot_comparing_results(comparing_results)
+    good_results, bad_results = _split_good_comparing_results(comparing_results)
+    _print_comparing_results(good_results)
+    _plot_comparing_results(good_results)
     if input_data.thesaurus is not None:
-        _show_annotations_text(comparing_results, input_data.thesaurus)
+        _show_annotations_text(good_results, input_data.thesaurus)
     plt.show()
 
 
