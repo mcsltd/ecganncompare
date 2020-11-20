@@ -225,12 +225,12 @@ def _create_code_pairs(ref_data, other_data):
 
 
 def _dataset_to_table(dataset):
-    table = defaultdict(lambda: defaultdict(dict))
+    table = defaultdict(dict)
     for item in dataset:
         database = item[Text.DATABASE]
         record = item[Text.RECORD_ID]
         table[database][record] = item
-    return table
+    return dict(table)
 
 
 def _merge_codes(codes, other_codes):

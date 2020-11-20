@@ -184,7 +184,7 @@ def _dataset_to_table(dataset):
         database = item[Text.DATABASE]
         record = item[Text.RECORD_ID]
         table[database][record] = item
-    return table
+    return dict(table)
 
 
 def _get_all_jsons(dirname):
