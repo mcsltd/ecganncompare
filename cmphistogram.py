@@ -51,6 +51,8 @@ def main():
             comparing_results += _compare_inside_folder(path)
     good_results, bad_results = _split_good_comparing_results(comparing_results)
     _print_comparing_results(good_results)
+    if bad_results:
+        _print_bad_results(bad_results)
     _plot_comparing_results(good_results)
     if input_data.thesaurus is not None:
         _show_annotations_text(good_results, input_data.thesaurus)
@@ -335,6 +337,12 @@ def _split_good_comparing_results(cresults):
             bad.append(cr)
         else:
             good.append(cr)
+
+
+def _print_bad_results(cresults):
+    message_format = "Cannot compare {0} with {1}, common records not found"
+    for cr in cresults:
+        print(message_format.format(cr.ref_annotator, cr.test_annotator))
 
 
 if __name__ == "__main__":
