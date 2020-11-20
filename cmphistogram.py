@@ -272,7 +272,9 @@ def _merge_codes(codes, other_codes):
     return code_pairs
 
 
-def _print_comparing_results(results):
+def _print_comparing_results(results, header=None):
+    if header is not None:
+        print(header)
     for cresult in results:
         print("Comparing {0} with {1}".format(
             cresult.ref_annotator, cresult.test_annotator
