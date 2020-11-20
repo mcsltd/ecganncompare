@@ -49,7 +49,7 @@ def main():
             comparing_results.append(_read_comparing_result(path))
         else:
             comparing_results += _compare_inside_folder(path)
-    good_results, bad_results = _split_good_comparing_results(comparing_results)
+    good_results, bad_results = _split_good_results(comparing_results)
     _print_comparing_results(good_results)
     if bad_results:
         _print_bad_results(bad_results)
@@ -330,13 +330,14 @@ def _remove_results(dataset):
             if Text.TYPE not in d or d[Text.TYPE] != Text.CMPRESULT]
 
 
-def _split_good_comparing_results(cresults):
+def _split_good_results(cresults):
     good, bad = [], []
     for cr in cresults:
         if cr.records_count == 0:
             bad.append(cr)
         else:
             good.append(cr)
+    return good, bad
 
 
 def _print_bad_results(cresults):
