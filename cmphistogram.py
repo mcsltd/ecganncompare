@@ -60,13 +60,12 @@ def main():
     if bad_results:
         _print_bad_results(bad_results)
     if not_showed_results:
-        message = (
+        header = (
             "Cannot show more than {0} histograms, the following annotator "
             "pairs not showed: "
         )
-        print(message.format(_MAX_HISTOGRAM_COUNT))
-        for cr in not_showed_results:
-            print("{0} with {1}".format(cr.ref_annotator, cr.test_annotator))
+        _print_comparing_results(
+            not_showed_results, header.format(_MAX_HISTOGRAM_COUNT))
 
     plt.show()
 
