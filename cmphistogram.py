@@ -326,5 +326,15 @@ def _remove_results(dataset):
     return [d for d in dataset
             if Text.TYPE not in d or d[Text.TYPE] != Text.CMPRESULT]
 
+
+def _split_good_comparing_results(cresults):
+    good, bad = [], []
+    for cr in cresults:
+        if cr.records_count == 0:
+            bad.append(cr)
+        else:
+            good.append(cr)
+
+
 if __name__ == "__main__":
     main()
