@@ -143,7 +143,8 @@ def _get_title(ref_annotator, test_annotator):
 def _plot_comparing_results(cresults):
     not_showed = []
     if len(cresults) > _MAX_HISTOGRAM_COUNT:
-        cresults = list(sorted(cresults, key=(lambda x: len(x.codes))))
+        cresults = list(sorted(cresults, key=(lambda x: len(x.codes)),
+                               reverse=True))
         not_showed = cresults[_MAX_HISTOGRAM_COUNT:]
         cresults = cresults[:_MAX_HISTOGRAM_COUNT]
     for cr in cresults:
