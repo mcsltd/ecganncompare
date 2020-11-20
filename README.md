@@ -16,16 +16,22 @@ See file [`usage.md`](./usage.md) for an example of using the comparison results
 
 ## Usage
 
-Python (2.6 or later) must be installed on the user's computer to run the program.
+Python (2.7 or later) must be installed on the user's computer to run the program.
 The program accepts two JSON annotation files.
 The launch is carried out through the command line.
-Two arguments must be passed to the file `ecganncmp.py` as follows
+For comparing annotation files or folder two arguments must be passed to the file `ecganncmp.py` as follows
 
     python ecganncmp.py ref_path test_path
 
 - `ref_path` is a path to file with reference annotations or folder with these files,
 - `test_path` is a path to file (or folder) with annotations, that need to be compare with reference,
 - _both paths must point either to files or folders._
+
+For comparing annotations inside some folder path to this folder must be passed as follows
+
+    python ecganncmp.py path_to_dir
+
+By default, if the program is run without parameters, it will try to find and compare annotations in the `data` folder located in the current directory.
 
 As a result of the program's work, a report is generated in JSON format.
 By default, the report is output to the console window.
