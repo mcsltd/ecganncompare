@@ -272,9 +272,7 @@ def _merge_codes(codes, other_codes):
 
 
 def _print_comparing_results(results):
-    all_codes = set()
     for cresult in results:
-        all_codes.update(_get_code(p) for p in cresult.codes)
         print("Comparing {0} with {1}".format(
             cresult.ref_annotator, cresult.test_annotator
         ))
