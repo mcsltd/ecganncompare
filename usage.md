@@ -39,3 +39,5 @@ Results of `cmphistogram` shown on the following image.
 ![Annotations comparing](./images/annotations_comparing.png)
 
 - The graph legend describe colors of the bars (matches and misses).
+
+Both programs can be run without parameters, then the input data search will be performed in the folder `data` in the current folder.
