@@ -182,8 +182,8 @@ def _select_comparing_pairs(groups):
     names = list(groups.keys())
     for i, gname in enumerate(names):
         ref_data = groups[gname]
-        for test_data in names[i + 1:]:
-            pairs.append((ref_data, test_data))
+        for other_name in names[i + 1:]:
+            pairs.append((ref_data, groups[other_name]))
     return pairs
 
 
