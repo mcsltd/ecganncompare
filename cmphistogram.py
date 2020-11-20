@@ -41,6 +41,7 @@ InputData = namedtuple("InputData", ["paths", "thesaurus"])
 _WINDOW_TITLE = "Annotations comparing"
 _MAX_HISTOGRAM_COUNT = 20
 
+
 def main():
     input_data = _parse_args(sys.argv)
     comparing_results = []
@@ -50,12 +51,23 @@ def main():
         else:
             comparing_results += _compare_inside_folder(path)
     good_results, bad_results = _split_good_results(comparing_results)
+
+    good_results, not_showed_results = _plot_comparing_results(good_results)
+    if input_data.thesaurus is not None:
+        _show_annotations_text(good_results, input_data.thesaurus)
+
     _print_comparing_results(good_results)
     if bad_results:
         _print_bad_results(bad_results)
-    _plot_comparing_results(good_results)
-    if input_data.thesaurus is not None:
-        _show_annotations_text(good_results, input_data.thesaurus)
+    if not_showed_results:
+        message = (
+            "Cannot show more than {0} histograms, the following annotator "
+            "pairs not showed: "
+        )
+        print(message.format(_MAX_HISTOGRAM_COUNT))
+        for cr in not_showed_results:
+            print("{0} with {1}".format(cr.ref_annotator, cr.test_annotator))
+
     plt.show()
 
 
