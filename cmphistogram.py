@@ -22,6 +22,8 @@ class Text(object):
     REPORTS = "reports"
     ID = "id"
     NAME = "name"
+    TYPE = "type"
+    CMPRESULT = "cmpresult"
 
 
 class Error(Exception):
@@ -131,6 +133,7 @@ def _plot_comparing_results(cresults):
 
 def _compare_inside_folder(dirname):
     all_jsons = _read_json_folder(dirname)
+    all_jsons = _remove_results(all_jsons)
     all_jsons, bad_json = _remove_deviations(all_jsons,
                                              Text.CONCLUSION_THESAURUS)
     _print_removed_items(bad_json, Text.CONCLUSION_THESAURUS)
@@ -316,6 +319,10 @@ def _show_annotations_text(cresults, thesaurus_path):
             fout.write(u"{0}: {1}\n".format(code, thesaurus[code]))
     os.startfile(filename)
 
+
+def _remove_results(dataset):
+    return [d for d in dataset
+            if Text.TYPE not in d or d[Text.TYPE] != Text.CMPRESULT]
 
 if __name__ == "__main__":
     main()

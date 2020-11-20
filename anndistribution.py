@@ -19,6 +19,8 @@ class Text(object):
     REPORTS = "reports"
     ID = "id"
     NAME = "name"
+    TYPE = "type"
+    CMPRESULT = "cmpresult"
 
 
 class Error(Exception):
@@ -30,6 +32,7 @@ def main():
     data = _parse_args(sys.argv)
     all_data = _read_folders(data.input_folders)
     _print_folders_names(data.input_folders)
+    all_data = _remove_results(all_data)
     all_data, deviations = _remove_deviations(
         all_data, Text.CONCLUSION_THESAURUS)
     if deviations:
@@ -213,6 +216,10 @@ def _parse_thesaurus(filename):
             result[ann[Text.ID]] = ann[Text.NAME]
     return result
 
+
+def _remove_results(dataset):
+    return [d for d in dataset
+            if Text.TYPE not in d or d[Text.TYPE] != Text.CMPRESULT]
 
 if __name__ == "__main__":
     main()
