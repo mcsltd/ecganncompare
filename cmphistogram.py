@@ -190,12 +190,12 @@ def _select_comparing_pairs(groups):
 def _compare_datasets(ref_data, other_data):
     _check_dataset(ref_data)
     _check_dataset(other_data)
-    code_pairs = _create_code_pairs(ref_data, other_data)
+    code_pairs, records_count = _create_code_pairs(ref_data, other_data)
     return ComparingResult(
         ref_data[0][Text.ANNOTATOR],
         other_data[0][Text.ANNOTATOR],
         code_pairs,
-        len(ref_data)
+        records_count
     )
 
 
@@ -211,6 +211,7 @@ def _check_dataset(dataset):
 
 def _create_code_pairs(ref_data, other_data):
     code_pairs = []
+    records_count = 0
     other_data = _dataset_to_table(other_data)
     for ref_item in ref_data:
         db = ref_item[Text.DATABASE]
@@ -221,7 +222,8 @@ def _create_code_pairs(ref_data, other_data):
             continue
         code_pairs += _merge_codes(ref_item[Text.CONCLUSIONS],
                                    other_item[Text.CONCLUSIONS])
-    return code_pairs
+        records_count += 1
+    return code_pairs, records_count
 
 
 def _dataset_to_table(dataset):
