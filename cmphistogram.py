@@ -39,7 +39,7 @@ InputData = namedtuple("InputData", ["paths", "thesaurus"])
 
 
 _WINDOW_TITLE = "Annotations comparing"
-
+_MAX_HISTOGRAM_COUNT = 20
 
 def main():
     input_data = _parse_args(sys.argv)
@@ -129,9 +129,15 @@ def _get_title(ref_annotator, test_annotator):
 
 
 def _plot_comparing_results(cresults):
+    not_showed = []
+    if len(cresults) > _MAX_HISTOGRAM_COUNT:
+        cresults = list(sorted(cresults, key=(lambda x: len(x.codes))))
+        not_showed = cresults[_MAX_HISTOGRAM_COUNT:]
+        cresults = cresults[:_MAX_HISTOGRAM_COUNT]
     for cr in cresults:
         plt.figure()
         _plot_histogram(cr)
+    return cresults, not_showed
 
 
 def _compare_inside_folder(dirname):
