@@ -3,6 +3,7 @@ import os
 import json
 from datetime import datetime
 from collections import OrderedDict, defaultdict, Counter, namedtuple
+import argparse
 
 
 class Text(object):
@@ -57,11 +58,9 @@ def main():
 
 
 def _handle_input_data(input_data):
-    if input_data is None:
-        default_data_folder = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), "data")
-        cmpresult = _compare_inside_folder(default_data_folder)
-        _write_results_to_files(default_data_folder, *cmpresult)
+    if input_data.dirname is not None:
+        cmpresult = _compare_inside_folder(input_data.dirname)
+        _write_results_to_files(input_data.dirname, *cmpresult)
         return cmpresult
     _check_input(input_data.ref_path, input_data.test_path)
     if os.path.isdir(input_data.ref_path):
@@ -95,9 +94,19 @@ def _read_json_files(filenames):
 
 
 def _parse_args(args):
-    if len(args) < 3:
-        return None
-    return InputData(args[1], args[2], None)
+    default_data_folder = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "data")
+
+    parser = argparse.ArgumentParser(description="Annotations comparing")
+    parser.add_argument("path", nargs="?", default=default_data_folder,
+                        help="Path to folder with all files or reference "
+                             "file/folder")
+    parser.add_argument("test_path", nargs="?",
+                        help="Path to test file/folder")
+    data = parser.parse_args(args[1:])
+    if data.test_path is None:
+        return InputData(None, None, data.path)
+    return InputData(data.path, data.test_path, None)
 
 
 def _merge_codes(codes, other_codes):
