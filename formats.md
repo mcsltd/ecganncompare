@@ -32,6 +32,7 @@ Result of comparing files have a JSON format and contains the following data
 
 | Name                | Type    | Description                                                       |
 | ------------------- | ------- | ----------------------------------------------------------------- |
+| type                | string  | Constant string must contains value `cmpresult`                   |
 | program             | object  | Contains two string fields `name` and `version`                   |
 | company             | string  | Contains company info                                             |
 | date                | string  | Date and time of file creation in UTC format                      |
@@ -60,6 +61,7 @@ Each object in array `records` contains the following fields
 
 ```json
 {
+  "type": "cmpresult",
   "program": {
     "version": "1.0",
     "name": "ecganncmp"
@@ -88,14 +90,8 @@ Each object in array `records` contains the following fields
       "testAnnotations": 1,
       "matchCount": 1,
       "conclusions": [
-        [
-          302,
-          null
-        ],
-        [
-          504,
-          504
-        ]
+        [302, null],
+        [504, 504]
       ]
     },
     {
@@ -105,14 +101,8 @@ Each object in array `records` contains the following fields
       "testAnnotations": 2,
       "matchCount": 2,
       "conclusions": [
-        [
-          302,
-          302
-        ],
-        [
-          401,
-          401
-        ]
+        [302, 302],
+        [401, 401]
       ]
     }
   ]
