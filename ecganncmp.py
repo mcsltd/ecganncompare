@@ -215,18 +215,6 @@ def _group_by(dataset, fieldname):
     return groups
 
 
-def _select_comparing_groups(groups):
-    # TODO: select ref_data by date (older)
-    result = groups.values()
-    if len(groups) > 2:
-        result = sorted(result, key=len, reverse=True)[:2]
-        os.sys.stderr.write(
-            "Warning! Comparison of more than two annotators is not "
-            "supported!\n"
-        )
-    return tuple(result)
-
-
 def _select_comparing_pairs(groups):
     # TODO: select ref_data by date (older)
     groups_count = len(groups)
