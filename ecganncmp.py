@@ -259,6 +259,9 @@ def _create_report(ref_data, other_data):
         total.total_count += len(record_result[Text.CONCLUSIONS])
         records.append(record_result)
 
+    if not records:
+        return None
+
     report[Text.RECORDS_COUNT] = len(records)
     report[Text.REF_ANNOTATIONS] = total.ref_codes_count
     report[Text.TEST_ANNOTATIONS] = total.test_codes_count
