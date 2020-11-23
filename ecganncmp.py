@@ -60,7 +60,7 @@ def main():
 def _handle_input_data(input_data):
     if input_data.dirname is not None:
         cmpresult = _compare_inside_folder(input_data.dirname)
-        _write_results_to_files(input_data.dirname, *cmpresult)
+        _write_results_to_files(input_data.dirname, cmpresult)
         return cmpresult
     _check_input(input_data.ref_path, input_data.test_path)
     if os.path.isdir(input_data.ref_path):
@@ -295,7 +295,7 @@ def _compare_record_annotations(ref_data, other_data):
     return report
 
 
-def _write_results_to_files(dirname, *results):
+def _write_results_to_files(dirname, results):
     for cmpres in results:
         filename = "{0}-{1}.json".format(
             cmpres[Text.TEST_ANNOTATOR], cmpres[Text.REF_ANNOTATOR])
