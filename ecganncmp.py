@@ -59,7 +59,7 @@ def main():
 
 def _handle_input_data(input_data):
     if input_data.dirname is not None:
-        cmpresult = _compare_inside_folder(input_data.dirname)
+        cmpresult, _ = _compare_inside_folder(input_data.dirname)
         _write_results_to_files(input_data.dirname, cmpresult)
         return cmpresult
     _check_input(input_data.ref_path, input_data.test_path)
@@ -204,8 +204,14 @@ def _compare_inside_folder(dirname):
         )
         raise Error(message_format.format(dirname))
     data_pairs = _select_comparing_pairs(groups)
-    return [_compare_datasets(ref_data, other_data)
-            for ref_data, other_data in data_pairs]
+    results, bad_pairs = [], []
+    for ref_data, other_data in data_pairs:
+        result = _compare_datasets(ref_data, other_data)
+        if result is None:
+            bad_pairs.append((ref_data, other_data))
+        else:
+            results.append(result)
+    return results, bad_pairs
 
 
 def _group_by(dataset, fieldname):
