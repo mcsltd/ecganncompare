@@ -88,7 +88,7 @@ def _plot_histogram(codes, annotators):
     title = "Annotations distributions"
     dataframe = _create_dataframe(codes).sort_index()
     dataframe.columns = annotators
-    dataframe.plot.barh(ax=plt.gca())
+    dataframe.plot.barh(ax=plt.gca(), width=0.75)
     plt.title(title)
     plt.gcf().canvas.set_window_title(title)
 
