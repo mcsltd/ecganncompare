@@ -92,6 +92,7 @@ def _plot_histogram(codes_groups, thesaurus_path=None):
     plt.gcf().canvas.set_window_title(title)
     if thesaurus_path is not None:
         plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
+        _set_y_fontsize(plt.gca(), 8)
 
 
 def _create_dataframe(codes_groups, thesaurus_path=None):
@@ -229,6 +230,10 @@ def _parse_thesaurus(filename):
 def _remove_results(dataset):
     return [d for d in dataset
             if Text.TYPE not in d or d[Text.TYPE] != Text.CMPRESULT]
+
+
+def _set_y_fontsize(axes, value):
+    axes.tick_params(axis="y", labelsize=value)
 
 
 if __name__ == "__main__":
