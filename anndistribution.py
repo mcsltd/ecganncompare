@@ -42,7 +42,7 @@ def main():
     # TODO: print removed groups
     _print_groups_info(data_groups)
     codes_groups = _extract_annotators_codes(data_groups)
-    _plot_histogram(codes_groups)
+    _plot_histogram(codes_groups, data.thesaurus)
     if data.thesaurus is not None:
         _show_annotations_text(codes_groups, data.thesaurus)
     plt.show()
@@ -84,9 +84,9 @@ def _get_annotators(all_data):
     return [x[0][Text.ANNOTATOR] for x in all_data]
 
 
-def _plot_histogram(codes_groups):
+def _plot_histogram(codes_groups, thesaurus_path=None):
     title = "Annotations distributions"
-    dataframe = _create_dataframe(codes_groups).sort_index()
+    dataframe = _create_dataframe(codes_groups, thesaurus_path).sort_index()
     dataframe.plot.barh(ax=plt.gca(), width=0.75)
     plt.title(title)
     plt.gcf().canvas.set_window_title(title)
