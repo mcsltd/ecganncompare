@@ -92,7 +92,7 @@ def _plot_histogram(codes_groups):
     plt.gcf().canvas.set_window_title(title)
 
 
-def _create_dataframe(codes_groups):
+def _create_dataframe(codes_groups, thesaurus=None):
     group_count = len(codes_groups)
     counts = defaultdict(lambda: [0 for _ in range(group_count)])
     for column_index, gname in enumerate(codes_groups):
@@ -100,8 +100,13 @@ def _create_dataframe(codes_groups):
             if code is None:
                 continue
             counts[code][column_index] += 1
-    return pandas.DataFrame.from_dict(counts, columns=codes_groups.keys(),
-                                      orient="index")
+    df = pandas.DataFrame.from_dict(counts, columns=codes_groups.keys(),
+                                    orient="index")
+    if thesaurus is None:
+        return df
+    df.sort_index(inplace=True)
+    df.index = [thesaurus[i] for i in df.index]
+    return df
 
 
 def _read_json_folder(dirname):
