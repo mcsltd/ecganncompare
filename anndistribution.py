@@ -87,7 +87,6 @@ def _get_annotators(all_data):
 def _plot_histogram(codes_groups):
     title = "Annotations distributions"
     dataframe = _create_dataframe(codes_groups).sort_index()
-    dataframe.columns = codes_groups.keys()
     dataframe.plot.barh(ax=plt.gca(), width=0.75)
     plt.title(title)
     plt.gcf().canvas.set_window_title(title)
@@ -101,7 +100,8 @@ def _create_dataframe(codes_groups):
             if code is None:
                 continue
             counts[code][column_index] += 1
-    return pandas.DataFrame.from_dict(counts, orient="index")
+    return pandas.DataFrame.from_dict(counts, columns=codes_groups.keys(),
+                                      orient="index")
 
 
 def _read_json_folder(dirname):
