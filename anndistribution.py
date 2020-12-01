@@ -88,7 +88,7 @@ def _plot_histogram(codes, annotators):
     title = "Annotations distributions"
     dataframe = _create_dataframe(codes).sort_index()
     dataframe.columns = annotators
-    dataframe.plot(ax=plt.gca(), kind="bar", legend=True)
+    dataframe.plot.barh(ax=plt.gca())
     plt.title(title)
     plt.gcf().canvas.set_window_title(title)
 
@@ -220,6 +220,7 @@ def _parse_thesaurus(filename):
 def _remove_results(dataset):
     return [d for d in dataset
             if Text.TYPE not in d or d[Text.TYPE] != Text.CMPRESULT]
+
 
 if __name__ == "__main__":
     main()
