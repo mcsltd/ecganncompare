@@ -86,17 +86,18 @@ def _get_annotators(all_data):
 
 def _plot_histogram(codes, annotators):
     title = "Annotations distributions"
-    dataframe = _create_dataframe(codes).sort_index()
+    dataframe = _create_dataframe(dict(zip(annotators, codes))).sort_index()
     dataframe.columns = annotators
     dataframe.plot.barh(ax=plt.gca(), width=0.75)
     plt.title(title)
     plt.gcf().canvas.set_window_title(title)
 
 
-def _create_dataframe(codes):
-    counts = defaultdict(lambda: [0 for _ in range(len(codes))])
-    for column_index, folder_codes in enumerate(codes):
-        for code in folder_codes:
+def _create_dataframe(codes_groups):
+    group_count = len(codes_groups)
+    counts = defaultdict(lambda: [0 for _ in range(group_count)])
+    for column_index, gname in enumerate(codes_groups):
+        for code in codes_groups[gname]:
             if code is None:
                 continue
             counts[code][column_index] += 1
