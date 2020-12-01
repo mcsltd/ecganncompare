@@ -90,6 +90,8 @@ def _plot_histogram(codes_groups, thesaurus_path=None):
     dataframe.plot.barh(ax=plt.gca(), width=0.75)
     plt.title(title)
     plt.gcf().canvas.set_window_title(title)
+    if thesaurus_path is not None:
+        plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
 
 
 def _create_dataframe(codes_groups, thesaurus_path=None):
