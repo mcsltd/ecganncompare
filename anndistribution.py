@@ -86,7 +86,7 @@ def _get_annotators(all_data):
 
 def _plot_histogram(codes_groups, thesaurus_path=None):
     title = "Annotations distributions"
-    dataframe = _create_dataframe(codes_groups, thesaurus_path).sort_index()
+    dataframe = _create_dataframe(codes_groups, thesaurus_path)
     dataframe.plot.barh(ax=plt.gca(), width=0.75)
     plt.title(title)
     plt.gcf().canvas.set_window_title(title)
