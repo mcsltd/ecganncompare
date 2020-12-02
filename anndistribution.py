@@ -100,14 +100,15 @@ def _create_dataframe(codes_groups, thesaurus_path=None):
             if code is None:
                 continue
             counts[code][column_index] += 1
-    df = pandas.DataFrame.from_dict(counts, columns=codes_groups.keys(),
-                                    orient="index")
     if thesaurus_path is None:
-        return df
-    df.sort_index(inplace=True)
+        return pandas.DataFrame.from_dict(counts, columns=codes_groups.keys(),
+                                          orient="index").sort_index()
     thesaurus = _parse_thesaurus(thesaurus_path)
-    df.index = [thesaurus[i] for i in df.index]
-    return df
+    ordered_counts = OrderedDict()
+    for key in thesaurus:
+        ordered_counts[thesaurus[key]] = counts[key]
+    return pandas.DataFrame.from_dict(
+        ordered_counts, columns=codes_groups.keys(), orient="index")
 
 
 def _read_json_folder(dirname):
