@@ -1,7 +1,7 @@
 import os
 import sys
 import json
-from collections import defaultdict, Counter
+from collections import defaultdict, Counter, OrderedDict
 import argparse
 
 from matplotlib import pyplot as plt
@@ -207,7 +207,7 @@ def _get_max_groups_count():
 
 def _parse_thesaurus(filename):
     data = _read_json(filename)
-    result = {}
+    result = OrderedDict()
     for group in data[Text.GROUPS]:
         for ann in group[Text.REPORTS]:
             result[ann[Text.ID]] = ann[Text.NAME]
