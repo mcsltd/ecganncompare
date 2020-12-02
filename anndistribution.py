@@ -3,7 +3,6 @@ import sys
 import json
 from collections import defaultdict, Counter
 import argparse
-import codecs
 
 from matplotlib import pyplot as plt
 import pandas
@@ -43,8 +42,6 @@ def main():
     _print_groups_info(data_groups)
     codes_groups = _extract_annotators_codes(data_groups)
     _plot_histogram(codes_groups, data.thesaurus)
-    if data.thesaurus is not None:
-        _show_annotations_text(codes_groups, data.thesaurus)
     plt.show()
 
 
@@ -206,16 +203,6 @@ def _remove_excess_groups(data_groups, max_count):
 def _get_max_groups_count():
     colors = plt.rcParams["axes.prop_cycle"].by_key()["color"]
     return len(colors)
-
-
-def _show_annotations_text(code_groups, thesaurus_path):
-    filename = "annotations_descritpion.txt"
-    thesaurus = _parse_thesaurus(thesaurus_path)
-    all_codes = set(c for gname in code_groups for c in code_groups[gname])
-    with codecs.open(filename, "w", encoding="utf-8") as fout:
-        for code in sorted(all_codes):
-            fout.write(u"{0}: {1}\n".format(code, thesaurus[code]))
-    os.startfile(filename)
 
 
 def _parse_thesaurus(filename):
