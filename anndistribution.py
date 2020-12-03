@@ -243,5 +243,11 @@ def _get_title(lang=None):
     )
 
 
+def _get_window_title(lang=None):
+    if lang == "ru":
+        return u"Распределение заключений"
+    return "Conclusions distribution"
+
+
 if __name__ == "__main__":
     main()
