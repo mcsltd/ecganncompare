@@ -89,7 +89,7 @@ def _plot_histogram(codes_groups, thesaurus_path=None):
         dataframe.sort_index(inplace=True)
     else:
         thesaurus, _ = _parse_thesaurus(thesaurus_path)
-        dataframe = _group_dataframe(dataframe, thesaurus)
+        dataframe = _prepare_dataframe(dataframe, thesaurus)
     # NOTE: barh() plor bars in reverse order
     dataframe[::-1].plot.barh(ax=plt.gca(), width=0.75)
     plt.title(title)
@@ -224,7 +224,7 @@ def _set_y_fontsize(axes, value):
     axes.tick_params(axis="y", labelsize=value)
 
 
-def _group_dataframe(df, thesaurus):
+def _prepare_dataframe(df, thesaurus):
     df = df.loc[(k for k in thesaurus if k in df.index)]
     df.index = [thesaurus[k] for k in df.index]
     return df
