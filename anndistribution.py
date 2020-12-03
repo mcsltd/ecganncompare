@@ -225,12 +225,9 @@ def _set_y_fontsize(axes, value):
 
 
 def _group_dataframe(df, thesaurus):
-    ordered_counts = OrderedDict()
-    for key in thesaurus:
-        if key in df.index:
-            ordered_counts[thesaurus[key]] = df.loc[key].values
-    return pandas.DataFrame.from_dict(
-        ordered_counts, columns=df.columns, orient="index")
+    df = df.loc[(k for k in thesaurus if k in df.index)]
+    df.index = [thesaurus[k] for k in df.index]
+    return df
 
 
 if __name__ == "__main__":
