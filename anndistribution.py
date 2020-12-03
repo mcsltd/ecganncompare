@@ -98,10 +98,13 @@ def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
         thesaurus, lang = _parse_thesaurus(thesaurus_path)
         dataframe = _prepare_dataframe(dataframe, thesaurus)
     # NOTE: barh() plor bars in reverse order
-    dataframe[::-1].plot.barh(ax=plt.gca(), width=0.75)
+    dataframe[::-1].plot.barh(ax=plt.gca(), width=0.75, legend=False)
     title = _get_title(lang) + ". " + _get_title_tail(datagroups_info, lang)
     plt.title(title)
     plt.gcf().canvas.set_window_title(_get_window_title(lang))
+    legend_labels = _get_legend_labels(
+        dataframe.columns, lang, datagroups_info)
+    plt.legend(legend_labels)
     if thesaurus_path is not None:
         plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
         _set_y_fontsize(plt.gca(), 8)
