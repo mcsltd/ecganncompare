@@ -106,7 +106,8 @@ def _create_dataframe(codes_groups, thesaurus_path=None):
     thesaurus = _parse_thesaurus(thesaurus_path)
     ordered_counts = OrderedDict()
     for key in thesaurus:
-        ordered_counts[thesaurus[key]] = counts[key]
+        if key in counts:
+            ordered_counts[thesaurus[key]] = counts[key]
     return pandas.DataFrame.from_dict(
         ordered_counts, columns=codes_groups.keys(), orient="index")
 
