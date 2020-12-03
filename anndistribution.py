@@ -278,5 +278,11 @@ def _get_title_tail(datagroups_info, lang=None):
     return template.format(records_count)
 
 
+def _get_legend_label_format(lang):
+    if lang == "ru":
+        return u"{0} ({1} заключений из {2})"
+    return "{0} ({1} conclusions from {2})"
+
+
 if __name__ == "__main__":
     main()
