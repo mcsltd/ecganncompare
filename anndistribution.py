@@ -133,7 +133,7 @@ def _read_json_files(filenames):
 
 def _read_json(filename):
     with open(filename, "rt") as fin:
-        return json.load(fin)
+        return json.load(fin, object_pairs_hook=OrderedDict)
 
 
 def _group_by(iterable_data, fieldname):
