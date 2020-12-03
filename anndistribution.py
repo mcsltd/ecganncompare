@@ -20,6 +20,7 @@ class Text(object):
     NAME = "name"
     TYPE = "type"
     CMPRESULT = "cmpresult"
+    LANGUAGE = "language"
 
 
 class Error(Exception):
@@ -104,7 +105,7 @@ def _create_dataframe(codes_groups, thesaurus_path=None):
     if thesaurus_path is None:
         return pandas.DataFrame.from_dict(counts, columns=codes_groups.keys(),
                                           orient="index").sort_index()
-    thesaurus = _parse_thesaurus(thesaurus_path)
+    thesaurus, _ = _parse_thesaurus(thesaurus_path)
     ordered_counts = OrderedDict()
     for key in thesaurus:
         if key in counts:
@@ -214,7 +215,7 @@ def _parse_thesaurus(filename):
     for group in data[Text.GROUPS]:
         for ann in group[Text.REPORTS]:
             result[ann[Text.ID]] = ann[Text.NAME]
-    return result
+    return result, data[Text.LANGUAGE]
 
 
 def _remove_results(dataset):
