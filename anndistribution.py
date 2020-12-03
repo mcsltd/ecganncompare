@@ -267,5 +267,15 @@ def _get_datagroups_info(data_groups):
     return infos
 
 
+def _get_title_tail(datagroups_info, lang=None):
+    records_count = max(d.records_count for d in datagroups_info.values())
+    template = None
+    if lang == "ru":
+        template = u"{0} записей"
+    else:
+        template = "{0} records"
+    return template.format(records_count)
+
+
 if __name__ == "__main__":
     main()
