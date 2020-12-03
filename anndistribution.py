@@ -238,8 +238,8 @@ def _get_title(lang=None):
             u"заключений)"
         )
     return (
-        "Counts of uses of conclusions by annotator (distribution of "
-        "conclusions)"
+        "Counts of uses of conclusions by annotator (conclusions "
+        "distribution)"
     )
 
 
