@@ -1,3 +1,4 @@
+# coding=utf-8
 import os
 import sys
 import json
@@ -212,7 +213,7 @@ def _parse_thesaurus(filename):
     for group in data[Text.GROUPS]:
         for ann in group[Text.REPORTS]:
             result[ann[Text.ID]] = ann[Text.NAME]
-    return result, data[Text.LANGUAGE]
+    return result, data[Text.LANGUAGE].lower()
 
 
 def _remove_results(dataset):
@@ -228,6 +229,18 @@ def _prepare_dataframe(df, thesaurus):
     df = df.loc[(k for k in thesaurus if k in df.index)]
     df.index = [thesaurus[k] for k in df.index]
     return df
+
+
+def _get_title(lang=None):
+    if lang == "ru":
+        return (
+            u"Число использования заключения аннотатором (распределение "
+            u"заключений)"
+        )
+    return (
+        "Counts of uses of conclusions by annotator (distribution of "
+        "conclusions)"
+    )
 
 
 if __name__ == "__main__":
