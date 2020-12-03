@@ -227,5 +227,14 @@ def _set_y_fontsize(axes, value):
     axes.tick_params(axis="y", labelsize=value)
 
 
+def _group_dataframe(df, thesaurus):
+    ordered_counts = OrderedDict()
+    for key in thesaurus:
+        if key in df:
+            ordered_counts[thesaurus[key]] = df[key]
+    return pandas.DataFrame.from_dict(
+        ordered_counts, columns=df.columns, orient="index")
+
+
 if __name__ == "__main__":
     main()
