@@ -84,17 +84,17 @@ def _get_annotators(all_data):
 
 
 def _plot_histogram(codes_groups, thesaurus_path=None):
-    title = "Annotations distributions"
     dataframe = _create_dataframe(codes_groups)
+    lang = None
     if thesaurus_path is None:
         dataframe.sort_index(inplace=True)
     else:
-        thesaurus, _ = _parse_thesaurus(thesaurus_path)
+        thesaurus, lang = _parse_thesaurus(thesaurus_path)
         dataframe = _prepare_dataframe(dataframe, thesaurus)
     # NOTE: barh() plor bars in reverse order
     dataframe[::-1].plot.barh(ax=plt.gca(), width=0.75)
-    plt.title(title)
-    plt.gcf().canvas.set_window_title(title)
+    plt.title(_get_title(lang))
+    plt.gcf().canvas.set_window_title(_get_window_title(lang))
     if thesaurus_path is not None:
         plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
         _set_y_fontsize(plt.gca(), 8)
