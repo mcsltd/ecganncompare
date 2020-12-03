@@ -49,7 +49,7 @@ def main():
     groups_info = _get_datagroups_info(data_groups)
     _print_groups_info(groups_info)
     codes_groups = _extract_annotators_codes(data_groups)
-    _plot_histogram(codes_groups, data.thesaurus)
+    _plot_histogram(codes_groups, groups_info, data.thesaurus)
     plt.show()
 
 
@@ -89,7 +89,7 @@ def _get_annotators(all_data):
     return [x[0][Text.ANNOTATOR] for x in all_data]
 
 
-def _plot_histogram(codes_groups, thesaurus_path=None):
+def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
     dataframe = _create_dataframe(codes_groups)
     lang = None
     if thesaurus_path is None:
@@ -99,7 +99,8 @@ def _plot_histogram(codes_groups, thesaurus_path=None):
         dataframe = _prepare_dataframe(dataframe, thesaurus)
     # NOTE: barh() plor bars in reverse order
     dataframe[::-1].plot.barh(ax=plt.gca(), width=0.75)
-    plt.title(_get_title(lang))
+    title = _get_title(lang) + ". " + _get_title_tail(datagroups_info, lang)
+    plt.title(title)
     plt.gcf().canvas.set_window_title(_get_window_title(lang))
     if thesaurus_path is not None:
         plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
