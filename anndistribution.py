@@ -284,5 +284,16 @@ def _get_legend_label_format(lang):
     return "{0} ({1} conclusions from {2})"
 
 
+def _get_legend_labels(annotators, lang, datagroups_info):
+    template = _get_legend_label_format(lang)
+    total_count = sum(d.annotations_count for d in datagroups_info.values())
+    labels = []
+    for annr in annotators:
+        info = datagroups_info[annr]
+        labels.append(template.format(
+            annr, info.annotations_count, total_count))
+    return labels
+
+
 if __name__ == "__main__":
     main()
