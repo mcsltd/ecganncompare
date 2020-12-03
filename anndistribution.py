@@ -84,7 +84,7 @@ def _get_annotators(all_data):
 
 def _plot_histogram(codes_groups, thesaurus_path=None):
     title = "Annotations distributions"
-    dataframe = _create_dataframe(codes_groups, thesaurus_path)
+    dataframe = _create_dataframe(codes_groups)
     if thesaurus_path is None:
         dataframe.sort_index(inplace=True)
     else:
@@ -99,7 +99,7 @@ def _plot_histogram(codes_groups, thesaurus_path=None):
         _set_y_fontsize(plt.gca(), 8)
 
 
-def _create_dataframe(codes_groups, thesaurus_path=None):
+def _create_dataframe(codes_groups):
     group_count = len(codes_groups)
     counts = defaultdict(lambda: [0 for _ in range(group_count)])
     for column_index, gname in enumerate(codes_groups):
@@ -107,16 +107,8 @@ def _create_dataframe(codes_groups, thesaurus_path=None):
             if code is None:
                 continue
             counts[code][column_index] += 1
-    if thesaurus_path is None:
-        return pandas.DataFrame.from_dict(counts, columns=codes_groups.keys(),
-                                          orient="index").sort_index()
-    thesaurus, _ = _parse_thesaurus(thesaurus_path)
-    ordered_counts = OrderedDict()
-    for key in thesaurus:
-        if key in counts:
-            ordered_counts[thesaurus[key]] = counts[key]
-    return pandas.DataFrame.from_dict(
-        ordered_counts, columns=codes_groups.keys(), orient="index")
+    return pandas.DataFrame.from_dict(counts, columns=codes_groups.keys(),
+                                      orient="index")
 
 
 def _read_json_folder(dirname):
