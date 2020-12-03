@@ -46,7 +46,8 @@ def main():
     data_groups = _group_by(all_data, Text.ANNOTATOR)
     data_groups = _remove_excess_groups(data_groups, _get_max_groups_count())
     # TODO: print removed groups
-    _print_groups_info(data_groups)
+    groups_info = _get_datagroups_info(data_groups)
+    _print_groups_info(groups_info)
     codes_groups = _extract_annotators_codes(data_groups)
     _plot_histogram(codes_groups, data.thesaurus)
     plt.show()
@@ -186,17 +187,14 @@ def _print_removed_items(items, fieldname):
     print("")
 
 
-def _print_groups_info(data_groups):
-    temp_annotator = next(iter(data_groups))
-    thesaurus = data_groups[temp_annotator][0][Text.CONCLUSION_THESAURUS]
-    print("Thesaurus: %s" % thesaurus)
+def _print_groups_info(datagroups_info):
+    thesaurus = datagroups_info[0].thesaurus
+    print("Thesaurus: " + thesaurus)
     print("Annotation groups:\n")
-    for annotator in data_groups:
-        print("Annotator: " + annotator)
-        data_list = data_groups[annotator]
-        print("Records Count: %d" % len(data_list))
-        codes_count = sum(len(d[Text.CONCLUSIONS]) for d in data_list)
-        print("Conclusions count: %d\n" % codes_count)
+    for info in datagroups_info:
+        print("Annotator: " + info.annotator)
+        print("Records Count: %d" % info.records_count)
+        print("Conclusions count: %d\n" % info.annotations_count)
 
 
 def _remove_excess_groups(data_groups, max_count):
