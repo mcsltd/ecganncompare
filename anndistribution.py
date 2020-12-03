@@ -2,7 +2,7 @@
 import os
 import sys
 import json
-from collections import defaultdict, Counter, OrderedDict
+from collections import defaultdict, Counter, OrderedDict, namedtuple
 import argparse
 
 from matplotlib import pyplot as plt
@@ -27,6 +27,11 @@ class Text(object):
 class Error(Exception):
     def __init__(self, message):
         super(Error, self).__init__(message)
+
+
+DatagroupInfo = namedtuple("DatagroupInfo", [
+    "annotator", "records_count", "annotations_count", "thesaurus"
+])
 
 
 def main():
@@ -247,6 +252,20 @@ def _get_window_title(lang=None):
     if lang == "ru":
         return u"Распределение заключений"
     return "Conclusions distribution"
+
+
+def _get_datagroups_info(data_groups):
+    infos = []
+    for annotator in data_groups:
+        annotator_data = data_groups[annotator]
+        codes_count = sum(len(d[Text.CONCLUSIONS]) for d in annotator_data)
+        infos.append(DatagroupInfo(
+            annotator,
+            len(annotator_data),
+            codes_count,
+            annotator_data[0][Text.CONCLUSION_THESAURUS]
+        ))
+    return infos
 
 
 if __name__ == "__main__":
