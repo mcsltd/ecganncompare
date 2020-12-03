@@ -188,11 +188,12 @@ def _print_removed_items(items, fieldname):
 
 
 def _print_groups_info(datagroups_info):
-    thesaurus = datagroups_info[0].thesaurus
-    print("Thesaurus: " + thesaurus)
+    temp_annr = next(iter(datagroups_info))
+    print("Thesaurus: " + datagroups_info[temp_annr].thesaurus)
     print("Annotation groups:\n")
-    for info in datagroups_info:
-        print("Annotator: " + info.annotator)
+    for annotator in datagroups_info:
+        info = datagroups_info[annotator]
+        print("Annotator: " + annotator)
         print("Records Count: %d" % info.records_count)
         print("Conclusions count: %d\n" % info.annotations_count)
 
@@ -253,16 +254,16 @@ def _get_window_title(lang=None):
 
 
 def _get_datagroups_info(data_groups):
-    infos = []
+    infos = {}
     for annotator in data_groups:
         annotator_data = data_groups[annotator]
         codes_count = sum(len(d[Text.CONCLUSIONS]) for d in annotator_data)
-        infos.append(DatagroupInfo(
+        infos[annotator] = DatagroupInfo(
             annotator,
             len(annotator_data),
             codes_count,
             annotator_data[0][Text.CONCLUSION_THESAURUS]
-        ))
+        )
     return infos
 
 
