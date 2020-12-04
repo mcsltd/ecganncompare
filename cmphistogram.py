@@ -168,7 +168,7 @@ def _read_json_folder(dirname):
 
 def _read_json(filename):
     with codecs.open(filename, "r", encoding="utf-8") as fin:
-        return json.load(fin)
+        return json.load(fin, object_pairs_hook=OrderedDict)
 
 
 def _group_by(iterable_data, fieldname):
