@@ -203,7 +203,7 @@ def _create_comparing_sets(groups):
         for other_annr, other_dtable in cmpgroups:
             if annr == other_annr:
                 continue
-            matches_counts[other_annr] = _count_mathes(dtable, other_dtable)
+            matches_counts[other_annr] = _count_matches(dtable, other_dtable)
         cmpsets.append(ComparingSet(
             annr, matches_counts, len(groups[annr])))
     return cmpsets
@@ -378,6 +378,21 @@ def _print_info(results, bad_results, excess_results):
     )
     _print_comparing_results(
         excess_results, header.format(_MAX_HISTOGRAM_COUNT))
+
+
+def _count_matches(dtable, other_dtable):
+    counts = defaultdict(int)
+    for db_name in dtable:
+        for rec_name in dtable[db_name]:
+            try:
+                other_data = other_dtable[db_name][rec_name]
+            except KeyError:
+                continue
+            other_codes_set = set(other_data[Text.CONCLUSIONS])
+            for code in dtable[db_name][rec_name][Text.CONCLUSIONS]:
+                if code in other_codes_set:
+                    counts[code] += 1
+    return counts
 
 
 if __name__ == "__main__":
