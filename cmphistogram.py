@@ -126,11 +126,10 @@ def _plot_bidirectional_histogram(dataframe):
         column = dataframe[cname]
         if i == directions_count - 1:
             column = column * (-1)
-        column.plot(ax=plt.gca(), kind="bar", legend=True,
-                    color=default_colors[i])
-    plt.axhline(c="k")
-    locs, _ = plt.yticks()
-    plt.yticks(locs, [abs(loc) for loc in locs])
+        column.plot.barh(ax=plt.gca(), color=default_colors[i], legend=True)
+    plt.axvline(c="k")
+    locs, _ = plt.xticks()
+    plt.xticks(locs, [abs(loc) for loc in locs])
 
 
 def _get_title(ref_annotator, test_annotator):
