@@ -192,7 +192,22 @@ def _select_comparing_pairs(groups):
 
 
 def _create_comparing_sets(groups):
-    pass
+    MAX_ANNOTATORS_IN_SET = 5
+    groups = sorted(groups.items(), reverse=True,
+                    key=(lambda pair: len(pair[1])))
+    cmpgroups = [(gn, _dataset_to_table(ds))
+                 for gn, ds in groups[:MAX_ANNOTATORS_IN_SET]]
+    cmpsets = []
+    for annr, dtable in cmpgroups:
+        matches_counts = {}
+        for other_annr, other_dtable in cmpgroups:
+            if annr == other_annr:
+                continue
+            matches_counts[other_annr] = _count_mathes(dtable, other_dtable)
+        cmpsets.append(ComparingSet(
+            annr, matches_counts.keys(), matches_counts, len(groups[annr])))
+    return cmpsets
+
 
 def _compare_datasets(ref_data, other_data):
     _check_dataset(ref_data)
@@ -216,7 +231,7 @@ def _check_dataset(dataset):
     _check_field_value(dataset, Text.CONCLUSION_THESAURUS)
 
 
-def _create_code_pairs(ref_data, other_data):
+gdef _create_code_pairs(ref_data, other_data):
     code_pairs = []
     records_count = 0
     other_data = _dataset_to_table(other_data)
