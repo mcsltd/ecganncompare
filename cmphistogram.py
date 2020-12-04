@@ -35,6 +35,12 @@ ComparingResult = namedtuple("ComparingResult", [
     "ref_annotator", "test_annotator", "codes", "records_count"
 ])
 
+
+ComparingSet = namedtuple("ComparingSet", [
+    "annotator", "test_annotators", "codes", "records_count"
+])
+
+
 InputData = namedtuple("InputData", ["paths", "thesaurus"])
 
 
