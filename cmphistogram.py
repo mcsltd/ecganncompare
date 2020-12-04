@@ -103,8 +103,8 @@ def _plot_histogram(cresult, thesaurus=None):
     plt.gcf().canvas.set_window_title(_WINDOW_TITLE)
 
 
-def _get_code(pair):
-    return pair[0] if pair[0] is not None else pair[1]
+def _get_code(row):
+    return next(x for x in row if x is not None)
 
 
 def _get_title(ref_annotator, test_annotator):
