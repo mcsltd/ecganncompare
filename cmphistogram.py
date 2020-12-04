@@ -44,12 +44,7 @@ _MAX_HISTOGRAM_COUNT = 10
 
 def main():
     input_data = _parse_args(sys.argv)
-    comparing_results = []
-    for path in input_data.paths:
-        if os.path.isfile(path):
-            comparing_results.append(_read_comparing_result(path))
-        else:
-            comparing_results += _compare_inside_folder(path)
+    comparing_results = _read_comparing_results(input_data)
     good_results, bad_results = _split_good_results(comparing_results)
 
     good_results, not_showed_results = _plot_comparing_results(
@@ -376,6 +371,15 @@ def _print_bad_results(cresults):
         print(message_format.format(cr.ref_annotator, cr.test_annotator))
     print("")
 
+
+def _read_comparing_results(input_data):
+    results = []
+    for path in input_data.paths:
+        if os.path.isfile(path):
+            results.append(_read_comparing_result(path))
+        else:
+            results += _compare_inside_folder(path)
+    return results
 
 if __name__ == "__main__":
     main()
