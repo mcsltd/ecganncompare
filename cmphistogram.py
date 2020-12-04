@@ -143,16 +143,19 @@ def _get_title(ref_annotator, test_annotator):
     )
 
 
-def _plot_comparing_results(cresults):
+def _plot_comparing_results(cresults, thesaurus_path=None):
     not_showed = []
     if len(cresults) > _MAX_HISTOGRAM_COUNT:
         cresults = list(sorted(cresults, key=(lambda x: len(x.codes)),
                                reverse=True))
         not_showed = cresults[_MAX_HISTOGRAM_COUNT:]
         cresults = cresults[:_MAX_HISTOGRAM_COUNT]
+    thesaurus = None
+    if thesaurus_path is not None:
+        thesaurus = _parse_thesaurus(thesaurus_path)
     for cr in cresults:
         plt.figure()
-        _plot_histogram(cr)
+        _plot_histogram(cr, thesaurus)
     return cresults, not_showed
 
 
