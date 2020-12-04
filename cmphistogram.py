@@ -108,11 +108,15 @@ def _plot_histogram(cresult, thesaurus=None):
             code_counts[0] += 1
         else:
             code_counts[1] += 1
-    df = pandas.DataFrame.from_dict(counts, orient="index").sort_index()
-    df.columns = ["Matches", "Misses"]
-    if thesaurus is not None:
-        df.index = [thesaurus[k] for k in df.index]
-    _plot_bidirectional_histogram(df)
+    frame = pandas.DataFrame.from_dict(counts, orient="index")
+    frame.columns = ["Matches", "Misses"]
+    if thesaurus is None:
+        frame.sort_index(inplace=True)
+    else:
+        frame = frame.loc[(k for k in thesaurus if k in frame.index)]
+        frame.index = [thesaurus[k] for k in frame.index]
+    # NOTE: barh() plor bars in reverse order
+    _plot_bidirectional_histogram(frame[::-1])
     if thesaurus is not None:
         plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
         plt.tick_params(axis="y", labelsize=8)
