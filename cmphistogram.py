@@ -44,23 +44,11 @@ _MAX_HISTOGRAM_COUNT = 10
 
 def main():
     input_data = _parse_args(sys.argv)
-    comparing_results = _read_comparing_results(input_data)
-    good_results, bad_results = _split_good_results(comparing_results)
-
-    good_results, not_showed_results = _plot_comparing_results(
-        good_results, input_data.thesaurus)
-
-    _print_comparing_results(good_results)
-    if bad_results:
-        _print_bad_results(bad_results)
-    if not_showed_results:
-        header = (
-            "Cannot show more than {0} histograms, the following annotator "
-            "pairs not showed: "
-        )
-        _print_comparing_results(
-            not_showed_results, header.format(_MAX_HISTOGRAM_COUNT))
-
+    cmpresults = _read_comparing_results(input_data)
+    cmpresults, bad_results = _split_good_results(cmpresults)
+    cmpresults, not_showed_results = _plot_comparing_results(
+        cmpresults, input_data.thesaurus)
+    _print_info(cmpresults, bad_results, not_showed_results)
     plt.show()
 
 
@@ -368,6 +356,21 @@ def _read_comparing_results(input_data):
         else:
             results += _compare_inside_folder(path)
     return results
+
+
+def _print_info(results, bad_results, excess_results):
+    _print_comparing_results(results)
+    if bad_results:
+        _print_bad_results(bad_results)
+    if not excess_results:
+        return
+    header = (
+        "Cannot show more than {0} histograms, the following annotator "
+        "pairs not showed: "
+    )
+    _print_comparing_results(
+        excess_results, header.format(_MAX_HISTOGRAM_COUNT))
+
 
 if __name__ == "__main__":
     main()
