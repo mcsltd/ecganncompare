@@ -100,7 +100,7 @@ def _plot_histogram(cresult, thesaurus=None):
         frame = frame.loc[(k for k in thesaurus if k in frame.index)]
         frame.index = [thesaurus[k] for k in frame.index]
     # NOTE: barh() plor bars in reverse order
-    frame.plot.barh(ax=plt.gca(), legend=True)
+    frame[::-1].plot.barh(ax=plt.gca(), legend=True)
     if thesaurus is not None:
         plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
         plt.tick_params(axis="y", labelsize=8)
@@ -190,6 +190,9 @@ def _select_comparing_pairs(groups):
             pairs.append((ref_data, groups[other_name]))
     return pairs
 
+
+def _create_comparing_sets(groups):
+    pass
 
 def _compare_datasets(ref_data, other_data):
     _check_dataset(ref_data)
