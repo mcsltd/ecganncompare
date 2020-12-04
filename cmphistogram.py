@@ -205,7 +205,7 @@ def _create_comparing_sets(groups):
                 continue
             counts = _count_matches(dtable, other_dtable)
             if counts:
-                matches_counts[annr] = counts
+                matches_counts[other_annr] = counts
         cmpsets.append(ComparingSet(
             annr, matches_counts, len(groups[annr])))
     return cmpsets
