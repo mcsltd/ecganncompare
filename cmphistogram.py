@@ -98,7 +98,7 @@ def _read_comparing_result(filename):
     return result
 
 
-def _plot_histogram(cresult):
+def _plot_histogram(cresult, thesaurus=None):
     counts = defaultdict(lambda: [0, 0])
     for pair in cresult.codes:
         code = _get_code(pair)
@@ -109,7 +109,12 @@ def _plot_histogram(cresult):
             code_counts[1] += 1
     df = pandas.DataFrame.from_dict(counts, orient="index").sort_index()
     df.columns = ["Matches", "Misses"]
+    if thesaurus is not None:
+        df.index = [thesaurus[k] for k in df.index]
     _plot_bidirectional_histogram(df)
+    if thesaurus is not None:
+        plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
+        plt.tick_params(axis="y", labelsize=8)
     title = _get_title(cresult.ref_annotator, cresult.test_annotator)
     plt.title(title + (". Records count: %d" % cresult.records_count))
     plt.gcf().canvas.set_window_title(_WINDOW_TITLE)
