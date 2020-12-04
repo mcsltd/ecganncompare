@@ -2,7 +2,7 @@
 import os
 import sys
 import json
-from collections import namedtuple, defaultdict, Counter
+from collections import namedtuple, defaultdict, Counter, OrderedDict
 import argparse
 import codecs
 from matplotlib import pyplot as plt
@@ -334,7 +334,7 @@ def _get_default_input_dir():
 
 def _parse_thesaurus(filename):
     data = _read_json(filename)
-    result = {}
+    result = OrderedDict()
     for group in data[Text.GROUPS]:
         for ann in group[Text.REPORTS]:
             result[ann[Text.ID]] = ann[Text.NAME]
