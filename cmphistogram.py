@@ -407,5 +407,17 @@ def _plot_comparing_sets(comparing_sets, thesaurus_path=None):
         dframe[::-1].plot.barh(ax=plt.gca())
 
 
+def _read_comparing_sets(cmpresult_path):
+    data = _read_json(cmpresult_path)
+    code_pairs = _to_flat(d[Text.CONCLUSIONS] for d in data[Text.RECORDS])
+    match_counts = defaultdict(
+        int, Counter(p[0] for p in code_pairs if p[0] == p[1]))
+    return ComparingSet(
+        annotator=data[Text.REF_ANNOTATOR],
+        matches_counts={data[Text.TEST_ANNOTATOR], match_counts},
+        records_count=len(data[Text.RECORDS])
+    )
+
+
 if __name__ == "__main__":
     main()
