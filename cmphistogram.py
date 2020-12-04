@@ -81,23 +81,20 @@ def _read_comparing_result(filename):
 
 
 def _plot_histogram(cresult, thesaurus=None):
-    counts = defaultdict(lambda: [0, 0])
+    counts = defaultdict(int)
     for pair in cresult.codes:
         code = _get_code(pair)
-        code_counts = counts[code]
         if pair[0] == pair[1]:
-            code_counts[0] += 1
-        else:
-            code_counts[1] += 1
+            counts[code] += 1
     frame = pandas.DataFrame.from_dict(counts, orient="index")
-    frame.columns = ["Matches", "Misses"]
+    frame.columns = ["Matches"]
     if thesaurus is None:
         frame.sort_index(inplace=True)
     else:
         frame = frame.loc[(k for k in thesaurus if k in frame.index)]
         frame.index = [thesaurus[k] for k in frame.index]
     # NOTE: barh() plor bars in reverse order
-    _plot_bidirectional_histogram(frame[::-1])
+    frame.plot.barh(ax=plt.gca(), legend=True)
     if thesaurus is not None:
         plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
         plt.tick_params(axis="y", labelsize=8)
@@ -108,19 +105,6 @@ def _plot_histogram(cresult, thesaurus=None):
 
 def _get_code(pair):
     return pair[0] if pair[0] is not None else pair[1]
-
-
-def _plot_bidirectional_histogram(dataframe):
-    directions_count = 2
-    default_colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
-    for i, cname in enumerate(dataframe.columns[:directions_count]):
-        column = dataframe[cname]
-        if i == directions_count - 1:
-            column = column * (-1)
-        column.plot.barh(ax=plt.gca(), color=default_colors[i], legend=True)
-    plt.axvline(c="k")
-    locs, _ = plt.xticks()
-    plt.xticks(locs, [abs(loc) for loc in locs])
 
 
 def _get_title(ref_annotator, test_annotator):
