@@ -37,7 +37,7 @@ ComparingResult = namedtuple("ComparingResult", [
 
 
 ComparingSet = namedtuple("ComparingSet", [
-    "annotator", "test_annotators", "codes", "records_count"
+    "annotator", "matches_counts", "records_count"
 ])
 
 
@@ -205,7 +205,7 @@ def _create_comparing_sets(groups):
                 continue
             matches_counts[other_annr] = _count_mathes(dtable, other_dtable)
         cmpsets.append(ComparingSet(
-            annr, matches_counts.keys(), matches_counts, len(groups[annr])))
+            annr, matches_counts, len(groups[annr])))
     return cmpsets
 
 
