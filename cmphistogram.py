@@ -231,7 +231,7 @@ def _check_dataset(dataset):
     _check_field_value(dataset, Text.CONCLUSION_THESAURUS)
 
 
-gdef _create_code_pairs(ref_data, other_data):
+def _create_code_pairs(ref_data, other_data):
     code_pairs = []
     records_count = 0
     other_data = _dataset_to_table(other_data)
