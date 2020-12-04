@@ -52,7 +52,8 @@ def main():
             comparing_results += _compare_inside_folder(path)
     good_results, bad_results = _split_good_results(comparing_results)
 
-    good_results, not_showed_results = _plot_comparing_results(good_results)
+    good_results, not_showed_results = _plot_comparing_results(
+        good_results, input_data.thesaurus)
     if input_data.thesaurus is not None:
         _show_annotations_text(good_results, input_data.thesaurus)
 
