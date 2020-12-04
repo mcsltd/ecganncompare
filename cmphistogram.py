@@ -46,6 +46,7 @@ InputData = namedtuple("InputData", ["paths", "thesaurus"])
 
 _WINDOW_TITLE = "Annotations comparing"
 _MAX_HISTOGRAM_COUNT = 10
+_MAX_ANNOTATORS_IN_SET = 5
 
 
 def main():
@@ -192,18 +193,19 @@ def _select_comparing_pairs(groups):
 
 
 def _create_comparing_sets(groups):
-    MAX_ANNOTATORS_IN_SET = 5
-    groups = sorted(groups.items(), reverse=True,
-                    key=(lambda pair: len(pair[1])))
+    cmpgroups = sorted(groups.items(), reverse=True,
+                       key=(lambda pair: len(pair[1])))
     cmpgroups = [(gn, _dataset_to_table(ds))
-                 for gn, ds in groups[:MAX_ANNOTATORS_IN_SET]]
+                 for gn, ds in cmpgroups[:_MAX_ANNOTATORS_IN_SET]]
     cmpsets = []
     for annr, dtable in cmpgroups:
         matches_counts = {}
         for other_annr, other_dtable in cmpgroups:
             if annr == other_annr:
                 continue
-            matches_counts[other_annr] = _count_matches(dtable, other_dtable)
+            counts = _count_matches(dtable, other_dtable)
+            if counts:
+                matches_counts[annr] = counts
         cmpsets.append(ComparingSet(
             annr, matches_counts, len(groups[annr])))
     return cmpsets
