@@ -49,8 +49,6 @@ def main():
 
     good_results, not_showed_results = _plot_comparing_results(
         good_results, input_data.thesaurus)
-    if input_data.thesaurus is not None:
-        _show_annotations_text(good_results, input_data.thesaurus)
 
     _print_comparing_results(good_results)
     if bad_results:
@@ -338,16 +336,6 @@ def _parse_thesaurus(filename):
         for ann in group[Text.REPORTS]:
             result[ann[Text.ID]] = ann[Text.NAME]
     return result
-
-
-def _show_annotations_text(cresults, thesaurus_path):
-    filename = "annotations_descritpion.txt"
-    thesaurus = _parse_thesaurus(thesaurus_path)
-    all_codes = set(_get_code(p) for cr in cresults for p in cr.codes)
-    with codecs.open(filename, "w", encoding="utf-8") as fout:
-        for code in sorted(all_codes):
-            fout.write(u"{0}: {1}\n".format(code, thesaurus[code]))
-    os.startfile(filename)
 
 
 def _remove_results(dataset):
