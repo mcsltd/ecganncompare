@@ -397,5 +397,12 @@ def _count_matches(dtable, other_dtable):
     return counts
 
 
+def _plot_comparing_sets(comparing_sets, thesaurus_path=None):
+    for cmpset in comparing_sets:
+        dframe = pandas.DataFrame.from_dict(cmpset.matches_counts).sort_index()
+        plt.figure()
+        dframe[::-1].plot.barh(ax=plt.gca())
+
+
 if __name__ == "__main__":
     main()
