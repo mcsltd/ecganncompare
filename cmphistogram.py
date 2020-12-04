@@ -51,7 +51,7 @@ _MAX_ANNOTATORS_IN_SET = 5
 
 def main():
     input_data = _parse_args(sys.argv)
-    cmpresults = _read_comparing_results(input_data)
+    cmpresults = _read_input_data(input_data)
     cmpresults, bad_results = _split_good_results(cmpresults)
     cmpresults, not_showed_results = _plot_comparing_results(
         cmpresults, input_data.thesaurus)
@@ -358,7 +358,7 @@ def _print_bad_results(cresults):
     print("")
 
 
-def _read_comparing_results(input_data):
+def _read_input_data(input_data):
     results = []
     for path in input_data.paths:
         if os.path.isfile(path):
