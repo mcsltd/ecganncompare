@@ -40,8 +40,6 @@ ComparingSet = namedtuple("ComparingSet", [
 InputData = namedtuple("InputData", ["paths", "thesaurus"])
 
 
-_WINDOW_TITLE = "Annotations comparing"
-_MAX_HISTOGRAM_COUNT = 10
 _MAX_ANNOTATORS_IN_SET = 5
 _LANGUAGE_RUS = "ru"
 
