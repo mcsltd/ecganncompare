@@ -24,6 +24,7 @@ class Text(object):
     NAME = "name"
     TYPE = "type"
     CMPRESULT = "cmpresult"
+    LANGUAGE = "language"
     
 
 class Error(Exception):
@@ -186,7 +187,7 @@ def _parse_thesaurus(filename):
     for group in data[Text.GROUPS]:
         for ann in group[Text.REPORTS]:
             result[ann[Text.ID]] = ann[Text.NAME]
-    return result
+    return result, data[Text.LANGUAGE].lower()
 
 
 def _remove_results(dataset):
@@ -233,12 +234,12 @@ def _count_matches(dtable, other_dtable):
 def _plot_comparing_sets(comparing_sets, thesaurus_path=None):
     # TODO: same scale for all figures
     # TODO: titles, text instead of codes
-    thesaurus = None
+    thesaurus, lang = None, None
     if thesaurus_path is not None:
-        thesaurus = _parse_thesaurus(thesaurus_path)
+        thesaurus, lang = _parse_thesaurus(thesaurus_path)
     max_x = _get_max_matches_count(comparing_sets) + 2
     for cmpset in comparing_sets:
-        _plot_cmpset_histogram(cmpset, thesaurus, xmax=max_x)
+        _plot_cmpset_histogram(cmpset, thesaurus, lang, max_x)
 
 
 def _read_comparing_set(cmpresult_path):
