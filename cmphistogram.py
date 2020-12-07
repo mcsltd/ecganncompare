@@ -419,5 +419,21 @@ def _read_comparing_set(cmpresult_path):
     )
 
 
+def _read_folder_datagroups(dirname):
+    all_jsons = _read_json_folder(dirname)
+    all_jsons = _remove_results(all_jsons)
+    all_jsons, bad_json = _remove_deviations(
+        all_jsons, Text.CONCLUSION_THESAURUS)
+    _print_removed_items(bad_json, Text.CONCLUSION_THESAURUS)
+    return _group_by(all_jsons, Text.ANNOTATOR)
+    # TODO: move check into another function
+    # if len(groups) < 2:
+    #     message_format = (
+    #         "Cannot compare files in folder {0}. Prepare a folder or "
+    #         "explicitly specify result files."
+    #     )
+    #     raise Error(message_format.format(dirname))
+
+
 if __name__ == "__main__":
     main()
