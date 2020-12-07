@@ -40,7 +40,8 @@ ComparingSet = namedtuple("ComparingSet", [
 InputData = namedtuple("InputData", ["paths", "thesaurus"])
 
 
-_MAX_ANNOTATORS_IN_SET = 5
+_MAX_ANNOTATORS_COUNT = 5
+_MIN_ANNOTATORS_COUNT = 2
 _LANGUAGE_RUS = "ru"
 
 
@@ -227,19 +228,18 @@ def _read_comparing_sets(input_data):
         all_jsons, Text.CONCLUSION_THESAURUS)
     _print_removed_items(bad_json, Text.CONCLUSION_THESAURUS)
     groups = _group_by(all_jsons, Text.ANNOTATOR)
-    # TODO: check grops count
-    # if len(groups) < 2:
-    #     message_format = (
-    #         "Cannot compare files in folder {0}. Prepare a folder or "
-    #         "explicitly specify result files."
-    #     )
-    #     raise Error(message_format.format(dirname))
-    if len(groups) > _MAX_ANNOTATORS_IN_SET:
+    if len(groups) > _MAX_ANNOTATORS_COUNT:
         groups = sorted(groups.items(), key=(lambda pair: len(pair[1])),
                         reverse=True)
-        ignored_annotators = (p[0] for p in groups[_MAX_ANNOTATORS_IN_SET:])
+        ignored_annotators = (p[0] for p in groups[_MAX_ANNOTATORS_COUNT:])
         _print_ignored_annotators(ignored_annotators)
-        groups = dict(groups[:_MAX_ANNOTATORS_IN_SET])
+        groups = dict(groups[:_MAX_ANNOTATORS_COUNT])
+    elif len(groups) < 2:
+        message_format = (
+            "Cannot less than %d annotators. Prepare a folders or "
+            "explicitly specify result files."
+        )
+        raise Error(message_format % _MIN_ANNOTATORS_COUNT)
     results += _create_comparing_sets(groups)
     return results
 
@@ -290,7 +290,7 @@ def _get_figure_title(cmpset, lang=None):
 def _print_ignored_annotators(annotators):
     message =\
         "Cannot compare more than %d annotators, the next will be ignored:"
-    print(message % _MAX_ANNOTATORS_IN_SET)
+    print(message % _MAX_ANNOTATORS_COUNT)
     print(", ".join(annotators))
 
 
