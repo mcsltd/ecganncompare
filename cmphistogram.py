@@ -235,8 +235,9 @@ def _plot_comparing_sets(comparing_sets, thesaurus_path=None):
     thesaurus = None
     if thesaurus_path is not None:
         thesaurus = _parse_thesaurus(thesaurus_path)
+    max_x = _get_max_matches_count(comparing_sets) + 2
     for cmpset in comparing_sets:
-        _plot_cmpset_histogram(cmpset, thesaurus)
+        _plot_cmpset_histogram(cmpset, thesaurus, xmax=max_x)
 
 
 def _read_comparing_set(cmpresult_path):
