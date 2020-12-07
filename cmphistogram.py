@@ -52,7 +52,6 @@ _MAX_ANNOTATORS_IN_SET = 5
 def main():
     input_data = _parse_args(sys.argv)
     cmpresults = _read_comparing_sets(input_data)
-    cmpresults, bad_results = _split_good_results(cmpresults)
     _plot_comparing_sets(cmpresults, input_data.thesaurus)
     plt.show()
 
@@ -72,83 +71,10 @@ def _parse_args(args):
     )
 
 
-def _read_comparing_result(filename):
-    with open(filename, "rt") as fin:
-        data = json.load(fin)
-    codes = list(_to_flat(d[Text.CONCLUSIONS] for d in data[Text.RECORDS]))
-    result = ComparingResult(
-        ref_annotator=data[Text.REF_ANNOTATOR],
-        test_annotator=data[Text.TEST_ANNOTATOR],
-        codes=codes,
-        records_count=len(data[Text.RECORDS])
-    )
-    return result
-
-
-def _plot_histogram(cresult, thesaurus=None):
-    counts = defaultdict(int)
-    for pair in cresult.codes:
-        code = _get_code(pair)
-        if pair[0] == pair[1]:
-            counts[code] += 1
-    frame = pandas.DataFrame.from_dict(counts, orient="index")
-    frame.columns = ["Matches"]
-    if thesaurus is None:
-        frame.sort_index(inplace=True)
-    else:
-        frame = frame.loc[(k for k in thesaurus if k in frame.index)]
-        frame.index = [thesaurus[k] for k in frame.index]
-    # NOTE: barh() plor bars in reverse order
-    frame[::-1].plot.barh(ax=plt.gca(), legend=True)
-    if thesaurus is not None:
-        plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
-        plt.tick_params(axis="y", labelsize=8)
-    title = _get_title(cresult.ref_annotator, cresult.test_annotator)
-    plt.title(title + (". Records count: %d" % cresult.records_count))
-    plt.gcf().canvas.set_window_title(_WINDOW_TITLE)
-
-
-def _get_code(row):
-    return next(x for x in row if x is not None)
-
-
 def _get_title(ref_annotator, test_annotator):
     return "Comparing {0} and {1} annotations".format(
         ref_annotator, test_annotator
     )
-
-
-def _plot_comparing_results(cresults, thesaurus_path=None):
-    not_showed = []
-    if len(cresults) > _MAX_HISTOGRAM_COUNT:
-        cresults = list(sorted(cresults, key=(lambda x: len(x.codes)),
-                               reverse=True))
-        not_showed = cresults[_MAX_HISTOGRAM_COUNT:]
-        cresults = cresults[:_MAX_HISTOGRAM_COUNT]
-    thesaurus = None
-    if thesaurus_path is not None:
-        thesaurus = _parse_thesaurus(thesaurus_path)
-    for cr in cresults:
-        plt.figure()
-        _plot_histogram(cr, thesaurus)
-    return cresults, not_showed
-
-
-def _compare_inside_folder(dirname):
-    all_jsons = _read_json_folder(dirname)
-    all_jsons = _remove_results(all_jsons)
-    all_jsons, bad_json = _remove_deviations(all_jsons,
-                                             Text.CONCLUSION_THESAURUS)
-    _print_removed_items(bad_json, Text.CONCLUSION_THESAURUS)
-    groups = _group_by(all_jsons, Text.ANNOTATOR)
-    if len(groups) < 2:
-        message_format = (
-            "Cannot compare files in folder {0}. Prepare a folder or "
-            "explicitly specify result files."
-        )
-        raise Error(message_format.format(dirname))
-    comparing_pairs = _select_comparing_pairs(groups)
-    return [_compare_datasets(p[0], p[1]) for p in comparing_pairs]
 
 
 def _read_json_folder(dirname):
@@ -176,20 +102,6 @@ def _group_by(iterable_data, fieldname):
     return groups
 
 
-def _select_comparing_pairs(groups):
-    # TODO: select ref_data by date (older)
-    groups_count = len(groups)
-    if groups_count == 2:
-        return [tuple(groups.values())]
-    pairs = []
-    names = list(groups.keys())
-    for i, gname in enumerate(names):
-        ref_data = groups[gname]
-        for other_name in names[i + 1:]:
-            pairs.append((ref_data, groups[other_name]))
-    return pairs
-
-
 def _create_comparing_sets(groups):
     cmpgroups = sorted(groups.items(), reverse=True,
                        key=(lambda pair: len(pair[1])))
@@ -209,45 +121,6 @@ def _create_comparing_sets(groups):
     return cmpsets
 
 
-def _compare_datasets(ref_data, other_data):
-    _check_dataset(ref_data)
-    _check_dataset(other_data)
-    code_pairs, records_count = _create_code_pairs(ref_data, other_data)
-    return ComparingResult(
-        ref_data[0][Text.ANNOTATOR],
-        other_data[0][Text.ANNOTATOR],
-        code_pairs,
-        records_count
-    )
-
-
-def _check_dataset(dataset):
-    def _check_field_value(dataset, fieldname):
-        message_template = "Files from one folder must have the same '{0}'"
-        value = dataset[0][fieldname]
-        if any(x[fieldname] != value for x in dataset):
-            raise Error(message_template.format(fieldname))
-    _check_field_value(dataset, Text.ANNOTATOR)
-    _check_field_value(dataset, Text.CONCLUSION_THESAURUS)
-
-
-def _create_code_pairs(ref_data, other_data):
-    code_pairs = []
-    records_count = 0
-    other_data = _dataset_to_table(other_data)
-    for ref_item in ref_data:
-        db = ref_item[Text.DATABASE]
-        name = ref_item[Text.RECORD_ID]
-        try:
-            other_item = other_data[db][name]
-        except KeyError:
-            continue
-        code_pairs += _merge_codes(ref_item[Text.CONCLUSIONS],
-                                   other_item[Text.CONCLUSIONS])
-        records_count += 1
-    return code_pairs, records_count
-
-
 def _dataset_to_table(dataset):
     table = defaultdict(dict)
     for item in dataset:
@@ -255,21 +128,6 @@ def _dataset_to_table(dataset):
         record = item[Text.RECORD_ID]
         table[database][record] = item
     return dict(table)
-
-
-def _merge_codes(codes, other_codes):
-    codes = sorted(codes)
-    other_codes = set(other_codes)
-    code_pairs = []
-    for code in codes:
-        if code in other_codes:
-            code_pairs.append((code, code))
-        else:
-            code_pairs.append((code, None))
-    other_codes.difference_update(codes)
-    for code in other_codes:
-        code_pairs.append((None, code))
-    return code_pairs
 
 
 def _print_comparing_results(results, header=None):
@@ -339,31 +197,11 @@ def _remove_results(dataset):
             if Text.TYPE not in d or d[Text.TYPE] != Text.CMPRESULT]
 
 
-def _split_good_results(cresults):
-    good, bad = [], []
-    for cr in cresults:
-        if cr.records_count == 0:
-            bad.append(cr)
-        else:
-            good.append(cr)
-    return good, bad
-
-
 def _print_bad_results(cresults):
     message_format = "Cannot compare {0} with {1}, common records not found"
     for cr in cresults:
         print(message_format.format(cr.ref_annotator, cr.test_annotator))
     print("")
-
-
-def _read_input_data(input_data):
-    results = []
-    for path in input_data.paths:
-        if os.path.isfile(path):
-            results.append(_read_comparing_result(path))
-        else:
-            results += _compare_inside_folder(path)
-    return results
 
 
 def _print_info(results, bad_results, excess_results):
