@@ -25,7 +25,7 @@ class Text(object):
     TYPE = "type"
     CMPRESULT = "cmpresult"
     LANGUAGE = "language"
-    
+
 
 class Error(Exception):
     def __init__(self, message):
@@ -128,28 +128,6 @@ def _dataset_to_table(dataset):
     return dict(table)
 
 
-def _print_comparing_results(results, header=None):
-    if header is not None:
-        print(header)
-    for cresult in results:
-        print("Comparing {0} with {1}".format(
-            cresult.annotator, ", ".join(cresult.test_annotators)
-        ))
-        print("Records count: %d" % cresult.records_count)
-        ref_count = _count_items(cresult.codes, lambda x: x[0] is not None)
-        print("Reference annotations count: %d" % ref_count)
-        test_count = _count_items(cresult.codes, lambda x: x[1] is not None)
-        print("Test annotations count: %d" % test_count)
-        matches_count = _count_items(cresult.codes, lambda x: x[0] == x[1])
-        print("Matches: %d" % matches_count)
-        misses_count = _count_items(cresult.codes, lambda x: x[0] != x[1])
-        print("Misses: %d\n" % misses_count)
-
-
-def _count_items(iterable, predicate):
-    return sum(1 for x in iterable if predicate(x))
-
-
 def _to_flat(iterable_matrix):
     return (item for row in iterable_matrix for item in row)
 
@@ -200,20 +178,6 @@ def _print_bad_results(cresults):
     for cr in cresults:
         print(message_format.format(cr.ref_annotator, cr.test_annotator))
     print("")
-
-
-def _print_info(results, bad_results, excess_results):
-    _print_comparing_results(results)
-    if bad_results:
-        _print_bad_results(bad_results)
-    if not excess_results:
-        return
-    header = (
-        "Cannot show more than {0} histograms, the following annotator "
-        "pairs not showed: "
-    )
-    _print_comparing_results(
-        excess_results, header.format(_MAX_HISTOGRAM_COUNT))
 
 
 def _count_matches(dtable, other_dtable):
