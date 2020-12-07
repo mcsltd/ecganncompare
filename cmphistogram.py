@@ -51,7 +51,7 @@ _MAX_ANNOTATORS_IN_SET = 5
 
 def main():
     input_data = _parse_args(sys.argv)
-    cmpresults = _read_input_data(input_data)
+    cmpresults = _read_comparing_sets(input_data)
     cmpresults, bad_results = _split_good_results(cmpresults)
     cmpresults, not_showed_results = _plot_comparing_results(
         cmpresults, input_data.thesaurus)
@@ -433,6 +433,25 @@ def _read_folder_datagroups(dirname):
     #         "explicitly specify result files."
     #     )
     #     raise Error(message_format.format(dirname))
+
+
+def _read_comparing_sets(input_data):
+    results = []
+    all_jsons = []
+    for path in input_data.paths:
+        if os.path.isfile(path):
+            results.append(_read_comparing_result(path))
+        else:
+            all_jsons += _read_json_folder(path)
+    if not all_jsons:
+        return results
+    all_jsons = _remove_results(all_jsons)
+    all_jsons, bad_json = _remove_deviations(
+        all_jsons, Text.CONCLUSION_THESAURUS)
+    _print_removed_items(bad_json, Text.CONCLUSION_THESAURUS)
+    groups = _group_by(all_jsons, Text.ANNOTATOR)
+    results += _create_comparing_sets(groups)
+    return results
 
 
 if __name__ == "__main__":
