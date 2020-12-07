@@ -439,7 +439,7 @@ def _read_comparing_sets(input_data):
     # TODO: check input_path is filename or dirs list
     for path in input_data.paths:
         if os.path.isfile(path):
-            results.append(_read_comparing_result(path))
+            results.append(_read_comparing_set(path))
         else:
             all_jsons += _read_json_folder(path)
     if not all_jsons:
