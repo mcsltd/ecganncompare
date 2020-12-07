@@ -232,11 +232,11 @@ def _count_matches(dtable, other_dtable):
 def _plot_comparing_sets(comparing_sets, thesaurus_path=None):
     # TODO: same scale for all figures
     # TODO: titles, text instead of codes
+    thesaurus = None
+    if thesaurus_path is not None:
+        thesaurus = _parse_thesaurus(thesaurus_path)
     for cmpset in comparing_sets:
-        dframe = pandas.DataFrame.from_dict(cmpset.matches_counts).sort_index()
-        plt.figure()
-        # NOTE: barh() plor bars in reverse order
-        dframe[::-1].plot.barh(ax=plt.gca())
+        _plot_cmpset_histogram(cmpset, thesaurus)
 
 
 def _read_comparing_set(cmpresult_path):
