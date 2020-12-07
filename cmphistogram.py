@@ -99,10 +99,7 @@ def _group_by(iterable_data, fieldname):
 
 
 def _create_comparing_sets(groups):
-    cmpgroups = sorted(groups.items(), reverse=True,
-                       key=(lambda pair: len(pair[1])))
-    cmpgroups = [(gn, _dataset_to_table(ds))
-                 for gn, ds in cmpgroups[:_MAX_ANNOTATORS_IN_SET]]
+    cmpgroups = [(gn, _dataset_to_table(ds)) for gn, ds in groups.items()]
     cmpsets = []
     for annr, dtable in cmpgroups:
         matches_counts = {}
@@ -237,6 +234,12 @@ def _read_comparing_sets(input_data):
     #         "explicitly specify result files."
     #     )
     #     raise Error(message_format.format(dirname))
+    if len(groups) > _MAX_ANNOTATORS_IN_SET:
+        groups = sorted(groups.items(), key=(lambda pair: len(pair[1])),
+                        reverse=True)
+        ignored_annotators = (p[0] for p in groups[_MAX_ANNOTATORS_IN_SET:])
+        _print_ignored_annotators(ignored_annotators)
+        groups = dict(groups[:_MAX_ANNOTATORS_IN_SET])
     results += _create_comparing_sets(groups)
     return results
 
@@ -282,6 +285,13 @@ def _get_figure_title(cmpset, lang=None):
     else:
         title_format = "Number of conclusions that matched annotator {0}"
     return title_format.format(cmpset.annotator)
+
+
+def _print_ignored_annotators(annotators):
+    message =\
+        "Cannot compare more than %d annotators, the next will be ignored:"
+    print(message % _MAX_ANNOTATORS_IN_SET)
+    print(", ".join(annotators))
 
 
 if __name__ == "__main__":
