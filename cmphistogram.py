@@ -321,5 +321,13 @@ def _get_window_title(lang=None):
     return "Annotators comparison"
 
 
+def _get_figure_title(cmpresult, lang=None):
+    if lang == _LANGUAGE_RUS:
+        title_format = u"Количество заключений, совпавших с аннотатором {0}"
+    else:
+        title_format = "Number of conclusions that matched annotator {0}"
+    return title_format.format(cmpresult.annotator)
+
+
 if __name__ == "__main__":
     main()
