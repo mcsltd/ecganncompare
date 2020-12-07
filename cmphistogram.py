@@ -46,8 +46,9 @@ _MAX_ANNOTATORS_IN_SET = 5
 
 def main():
     input_data = _parse_args(sys.argv)
-    cmpresults = _read_comparing_sets(input_data)
-    _plot_comparing_sets(cmpresults, input_data.thesaurus)
+    cmpsets = _read_comparing_sets(input_data)
+    # TODO: get ignored annotators
+    _plot_comparing_sets(cmpsets, input_data.thesaurus)
     plt.show()
 
 
