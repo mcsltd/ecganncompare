@@ -296,10 +296,13 @@ def _plot_cmpset_histogram(cmpset, thesaurus=None, lang=None, xmax=None):
     else:
         dframe = dframe.loc[(k for k in thesaurus.keys() if k in dframe.index)]
         dframe.index = [thesaurus[k] for k in dframe.index]
-    plt.figure()
+    fig = plt.figure()
+    fig.canvas.set_window_title(_get_window_title(lang))
     axes = plt.gca()
     # NOTE: barh() plor bars in reverse order
     dframe[::-1].plot.barh(ax=axes)
+    plt.title(_get_figure_title(cmpset, lang))
+
     if thesaurus is not None:
         plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
         axes.tick_params(axis="y", labelsize=8)
