@@ -287,5 +287,17 @@ def _read_comparing_sets(input_data):
     return results
 
 
+def _plot_cmpset_histogram(cmpset, thesaurus=None, lang=None):
+    dframe = pandas.DataFrame.from_dict(cmpset.matches_counts)
+    if not thesaurus:
+        dframe.sort_index(inplace=True)
+    else:
+        dframe = dframe.loc[(k for k in thesaurus.keys() if k in dframe.index)]
+        dframe.index = [thesaurus[k] for k in dframe.index]
+    plt.figure()
+    # NOTE: barh() plor bars in reverse order
+    dframe[::-1].plot.barh(ax=plt.gca())
+
+
 if __name__ == "__main__":
     main()
