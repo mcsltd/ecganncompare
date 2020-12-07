@@ -31,11 +31,6 @@ class Error(Exception):
         super(Error, self).__init__(message)
 
 
-ComparingResult = namedtuple("ComparingResult", [
-    "ref_annotator", "test_annotator", "codes", "records_count"
-])
-
-
 ComparingSet = namedtuple("ComparingSet", [
     "annotator", "matches_counts", "records_count"
 ])
