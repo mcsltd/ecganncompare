@@ -310,7 +310,7 @@ def _get_max_matches_count(cmpsets):
     max_count = 0
     for cmpset in cmpsets:
         for annr in cmpset.matches_counts:
-            max_count = max(max_count, *matches_counts[annr].values())
+            max_count = max(max_count, *cmpset.matches_counts[annr].values())
     return max_count
 
 
