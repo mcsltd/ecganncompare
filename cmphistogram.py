@@ -53,9 +53,7 @@ def main():
     input_data = _parse_args(sys.argv)
     cmpresults = _read_comparing_sets(input_data)
     cmpresults, bad_results = _split_good_results(cmpresults)
-    cmpresults, not_showed_results = _plot_comparing_results(
-        cmpresults, input_data.thesaurus)
-    _print_info(cmpresults, bad_results, not_showed_results)
+    _plot_comparing_sets(cmpresults, input_data.thesaurus)
     plt.show()
 
 
@@ -279,7 +277,7 @@ def _print_comparing_results(results, header=None):
         print(header)
     for cresult in results:
         print("Comparing {0} with {1}".format(
-            cresult.ref_annotator, cresult.test_annotator
+            cresult.annotator, ", ".join(cresult.test_annotators)
         ))
         print("Records count: %d" % cresult.records_count)
         ref_count = _count_items(cresult.codes, lambda x: x[0] is not None)
@@ -438,6 +436,7 @@ def _read_folder_datagroups(dirname):
 def _read_comparing_sets(input_data):
     results = []
     all_jsons = []
+    # TODO: check input_path is filename or dirs list
     for path in input_data.paths:
         if os.path.isfile(path):
             results.append(_read_comparing_result(path))
