@@ -24,7 +24,7 @@ class Text(object):
     NAME = "name"
     TYPE = "type"
     CMPRESULT = "cmpresult"
-
+    
 
 class Error(Exception):
     def __init__(self, message):
@@ -42,6 +42,7 @@ InputData = namedtuple("InputData", ["paths", "thesaurus"])
 _WINDOW_TITLE = "Annotations comparing"
 _MAX_HISTOGRAM_COUNT = 10
 _MAX_ANNOTATORS_IN_SET = 5
+_LANGUAGE_RUS = "ru"
 
 
 def main():
@@ -312,6 +313,12 @@ def _get_max_matches_count(cmpsets):
         for annr in cmpset.matches_counts:
             max_count = max(max_count, *cmpset.matches_counts[annr].values())
     return max_count
+
+
+def _get_window_title(lang=None):
+    if lang == _LANGUAGE_RUS:
+        return u"Сравнение аннотаторов"
+    return "Annotators comparison"
 
 
 if __name__ == "__main__":
