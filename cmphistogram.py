@@ -407,7 +407,7 @@ def _plot_comparing_sets(comparing_sets, thesaurus_path=None):
         dframe[::-1].plot.barh(ax=plt.gca())
 
 
-def _read_comparing_sets(cmpresult_path):
+def _read_comparing_set(cmpresult_path):
     data = _read_json(cmpresult_path)
     code_pairs = _to_flat(d[Text.CONCLUSIONS] for d in data[Text.RECORDS])
     match_counts = defaultdict(
