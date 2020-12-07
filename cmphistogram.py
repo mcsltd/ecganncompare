@@ -232,8 +232,6 @@ def _count_matches(dtable, other_dtable):
 
 
 def _plot_comparing_sets(comparing_sets, thesaurus_path=None):
-    # TODO: same scale for all figures
-    # TODO: titles, text instead of codes
     thesaurus, lang = None, None
     if thesaurus_path is not None:
         thesaurus, lang = _parse_thesaurus(thesaurus_path)
