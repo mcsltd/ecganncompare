@@ -314,5 +314,16 @@ def _create_dataframe(cmpset, thesaurus=None):
     return dframe
 
 
+def _plot_dataframe_barh(dframe, wide_yticks):
+    fig = plt.figure()
+    axes = plt.gca()
+    # NOTE: barh() plor bars in reverse order
+    dframe[::-1].plot.barh(ax=axes)
+    if wide_yticks:
+        plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
+        axes.tick_params(axis="y", labelsize=8)
+    return fig, axes
+
+
 if __name__ == "__main__":
     main()
