@@ -325,5 +325,10 @@ def _plot_dataframe_barh(dframe, wide_yticks):
     return fig, axes
 
 
+def _set_titles(cmpset, fix, axes, lang=None):
+    fig.canvas.set_window_title(_get_window_title(lang))
+    axes.set_title(_get_figure_title(cmpset, lang))
+
+
 if __name__ == "__main__":
     main()
