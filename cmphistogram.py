@@ -197,8 +197,9 @@ def _plot_comparing_sets(comparing_sets, thesaurus_path=None):
     if thesaurus_path is not None:
         thesaurus, lang = _parse_thesaurus(thesaurus_path)
     max_x = _get_max_matches_count(comparing_sets) + 2
+    annr_labels = _get_legend_labels(comparing_sets, lang)
     for cmpset in comparing_sets:
-        dframe = _create_dataframe(cmpset, thesaurus)
+        dframe = _create_dataframe(cmpset, annr_labels, thesaurus)
         fig, axes = _plot_dataframe_barh(dframe, thesaurus is not None)
         _set_titles(cmpset, fig, axes, lang)
         plt.xlim(xmax=max_x)
@@ -287,8 +288,9 @@ def _print_ignored_annotators(annotators):
     print(", ".join(annotators))
 
 
-def _create_dataframe(cmpset, thesaurus=None):
+def _create_dataframe(cmpset, annr_labels, thesaurus=None):
     dframe = pandas.DataFrame.from_dict(cmpset.matches_counts)
+    dframe.columns = [annr_labels[c] for c in dframe.columns]
     if not thesaurus:
         return dframe.sort_index()
     dframe = dframe.loc[(k for k in thesaurus.keys() if k in dframe.index)]
