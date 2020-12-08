@@ -268,10 +268,8 @@ def _get_window_title(lang=None):
 
 def _get_figure_title(cmpset, lang=None):
     if lang == _LANGUAGE_RUS:
-        title_format = (
-            u"Количество заключений, совпавших с аннотатором {0} "
-            u"(на {1} записях)"
-        )
+        title_format =\
+            u"Число заключений, совпавших с аннотатором {0} (на {1} записях)"
     else:
         title_format = (
             "Number of conclusions that matched annotator {0} "
