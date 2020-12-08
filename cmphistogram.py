@@ -312,5 +312,20 @@ def _set_titles(cmpset, fig, axes, lang=None):
     axes.set_title(_get_figure_title(cmpset, lang))
 
 
+def _get_legend_labels(cmpsets, lang=None):
+    annr_labels = {}
+    total_ann_count = sum(x.annotations_count for x in cmpsets)
+    if lang == _LANGUAGE_RUS:
+        message = u"{0} ({1} заключений из {2})"
+    else:
+        message = "{0} ({1} conclusions from {2})"
+
+    for cmpset in cmpsets:
+        annr_labels[cmpset.annotator] = message.format(
+            cmpset.annotator, cmpset.annotations_count, total_ann_count
+        )
+    return annr_labels
+
+
 if __name__ == "__main__":
     main()
