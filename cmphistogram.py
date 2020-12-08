@@ -33,7 +33,7 @@ class Error(Exception):
 
 
 ComparingSet = namedtuple("ComparingSet", [
-    "annotator", "matches_counts", "records_count"
+    "annotator", "matches_counts", "records_count", "annotations_count"
 ])
 
 
@@ -103,6 +103,8 @@ def _create_comparing_sets(groups):
     cmpgroups = [(gn, _dataset_to_table(ds)) for gn, ds in groups.items()]
     cmpsets = []
     for annr, dtable in cmpgroups:
+        records_count = len(groups[annr])
+        ann_count = sum(len(x[Text.CONCLUSIONS]) for x in groups[annr])
         matches_counts = {}
         for other_annr, other_dtable in cmpgroups:
             if annr == other_annr:
@@ -111,7 +113,7 @@ def _create_comparing_sets(groups):
             if counts:
                 matches_counts[other_annr] = counts
         cmpsets.append(ComparingSet(
-            annr, matches_counts, len(groups[annr])))
+            annr, matches_counts, records_count, ann_count))
     return cmpsets
 
 
@@ -203,16 +205,20 @@ def _plot_comparing_sets(comparing_sets, thesaurus_path=None):
 def _read_comparing_set(cmpresult_path):
     data = _read_json(cmpresult_path)
     code_pairs = _to_flat(d[Text.CONCLUSIONS] for d in data[Text.RECORDS])
+    code_pairs = list(code_pairs)
     match_counts = defaultdict(
         int, Counter(p[0] for p in code_pairs if p[0] == p[1]))
+    ann_count = sum(1 for p in code_pairs if p[0] is not None)
     return ComparingSet(
         annotator=data[Text.REF_ANNOTATOR],
         matches_counts={data[Text.TEST_ANNOTATOR], match_counts},
-        records_count=len(data[Text.RECORDS])
+        records_count=len(data[Text.RECORDS]),
+        annotations_count=ann_count
     )
 
 
 def _read_comparing_sets(input_data):
+    # TODO: with intermediate data as table [db][record][annotator][codes]
     results = []
     all_jsons = []
     # TODO: check input_path is filename or dirs list
@@ -257,6 +263,7 @@ def _plot_cmpset_histogram(cmpset, thesaurus=None, lang=None, xmax=None):
     # NOTE: barh() plor bars in reverse order
     dframe[::-1].plot.barh(ax=axes)
     plt.title(_get_figure_title(cmpset, lang))
+    # TODO: show in legent conclusions count
 
     if thesaurus is not None:
         plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
