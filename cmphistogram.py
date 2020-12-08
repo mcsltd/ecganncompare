@@ -48,7 +48,6 @@ _LANGUAGE_RUS = "ru"
 def main():
     input_data = _parse_args(sys.argv)
     cmpsets = _read_comparing_sets(input_data)
-    # TODO: get ignored annotators
     _plot_comparing_sets(cmpsets, input_data.thesaurus)
     plt.show()
 
@@ -304,6 +303,15 @@ def _print_ignored_annotators(annotators):
         "Cannot compare more than %d annotators, the next will be ignored:"
     print(message % _MAX_ANNOTATORS_COUNT)
     print(", ".join(annotators))
+
+
+def _create_dataframe(cmpset, thesaurus=None):
+    dframe = pandas.DataFrame.from_dict(cmpset.matches_counts)
+    if not thesaurus:
+        return dframe.sort_index()
+    dframe = dframe.loc[(k for k in thesaurus.keys() if k in dframe.index)]
+    dframe.index = [thesaurus[k] for k in dframe.index]
+    return dframe
 
 
 if __name__ == "__main__":
