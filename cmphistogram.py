@@ -198,7 +198,9 @@ def _plot_comparing_sets(comparing_sets, thesaurus_path=None):
         thesaurus, lang = _parse_thesaurus(thesaurus_path)
     max_x = _get_max_matches_count(comparing_sets) + 2
     for cmpset in comparing_sets:
-        _plot_cmpset_histogram(cmpset, thesaurus, lang)
+        dframe = _create_dataframe(cmpset, thesaurus)
+        fig, axes = _plot_dataframe_barh(dframe, thesaurus is not None)
+        _set_titles(cmpset, fig, axes, lang)
         plt.xlim(xmax=max_x)
 
 
@@ -248,26 +250,6 @@ def _read_comparing_sets(input_data):
         raise Error(message_format % _MIN_ANNOTATORS_COUNT)
     results += _create_comparing_sets(groups)
     return results
-
-
-def _plot_cmpset_histogram(cmpset, thesaurus=None, lang=None):
-    dframe = pandas.DataFrame.from_dict(cmpset.matches_counts)
-    if not thesaurus:
-        dframe.sort_index(inplace=True)
-    else:
-        dframe = dframe.loc[(k for k in thesaurus.keys() if k in dframe.index)]
-        dframe.index = [thesaurus[k] for k in dframe.index]
-    fig = plt.figure()
-    fig.canvas.set_window_title(_get_window_title(lang))
-    axes = plt.gca()
-    # NOTE: barh() plor bars in reverse order
-    dframe[::-1].plot.barh(ax=axes)
-    plt.title(_get_figure_title(cmpset, lang))
-    # TODO: show in legent conclusions count
-
-    if thesaurus is not None:
-        plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
-        axes.tick_params(axis="y", labelsize=8)
 
 
 def _get_max_matches_count(cmpsets):
