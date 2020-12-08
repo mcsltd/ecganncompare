@@ -221,7 +221,6 @@ def _read_comparing_set(cmpresult_path):
 
 
 def _read_comparing_sets(input_data):
-    # TODO: with intermediate data as table [db][record][annotator][codes]
     results = []
     all_jsons = []
     # TODO: check input_path is filename or dirs list
@@ -327,6 +326,11 @@ def _get_legend_labels(cmpsets, lang=None):
             cmpset.annotator, cmpset.annotations_count, total_ann_count
         )
     return annr_labels
+
+
+def _create_annotation_table(datagroups):
+    # TODO: with intermediate data as table [db][record][annotator][codes]
+    pass
 
 
 if __name__ == "__main__":
