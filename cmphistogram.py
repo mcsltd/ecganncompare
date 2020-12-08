@@ -199,7 +199,8 @@ def _plot_comparing_sets(comparing_sets, thesaurus_path=None):
         thesaurus, lang = _parse_thesaurus(thesaurus_path)
     max_x = _get_max_matches_count(comparing_sets) + 2
     for cmpset in comparing_sets:
-        _plot_cmpset_histogram(cmpset, thesaurus, lang, max_x)
+        _plot_cmpset_histogram(cmpset, thesaurus, lang)
+        plt.xlim(xmax=max_x)
 
 
 def _read_comparing_set(cmpresult_path):
@@ -250,7 +251,7 @@ def _read_comparing_sets(input_data):
     return results
 
 
-def _plot_cmpset_histogram(cmpset, thesaurus=None, lang=None, xmax=None):
+def _plot_cmpset_histogram(cmpset, thesaurus=None, lang=None):
     dframe = pandas.DataFrame.from_dict(cmpset.matches_counts)
     if not thesaurus:
         dframe.sort_index(inplace=True)
@@ -268,8 +269,6 @@ def _plot_cmpset_histogram(cmpset, thesaurus=None, lang=None, xmax=None):
     if thesaurus is not None:
         plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
         axes.tick_params(axis="y", labelsize=8)
-    if xmax is not None:
-        plt.xlim(xmax=xmax)
 
 
 def _get_max_matches_count(cmpsets):
