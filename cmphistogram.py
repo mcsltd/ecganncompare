@@ -50,8 +50,9 @@ _LANGUAGE_RUS = "ru"
 
 def main():
     input_data = _parse_args(sys.argv)
-    cmpsets, _ = _read_comparing_sets(input_data)
-    _plot_comparing_sets(cmpsets, input_data.thesaurus)
+    cmpsets, dtables = _read_comparing_sets(input_data)
+    thesaurus, lang = _plot_comparing_sets(cmpsets, input_data.thesaurus)
+    _show_stats_table(dtables, thesaurus, lang)
     plt.show()
 
 
@@ -374,7 +375,6 @@ def _show_stats_table(datatables, thesaurus=None, lang=None):
 
 
 def _match_stats_to_str(match_stats):
-    match_stats = MatchStats()
     return "Se={0}%, Sp={1}%, PPV={2}%,\nPNV={3}%, Acc={4}%".format(
         *(x * 100.0 for x in match_stats) # NOTE: convert to percents
     )
