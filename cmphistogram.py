@@ -387,7 +387,7 @@ def _count_unique_anns(datatables):
         for db in datatables[annr]:
             for rec in datatables[annr][db]:
                 data = datatables[annr][db][rec]
-                annotations.add(data[Text.CONCLUSIONS])
+                annotations.update(data[Text.CONCLUSIONS])
     return len(annotations)
 
 
