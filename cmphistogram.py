@@ -47,7 +47,7 @@ _LANGUAGE_RUS = "ru"
 
 def main():
     input_data = _parse_args(sys.argv)
-    cmpsets = _read_comparing_sets(input_data)
+    cmpsets, _ = _read_comparing_sets(input_data)
     _plot_comparing_sets(cmpsets, input_data.thesaurus)
     plt.show()
 
@@ -250,7 +250,7 @@ def _read_comparing_sets(input_data):
         raise Error(message_format % _MIN_ANNOTATORS_COUNT)
     dtables = _create_datatables(groups)
     results += _create_comparing_sets(dtables)
-    return results
+    return results, dtables
 
 
 def _get_max_matches_count(cmpsets):
