@@ -364,5 +364,12 @@ def _show_stats_table(datatables):
     )
 
 
+def _match_stats_to_str(match_stats):
+    match_stats = MatchStats()
+    return "Se={0}%, Sp={1}%, PPV={2}%,\nPNV={3}%, Acc={4}%".format(
+        *(x * 100.0 for x in match_stats) # NOTE: convert to percents
+    )
+
+
 if __name__ == "__main__":
     main()
