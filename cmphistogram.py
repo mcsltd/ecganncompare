@@ -381,6 +381,7 @@ def _show_stats_table(datatables, thesaurus=None, lang=None):
     )
     table.auto_set_font_size(False)
     table.set_fontsize(12)
+    plt.subplots_adjust(left=0.2)
 
 
 def _match_stats_to_str(match_stats):
