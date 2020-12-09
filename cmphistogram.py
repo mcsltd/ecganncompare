@@ -398,8 +398,8 @@ def _calculate_match_stats(dtable, other_table, total_ann_count):
         for rec in dtable[db]:
             if rec not in other_table[db]:
                 continue
-        anns = set(dtable[db][rec][Text.CONCLUSIONS])
-        other_anns = set(other_table[db][rec][Text.CONCLUSIONS])
+            anns = set(dtable[db][rec][Text.CONCLUSIONS])
+            other_anns = set(other_table[db][rec][Text.CONCLUSIONS])
 
         matches = anns.intersection(other_anns)
         tp += len(matches)
