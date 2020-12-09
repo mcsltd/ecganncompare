@@ -412,10 +412,10 @@ def _calculate_match_stats(dtable, other_table, total_ann_count):
             anns = set(dtable[db][rec][Text.CONCLUSIONS])
             other_anns = set(other_table[db][rec][Text.CONCLUSIONS])
 
-        matches = anns.intersection(other_anns)
-        tp += len(matches)
-        fn += len(anns.difference(matches))
-        fp += len(other_anns.difference(matches))
+            matches = anns.intersection(other_anns)
+            tp += len(matches)
+            fn += len(anns.difference(matches))
+            fp += len(other_anns.difference(matches))
     tn = total_ann_count - (tp + fp + fn)
     return MatchStats(
         se=(tp / float(tp + fn)),
