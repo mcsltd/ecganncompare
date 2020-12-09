@@ -110,8 +110,7 @@ def _create_comparing_sets(datatables):
             if counts:
                 matches_counts[other_annr] = counts
         records_count = _get_records_count(dtable)
-        ann_count = sum(len(dtable[db][rec][Text.CONCLUSIONS])
-                        for db in dtable for rec in dtable[db])
+        ann_count = _get_annotations_count(dtable)
         cmpsets.append(ComparingSet(
             annr, matches_counts, records_count, ann_count))
     return cmpsets
@@ -335,6 +334,12 @@ def _create_datatables(datagroups):
 
 def _get_records_count(datatable):
     return sum(len(datatable[db]) for db in datatable)
+
+
+def _get_annotations_count(datatable):
+    return sum(len(datatable[db][rec][Text.CONCLUSIONS])
+               for db in datatable for rec in datatable[db])
+
 
 if __name__ == "__main__":
     main()
