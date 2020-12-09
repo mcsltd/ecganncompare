@@ -331,5 +331,8 @@ def _create_datatables(datagroups):
                 for annr in datagroups)
 
 
+def _get_records_count(datatable):
+    return sum(len(datatable[db]) for db in datatable)
+
 if __name__ == "__main__":
     main()
