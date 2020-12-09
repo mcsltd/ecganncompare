@@ -361,6 +361,7 @@ def _show_stats_table(datatables, thesaurus=None, lang=None):
         dtable = datatables[annr]
         for j, other_annr in enumerate(annotators):
             if i == j:
+                cells[i].append("-")
                 continue
             stats = _calculate_match_stats(
                 dtable, datatables[other_annr], total_ann_count)
