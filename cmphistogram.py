@@ -120,6 +120,7 @@ def _create_comparing_sets(datatables):
 
 
 def _dataset_to_table(dataset):
+    # TODO: add tot tables only conclusions
     table = defaultdict(dict)
     for item in dataset:
         database = item[Text.DATABASE]
@@ -353,7 +354,7 @@ def _show_stats_table(datatables):
         for j, other_annr in enumerate(annotators):
             if i == j:
                 continue
-            stats = _caclulate_match_stats(dtable, datatables[other_annr])
+            stats = _calculate_match_stats(dtable, datatables[other_annr])
             cells[i].append(_match_stats_to_str(stats))
 
     plt.figure()
