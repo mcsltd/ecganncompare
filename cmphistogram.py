@@ -51,8 +51,9 @@ _LANGUAGE_RUS = "ru"
 def main():
     input_data = _parse_args(sys.argv)
     cmpsets, dtables = _read_comparing_sets(input_data)
-    thesaurus, lang = _plot_comparing_sets(cmpsets, input_data.thesaurus)
-    _show_stats_table(dtables, thesaurus, lang)
+    # thesaurus, lang = _plot_comparing_sets(cmpsets, input_data.thesaurus)
+    # _show_stats_table(dtables, thesaurus, lang)
+    _show_stats_table(dtables)
     plt.show()
 
 
@@ -387,9 +388,8 @@ def _show_stats_table(datatables, thesaurus=None, lang=None):
 
 
 def _match_stats_to_str(match_stats):
-    return "Se={0}%, Sp={1}%, PPV={2}%,\nPNV={3}%, Acc={4}%".format(
-        *(x * 100.0 for x in match_stats)  # NOTE: convert to percents
-    )
+    template = "Se={0:.2%}, Sp={1:.2%}, PPV={2:.2%},\nPNV={3:.2%}, Acc={4:.2%}"
+    return template.format(*match_stats)
 
 
 def _count_unique_anns(datatables):
