@@ -368,6 +368,7 @@ def _show_stats_table(datatables, thesaurus=None, lang=None):
             cells[i].append(_match_stats_to_str(stats))
 
     fig = plt.figure()
+    plt.axis("tight")
     plt.axis("off")
     fig.patch.set_visible(False)
 
