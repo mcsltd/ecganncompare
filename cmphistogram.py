@@ -346,7 +346,13 @@ def _get_annotations_count(datatable):
                for db in datatable for rec in datatable[db])
 
 
-def _show_stats_table(datatables):
+def _show_stats_table(datatables, thesaurus=None, lang=None):
+    if thesaurus is not None:
+        total_ann_count = len(thesaurus)
+    else:
+        total_ann_count = _count_unique_anns(datatables)
+        print("Warning! Thesaurus is undefined, the total number of possible "
+              "conclusions and statistical values may be incorrect.")
     annotators = list(datatables.keys())
     cells = []
     for i, annr in enumerate(annotators):
@@ -355,7 +361,8 @@ def _show_stats_table(datatables):
         for j, other_annr in enumerate(annotators):
             if i == j:
                 continue
-            stats = _calculate_match_stats(dtable, datatables[other_annr])
+            stats = _calculate_match_stats(
+                dtable, datatables[other_annr], total_ann_count)
             cells[i].append(_match_stats_to_str(stats))
 
     plt.figure()
