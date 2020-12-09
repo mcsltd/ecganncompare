@@ -371,5 +371,15 @@ def _match_stats_to_str(match_stats):
     )
 
 
+def _count_unique_anns(datatables):
+    annotations = set()
+    for annr in datatables:
+        for db in datatables[annr]:
+            for rec in datatables[annr][db]:
+                data = datatables[annr][db][rec]
+                annotations.add(data[Text.CONCLUSIONS])
+    return len(annotations)
+
+
 if __name__ == "__main__":
     main()
