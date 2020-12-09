@@ -390,5 +390,30 @@ def _count_unique_anns(datatables):
     return len(annotations)
 
 
+def _calculate_match_stats(dtable, other_table, total_ann_count):
+    tp, fp, fn = 0, 0, 0
+    for db in dtable:
+        if db not in other_table:
+            continue
+        for rec in dtable[db]:
+            if rec not in other_table[db]:
+                continue
+        anns = set(dtable[db][rec][Text.CONCLUSIONS])
+        other_anns = set(other_table[db][rec][Text.CONCLUSIONS])
+
+        matches = anns.intersection(other_anns)
+        tp += len(matches)
+        fn += len(anns.difference(matches))
+        fp += len(other_anns.difference(matches))
+    tn = total_ann_count - (tp + fp + fn)
+    return MatchStats(
+        se=(tp / (tp + fn)),
+        sp=(tn / (fp + tn)),
+        ppv=(tp / (tp + fp)),
+        pnv=(tn / (tn + fn)),
+        acc=((tp + tn) / total_ann_count)
+    )
+
+
 if __name__ == "__main__":
     main()
