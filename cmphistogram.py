@@ -326,9 +326,9 @@ def _get_legend_labels(cmpsets, lang=None):
     return annr_labels
 
 
-def _create_annotation_table(datagroups):
-    # TODO: with intermediate data as table [db][record][annotator][codes]
-    pass
+def _create_datatables(datagroups):
+    return dict((annr, _dataset_to_table(datagroups[annr]))
+                for annr in datagroups)
 
 
 if __name__ == "__main__":
