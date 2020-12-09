@@ -368,12 +368,14 @@ def _show_stats_table(datatables, thesaurus=None, lang=None):
             cells[i].append(_match_stats_to_str(stats))
 
     plt.figure()
-    plt.table(
+    table = plt.table(
         cellText=cells,
         rowLabels=annotators,
         colLabels=annotators,
         cellLoc="center"
     )
+    table.auto_set_font_size(False)
+    table.set_fontsize(12)
 
 
 def _match_stats_to_str(match_stats):
