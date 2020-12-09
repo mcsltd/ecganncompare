@@ -367,7 +367,10 @@ def _show_stats_table(datatables, thesaurus=None, lang=None):
                 dtable, datatables[other_annr], total_ann_count)
             cells[i].append(_match_stats_to_str(stats))
 
-    plt.figure()
+    fig = plt.figure()
+    plt.axis("off")
+    fig.patch.set_visible(False)
+
     table = plt.table(
         cellText=cells,
         rowLabels=annotators,
