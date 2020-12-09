@@ -419,11 +419,11 @@ def _calculate_match_stats(dtable, other_table, total_ann_count):
         fp += len(other_anns.difference(matches))
     tn = total_ann_count - (tp + fp + fn)
     return MatchStats(
-        se=(tp / (tp + fn)),
-        sp=(tn / (fp + tn)),
-        ppv=(tp / (tp + fp)),
-        pnv=(tn / (tn + fn)),
-        acc=((tp + tn) / total_ann_count)
+        se=(tp / float(tp + fn)),
+        sp=(tn / float(fp + tn)),
+        ppv=(tp / float(tp + fp)),
+        pnv=(tn / float(tn + fn)),
+        acc=(float(tp + tn) / total_ann_count)
     )
 
 
