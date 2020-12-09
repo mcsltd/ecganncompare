@@ -98,19 +98,20 @@ def _group_by(iterable_data, fieldname):
     return groups
 
 
-def _create_comparing_sets(groups):
-    cmpgroups = [(gn, _dataset_to_table(ds)) for gn, ds in groups.items()]
+def _create_comparing_sets(datatables):
     cmpsets = []
-    for annr, dtable in cmpgroups:
-        records_count = len(groups[annr])
-        ann_count = sum(len(x[Text.CONCLUSIONS]) for x in groups[annr])
+    for annr in datatables:
+        dtable = datatables[annr]
         matches_counts = {}
-        for other_annr, other_dtable in cmpgroups:
+        for other_annr in datatables:
             if annr == other_annr:
                 continue
-            counts = _count_matches(dtable, other_dtable)
+            counts = _count_matches(dtable, datatables[other_annr])
             if counts:
                 matches_counts[other_annr] = counts
+        records_count = _get_records_count(dtable)
+        ann_count = sum(len(dtable[db][rec][Text.CONCLUSIONS])
+                        for db in dtable for rec in dtable[db])
         cmpsets.append(ComparingSet(
             annr, matches_counts, records_count, ann_count))
     return cmpsets
@@ -248,7 +249,8 @@ def _read_comparing_sets(input_data):
             "explicitly specify result files."
         )
         raise Error(message_format % _MIN_ANNOTATORS_COUNT)
-    results += _create_comparing_sets(groups)
+    dtables = _create_datatables(groups)
+    results += _create_comparing_sets(dtables)
     return results
 
 
