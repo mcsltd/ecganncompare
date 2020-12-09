@@ -344,5 +344,25 @@ def _get_annotations_count(datatable):
                for db in datatable for rec in datatable[db])
 
 
+def _show_stats_table(datatables):
+    annotators = list(datatables.keys())
+    cells = []
+    for i, annr in enumerate(annotators):
+        cells.append([])
+        dtable = datatables[annr]
+        for j, other_annr in enumerate(annotators):
+            if i == j:
+                continue
+            stats = _caclulate_match_stats(dtable, datatables[other_annr])
+            cells[i].append(_match_stats_to_str(stats))
+
+    plt.figure()
+    plt.table(
+        cellText=cells,
+        rowLabels=annotators,
+        colLabels=annotators
+    )
+
+
 if __name__ == "__main__":
     main()
