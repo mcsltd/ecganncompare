@@ -207,6 +207,7 @@ def _plot_comparing_sets(comparing_sets, thesaurus_path=None):
         fig, axes = _plot_dataframe_barh(dframe, thesaurus is not None)
         _set_titles(cmpset, fig, axes, lang)
         plt.xlim(xmax=max_x)
+    return thesaurus, lang
 
 
 def _read_comparing_set(cmpresult_path):
