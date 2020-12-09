@@ -371,6 +371,7 @@ def _show_stats_table(datatables, thesaurus=None, lang=None):
     plt.axis("tight")
     plt.axis("off")
     fig.patch.set_visible(False)
+    fig.canvas.set_window_title(_get_table_window_title(lang))
 
     table = plt.table(
         cellText=cells,
@@ -424,6 +425,12 @@ def _calculate_match_stats(dtable, other_table, total_ann_count):
         pnv=(tn / (tn + fn)),
         acc=((tp + tn) / total_ann_count)
     )
+
+
+def _get_table_window_title(lang):
+    if lang == _LANGUAGE_RUS:
+        return u"Статистика сравнения"
+    return "Comparison statistics"
 
 
 if __name__ == "__main__":
