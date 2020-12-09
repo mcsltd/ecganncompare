@@ -371,7 +371,8 @@ def _show_stats_table(datatables, thesaurus=None, lang=None):
     plt.table(
         cellText=cells,
         rowLabels=annotators,
-        colLabels=annotators
+        colLabels=annotators,
+        cellLoc="center"
     )
 
 
