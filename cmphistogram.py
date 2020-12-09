@@ -380,7 +380,7 @@ def _show_stats_table(datatables, thesaurus=None, lang=None):
         loc="center"
     )
     table.auto_set_font_size(False)
-    table.set_fontsize(12)
+    table.set_fontsize(10)
     plt.subplots_adjust(left=0.2)
 
 
