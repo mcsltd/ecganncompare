@@ -372,7 +372,8 @@ def _show_stats_table(datatables, thesaurus=None, lang=None):
         cellText=cells,
         rowLabels=annotators,
         colLabels=annotators,
-        cellLoc="center"
+        cellLoc="center",
+        loc="center"
     )
     table.auto_set_font_size(False)
     table.set_fontsize(12)
