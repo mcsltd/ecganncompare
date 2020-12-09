@@ -40,6 +40,9 @@ ComparingSet = namedtuple("ComparingSet", [
 InputData = namedtuple("InputData", ["paths", "thesaurus"])
 
 
+MatchStats = namedtuple("MatchStats", ["se", "sp", "ppv", "pnv", "acc"])
+
+
 _MAX_ANNOTATORS_COUNT = 5
 _MIN_ANNOTATORS_COUNT = 2
 _LANGUAGE_RUS = "ru"
