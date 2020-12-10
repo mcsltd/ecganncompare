@@ -26,6 +26,9 @@ InputData = namedtuple("InputData", ["paths", "thesaurus"])
 MatchStats = namedtuple("MatchStats", ["se", "sp", "ppv", "pnv", "acc"])
 
 
+Thesaurus = namedtuple("Thesaurus", ["label", "lang", "items"])
+
+
 _MIN_ANNOTATORS_COUNT = 2
 _TABLE_OUT_FILENAME = "stats.xlsx"
 
