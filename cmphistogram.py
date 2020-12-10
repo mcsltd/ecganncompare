@@ -40,9 +40,6 @@ ComparingSet = namedtuple("ComparingSet", [
 InputData = namedtuple("InputData", ["paths", "thesaurus"])
 
 
-MatchStats = namedtuple("MatchStats", ["se", "sp", "ppv", "pnv", "acc"])
-
-
 _MAX_ANNOTATORS_COUNT = 5
 _MIN_ANNOTATORS_COUNT = 2
 _LANGUAGE_RUS = "ru"
@@ -67,12 +64,6 @@ def _parse_args(args):
     return InputData(
         data.input_paths,
         data.thesaurus
-    )
-
-
-def _get_title(ref_annotator, test_annotator):
-    return "Comparing {0} and {1} annotations".format(
-        ref_annotator, test_annotator
     )
 
 
@@ -172,13 +163,6 @@ def _parse_thesaurus(filename):
 def _remove_results(dataset):
     return [d for d in dataset
             if Text.TYPE not in d or d[Text.TYPE] != Text.CMPRESULT]
-
-
-def _print_bad_results(cresults):
-    message_format = "Cannot compare {0} with {1}, common records not found"
-    for cr in cresults:
-        print(message_format.format(cr.ref_annotator, cr.test_annotator))
-    print("")
 
 
 def _count_matches(dtable, other_dtable):
@@ -344,58 +328,6 @@ def _get_records_count(datatable):
 def _get_annotations_count(datatable):
     return sum(len(datatable[db][rec][Text.CONCLUSIONS])
                for db in datatable for rec in datatable[db])
-
-
-def _match_stats_to_str(match_stats):
-    template = "Se={0:.2%}, Sp={1:.2%}, PPV={2:.2%},\nPNV={3:.2%}, Acc={4:.2%}"
-    return template.format(*match_stats)
-
-
-def _count_unique_anns(datatables):
-    annotations = set()
-    for annr in datatables:
-        for db in datatables[annr]:
-            for rec in datatables[annr][db]:
-                data = datatables[annr][db][rec]
-                annotations.update(data[Text.CONCLUSIONS])
-    return len(annotations)
-
-
-def _calculate_match_stats(dtable, other_table, total_ann_count):
-    tp, fp, fn = 0, 0, 0
-    for db in dtable:
-        if db not in other_table:
-            continue
-        for rec in dtable[db]:
-            if rec not in other_table[db]:
-                continue
-            anns = set(dtable[db][rec][Text.CONCLUSIONS])
-            other_anns = set(other_table[db][rec][Text.CONCLUSIONS])
-
-            matches = anns.intersection(other_anns)
-            tp += len(matches)
-            fn += len(anns.difference(matches))
-            fp += len(other_anns.difference(matches))
-    tn = total_ann_count - (tp + fp + fn)
-    return MatchStats(
-        se=(tp / float(tp + fn)),
-        sp=(tn / float(fp + tn)),
-        ppv=(tp / float(tp + fp)),
-        pnv=(tn / float(tn + fn)),
-        acc=(float(tp + tn) / total_ann_count)
-    )
-
-
-def _get_table_window_title(lang):
-    if lang == _LANGUAGE_RUS:
-        return u"Статистика сравнения"
-    return "Comparison statistics"
-
-
-def _get_table_title(lang):
-    if lang == _LANGUAGE_RUS:
-        return u"Метрики точности совпадения заключений"
-    return "Conclusion accuracy metrics"
 
 
 if __name__ == "__main__":

@@ -136,6 +136,7 @@ def _create_datatables(datagroups):
 def _group_by_field(iterable_data, fieldname):
     return _group_by(iterable_data, itemgetter(fieldname))
 
+
 def _calculate_match_stats(dtable, other_table, total_ann_count):
     tp, fp, fn = 0, 0, 0
     for db in dtable:
@@ -298,10 +299,6 @@ def _create_thesaurus(label, lang=None, items=None):
     if items is None:
         items = {}
     return Thesaurus(label, lang, items)
-
-
-def _to_flat(iterable_matrix):
-    return (item for row in iterable_matrix for item in row)
 
 
 def _group_by(items, key):
