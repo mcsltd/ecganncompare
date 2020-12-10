@@ -8,6 +8,8 @@ class Text(object):
     CONCLUSIONS = "conclusions"
     DATABASE = "database"
     RECORD_ID = "record"
+    TYPE = "type"
+    CMPRESULT = "cmpresult"
 
 
 def _read_json_folder(dirname):
@@ -62,3 +64,8 @@ def _print_removed_items(items, fieldname):
 def _get_default_input_dir():
     return os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "data")
+
+
+def _remove_results(dataset):
+    return [d for d in dataset
+            if Text.TYPE not in d or d[Text.TYPE] != Text.CMPRESULT]
