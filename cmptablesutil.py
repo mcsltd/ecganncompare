@@ -132,7 +132,7 @@ def _create_datatables(datagroups):
                 for annr in datagroups)
 
 
-def _group_by(iterable_data, fieldname):
+def _group_by_field(iterable_data, fieldname):
     groups = defaultdict(list)
     for data in iterable_data:
         groups[data[fieldname]].append(data)
@@ -226,7 +226,7 @@ def _group_data(all_jsons):
         all_jsons, Text.CONCLUSION_THESAURUS)
     _print_removed_items(bad_json, Text.CONCLUSION_THESAURUS)
     thesaurus = all_jsons[0][Text.CONCLUSION_THESAURUS]
-    return _group_by(all_jsons, Text.ANNOTATOR), thesaurus
+    return _group_by_field(all_jsons, Text.ANNOTATOR), thesaurus
 
 
 def _check_groups(groups):
