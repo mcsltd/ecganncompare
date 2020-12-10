@@ -312,5 +312,12 @@ def _to_flat(iterable_matrix):
     return (item for row in iterable_matrix for item in row)
 
 
+def _group_by(items, key):
+    groups = defaultdict(list)
+    for items in items:
+        groups[key(items)].append(items)
+    return dict(groups)
+
+
 if __name__ == "__main__":
     main()
