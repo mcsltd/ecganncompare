@@ -33,6 +33,7 @@ Thesaurus = namedtuple("Thesaurus", ["label", "lang", "items"])
 
 _MIN_ANNOTATORS_COUNT = 2
 _TABLE_OUT_FILENAME = "stats.xlsx"
+_CMP_SJON_FILENAME = "conclusionsAnnotators"
 
 
 def main():
@@ -46,6 +47,7 @@ def main():
     _check_groups(groups)
     tables = _create_datatables(groups)
     _write_stats_table(tables, _TABLE_OUT_FILENAME, thesaurus.items)
+    _write_cmp_json(tables, _CMP_SJON_FILENAME, thesaurus)
 
 
 def _parse_args(args):
