@@ -3,6 +3,7 @@ import codecs
 from collections import OrderedDict, defaultdict, Counter, namedtuple
 import json
 import argparse
+from operator import itemgetter
 import pandas
 
 
@@ -133,11 +134,7 @@ def _create_datatables(datagroups):
 
 
 def _group_by_field(iterable_data, fieldname):
-    groups = defaultdict(list)
-    for data in iterable_data:
-        groups[data[fieldname]].append(data)
-    return groups
-
+    return _group_by(iterable_data, itemgetter(fieldname))
 
 def _calculate_match_stats(dtable, other_table, total_ann_count):
     tp, fp, fn = 0, 0, 0
