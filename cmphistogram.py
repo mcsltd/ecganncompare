@@ -52,7 +52,6 @@ def main():
     input_data = _parse_args(sys.argv)
     cmpsets, dtables = _read_comparing_sets(input_data)
     thesaurus, lang = _plot_comparing_sets(cmpsets, input_data.thesaurus)
-    _show_stats_table(dtables, thesaurus, lang)
     plt.show()
 
 
@@ -345,46 +344,6 @@ def _get_records_count(datatable):
 def _get_annotations_count(datatable):
     return sum(len(datatable[db][rec][Text.CONCLUSIONS])
                for db in datatable for rec in datatable[db])
-
-
-def _show_stats_table(datatables, thesaurus=None, lang=None):
-    if thesaurus is not None:
-        total_ann_count = len(thesaurus)
-    else:
-        total_ann_count = _count_unique_anns(datatables)
-        print("Warning! Thesaurus is undefined, the total number of possible "
-              "conclusions and statistical values may be incorrect.")
-    annotators = list(datatables.keys())
-    cells = []
-    for i, annr in enumerate(annotators):
-        cells.append([])
-        dtable = datatables[annr]
-        for j, other_annr in enumerate(annotators):
-            if i == j:
-                cells[i].append("-")
-                continue
-            stats = _calculate_match_stats(
-                dtable, datatables[other_annr], total_ann_count)
-            cells[i].append(_match_stats_to_str(stats))
-
-    fig = plt.figure()
-    plt.axis("tight")
-    plt.axis("off")
-    fig.patch.set_visible(False)
-    fig.canvas.set_window_title(_get_table_window_title(lang))
-    plt.title(_get_table_title(lang))
-
-    table = plt.table(
-        cellText=cells,
-        rowLabels=annotators,
-        colLabels=annotators,
-        cellLoc="center",
-        loc="center"
-    )
-    table.auto_set_font_size(False)
-    table.set_fontsize(10)
-    table.scale(1, 1.5)
-    plt.subplots_adjust(left=0.2)
 
 
 def _match_stats_to_str(match_stats):
