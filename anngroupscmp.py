@@ -117,3 +117,13 @@ def _calculate_match_stats(dtable, other_table, total_ann_count):
 def _match_stats_to_str(match_stats):
     template = "Se={0:.2%}, Sp={1:.2%}, PPV={2:.2%},\nPNV={3:.2%}, Acc={4:.2%}"
     return template.format(*match_stats)
+
+
+def _count_unique_anns(datatables):
+    annotations = set()
+    for annr in datatables:
+        for db in datatables[annr]:
+            for rec in datatables[annr][db]:
+                data = datatables[annr][db][rec]
+                annotations.update(data)
+    return len(annotations)
