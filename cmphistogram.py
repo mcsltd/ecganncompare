@@ -111,12 +111,11 @@ def _create_comparing_sets(datatables):
 
 
 def _dataset_to_table(dataset):
-    # TODO: add tot tables only conclusions
     table = defaultdict(dict)
     for item in dataset:
         database = item[Text.DATABASE]
         record = item[Text.RECORD_ID]
-        table[database][record] = item
+        table[database][record] = item[Text.CONCLUSIONS]
     return dict(table)
 
 
@@ -173,8 +172,8 @@ def _count_matches(dtable, other_dtable):
                 other_data = other_dtable[db_name][rec_name]
             except KeyError:
                 continue
-            other_codes_set = set(other_data[Text.CONCLUSIONS])
-            for code in dtable[db_name][rec_name][Text.CONCLUSIONS]:
+            other_codes_set = set(other_data)
+            for code in dtable[db_name][rec_name]:
                 if code in other_codes_set:
                     counts[code] += 1
     return counts
@@ -196,7 +195,7 @@ def _plot_comparing_sets(comparing_sets, thesaurus_path=None):
 
 def _read_comparing_set(cmpresult_path):
     data = _read_json(cmpresult_path)
-    code_pairs = _to_flat(d[Text.CONCLUSIONS] for d in data[Text.RECORDS])
+    code_pairs = _to_flat(d for d in data[Text.RECORDS])
     code_pairs = list(code_pairs)
     match_counts = defaultdict(
         int, Counter(p[0] for p in code_pairs if p[0] == p[1]))
@@ -326,7 +325,7 @@ def _get_records_count(datatable):
 
 
 def _get_annotations_count(datatable):
-    return sum(len(datatable[db][rec][Text.CONCLUSIONS])
+    return sum(len(datatable[db][rec])
                for db in datatable for rec in datatable[db])
 
 
