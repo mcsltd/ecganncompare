@@ -25,6 +25,16 @@ MatchStats = namedtuple("MatchStats", ["se", "sp", "ppv", "pnv", "acc"])
 
 
 _MIN_ANNOTATORS_COUNT = 2
+_TABLE_OUT_FILENAME = "stats.xlsx"
+
+
+def main():
+    input_data = _parse_args(os.sys.argv)
+    dataset = _read_data(input_data.paths)
+    groups = _group_data(dataset)
+    _check_groups(groups)
+    tables = _create_datatables(groups)
+    _write_stats_table(tables, _TABLE_OUT_FILENAME, input_data.thesaurus)
 
 
 def _parse_args(args):
