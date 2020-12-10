@@ -17,6 +17,7 @@ class Text(object):
     GROUPS = "groups"
     REPORTS = "reports"
     ID = "id"
+    NAME = "name"
 
 
 InputData = namedtuple("InputData", ["paths", "thesaurus"])
