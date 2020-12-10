@@ -87,3 +87,28 @@ def _group_by(iterable_data, fieldname):
     for data in iterable_data:
         groups[data[fieldname]].append(data)
     return groups
+
+
+def _calculate_match_stats(dtable, other_table, total_ann_count):
+    tp, fp, fn = 0, 0, 0
+    for db in dtable:
+        if db not in other_table:
+            continue
+        for rec in dtable[db]:
+            if rec not in other_table[db]:
+                continue
+            anns = set(dtable[db][rec])
+            other_anns = set(other_table[db][rec])
+
+            matches = anns.intersection(other_anns)
+            tp += len(matches)
+            fn += len(anns.difference(matches))
+            fp += len(other_anns.difference(matches))
+    tn = total_ann_count - (tp + fp + fn)
+    return MatchStats(
+        se=(tp / float(tp + fn)),
+        sp=(tn / float(fp + tn)),
+        ppv=(tp / float(tp + fp)),
+        pnv=(tn / float(tn + fn)),
+        acc=(float(tp + tn) / total_ann_count)
+    )
