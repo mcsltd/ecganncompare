@@ -282,7 +282,7 @@ def _write_cmp_json(tables, filename, thesaurus):
 
 
 def _create_thesaurus(label, lang=None, items=None):
-    if items == None:
+    if items is None:
         items = {}
     return Thesaurus(label, lang, items)
 
