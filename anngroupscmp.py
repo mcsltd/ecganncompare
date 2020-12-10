@@ -1,6 +1,6 @@
 import os
 import codecs
-from collections import OrderedDict, defaultdict
+from collections import OrderedDict, defaultdict, Counter
 import json
 
 
@@ -35,3 +35,15 @@ def _dataset_to_table(dataset):
         record = item[Text.RECORD_ID]
         table[database][record] = item[Text.CONCLUSIONS]
     return dict(table)
+
+
+def _remove_deviations(dataset, fieldname):
+    counts = Counter(data[fieldname] for data in dataset)
+    common_value = counts.most_common()[0][0]
+    good_items, others = [], []
+    for data in dataset:
+        if data[fieldname] == common_value:
+            good_items.append(data)
+        else:
+            others.append(data)
+    return good_items, others
