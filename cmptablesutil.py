@@ -33,7 +33,7 @@ _TABLE_OUT_FILENAME = "stats.xlsx"
 def main():
     input_data = _parse_args(os.sys.argv)
     dataset = _read_data(input_data.paths)
-    groups = _group_data(dataset)
+    groups, thesaurus_label = _group_data(dataset)
     _check_groups(groups)
     tables = _create_datatables(groups)
     _write_stats_table(tables, _TABLE_OUT_FILENAME, input_data.thesaurus)
@@ -211,7 +211,8 @@ def _group_data(all_jsons):
     all_jsons, bad_json = _remove_deviations(
         all_jsons, Text.CONCLUSION_THESAURUS)
     _print_removed_items(bad_json, Text.CONCLUSION_THESAURUS)
-    return _group_by(all_jsons, Text.ANNOTATOR)
+    thesaurus = all_jsons[0][Text.CONCLUSION_THESAURUS]
+    return _group_by(all_jsons, Text.ANNOTATOR), thesaurus
 
 
 def _check_groups(groups):
