@@ -18,6 +18,8 @@ class Text(object):
     REPORTS = "reports"
     ID = "id"
     NAME = "name"
+    THESAURUS_LABEL = "thesaurus"
+    LANGUAGE = "language"
 
 
 InputData = namedtuple("InputData", ["paths", "thesaurus"])
@@ -230,16 +232,20 @@ def _check_groups(groups):
 
 def _parse_thesaurus(filename):
     data = _read_json(filename)
-    result = OrderedDict()
+    items = OrderedDict()
     for group in data[Text.GROUPS]:
         for ann in group[Text.REPORTS]:
-            result[ann[Text.ID]] = ann[Text.NAME]
-    return result
+            items[ann[Text.ID]] = ann[Text.NAME]
+    return _create_thesaurus(
+        data[Text.THESAURUS_LABEL],
+        data[Text.LANGUAGE],
+        items
+    )
 
 
 def _write_stats_table(tables, filename, thesaurus_path=None):
     if thesaurus_path is not None:
-        total_ann_count = len(_parse_thesaurus(thesaurus_path))
+        total_ann_count = len(_parse_thesaurus(thesaurus_path).items)
     else:
         total_ann_count = _count_unique_anns(tables)
     _create_stats_dataframe(tables, total_ann_count).to_excel(filename)
