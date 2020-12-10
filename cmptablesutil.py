@@ -269,5 +269,11 @@ def _write_cmp_json(tables, filename, thesaurus):
         pass
 
 
+def _create_thesaurus(label, lang=None, items=None):
+    if items == None:
+        items = {}
+    return Thesaurus(label, lang, items)
+
+
 if __name__ == "__main__":
     main()
