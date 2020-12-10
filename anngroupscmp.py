@@ -1,6 +1,6 @@
 import os
 import codecs
-from collections import OrderedDict, defaultdict, Counter
+from collections import OrderedDict, defaultdict, Counter, namedtuple
 import json
 
 
@@ -10,6 +10,9 @@ class Text(object):
     RECORD_ID = "record"
     TYPE = "type"
     CMPRESULT = "cmpresult"
+
+
+MatchStats = namedtuple("MatchStats", ["se", "sp", "ppv", "pnv", "acc"])
 
 
 def _read_json_folder(dirname):
