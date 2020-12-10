@@ -24,6 +24,21 @@ MatchStats = namedtuple("MatchStats", ["se", "sp", "ppv", "pnv", "acc"])
 _MIN_ANNOTATORS_COUNT = 2
 
 
+def _parse_args(args):
+    parser = argparse.ArgumentParser(
+        description="Plot histograms for annotations comparing"
+    )
+    parser.add_argument("input_paths", nargs="*",
+                        default=[_get_default_input_dir()],
+                        help="paths to input files/folders")
+    parser.add_argument("--thesaurus", help="path to thesaurus")
+    data = parser.parse_args(args[1:])
+    return InputData(
+        data.input_paths,
+        data.thesaurus
+    )
+
+
 def _read_json_folder(dirname):
     all_paths = (os.path.join(dirname, x) for x in os.listdir(dirname))
     all_files = [p for p in all_paths
