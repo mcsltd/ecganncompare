@@ -231,3 +231,7 @@ def _write_stats_table(tables, filename, thesaurus_path=None):
     else:
         total_ann_count = _count_unique_anns(tables)
     _create_stats_dataframe(tables, total_ann_count).to_excel(filename)
+
+
+if __name__ == "__main__":
+    main()
