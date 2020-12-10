@@ -256,5 +256,15 @@ def _reshape_tables(tables):
     return new_tables
 
 
+def _write_cmp_json(tables, filename, thesaurus):
+    report = OrderedDict()
+    report["annotators"] = tables.keys()
+    thesaurus_keys = list(thesaurus.keys())
+    tables = _reshape_tables(tables)
+    for db in tables:
+        # for 
+        pass
+
+
 if __name__ == "__main__":
     main()
