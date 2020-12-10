@@ -316,5 +316,15 @@ def _group_by(items, key):
     return dict(groups)
 
 
+def _group_annotators_by_items(ann_groups):
+    groups = defaultdict(list)
+    for annr in ann_groups:
+        for ann_id in ann_groups[annr]:
+            groups[ann_id].append(annr)
+    for ann_id in groups:
+        groups[ann_id].sort()
+    return dict(groups)
+
+
 if __name__ == "__main__":
     main()
