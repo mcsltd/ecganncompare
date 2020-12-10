@@ -273,7 +273,7 @@ def _reshape_tables(tables):
 
 def _write_cmp_json(tables, filename, thesaurus):
     report = OrderedDict()
-    report["annotators"] = tables.keys()
+    report[Text.ANNOTATORS] = tables.keys()
     thesaurus_keys = list(thesaurus.keys())
     tables = _reshape_tables(tables)
     for db in tables:
@@ -285,6 +285,10 @@ def _create_thesaurus(label, lang=None, items=None):
     if items is None:
         items = {}
     return Thesaurus(label, lang, items)
+
+
+def _to_flat(iterable_matrix):
+    return (item for row in iterable_matrix for item in row)
 
 
 if __name__ == "__main__":
