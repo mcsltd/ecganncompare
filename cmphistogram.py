@@ -98,7 +98,7 @@ def _group_by(iterable_data, fieldname):
     groups = defaultdict(list)
     for data in iterable_data:
         groups[data[fieldname]].append(data)
-    return groups
+    return dict(groups)
 
 
 def _create_comparing_sets(datatables):
