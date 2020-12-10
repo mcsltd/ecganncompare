@@ -12,6 +12,9 @@ class Text(object):
     CMPRESULT = "cmpresult"
 
 
+InputData = namedtuple("InputData", ["paths", "thesaurus"])
+
+
 MatchStats = namedtuple("MatchStats", ["se", "sp", "ppv", "pnv", "acc"])
 
 
