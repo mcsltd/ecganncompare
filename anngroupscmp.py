@@ -1,7 +1,13 @@
 import os
 import codecs
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 import json
+
+
+class Text(object):
+    CONCLUSIONS = "conclusions"
+    DATABASE = "database"
+    RECORD_ID = "record"
 
 
 def _read_json_folder(dirname):
@@ -20,3 +26,12 @@ def _read_json_folder(dirname):
 def _read_json(filename):
     with codecs.open(filename, "r", encoding="utf-8") as fin:
         return json.load(fin, object_pairs_hook=OrderedDict)
+
+
+def _dataset_to_table(dataset):
+    table = defaultdict(dict)
+    for item in dataset:
+        database = item[Text.DATABASE]
+        record = item[Text.RECORD_ID]
+        table[database][record] = item[Text.CONCLUSIONS]
+    return dict(table)
