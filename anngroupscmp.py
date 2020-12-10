@@ -212,3 +212,11 @@ def _parse_thesaurus(filename):
         for ann in group[Text.REPORTS]:
             result[ann[Text.ID]] = ann[Text.NAME]
     return result
+
+
+def _write_stats_table(tables, filename, thesaurus_path=None):
+    if thesaurus_path is not None:
+        total_ann_count = len(_parse_thesaurus(thesaurus_path))
+    else:
+        total_ann_count = _count_unique_anns(tables)
+    _create_stats_dataframe(tables, total_ann_count).to_excel(filename)
