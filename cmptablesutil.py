@@ -20,6 +20,9 @@ class Text(object):
     NAME = "name"
     THESAURUS_LABEL = "thesaurus"
     LANGUAGE = "language"
+    ANNOTATORS = "annotators"
+    CONCLUSIONS_ANNOTATORS = "conclusionsAnnotators"
+    RECORDS = "records"
 
 
 InputData = namedtuple("InputData", ["paths", "thesaurus"])
@@ -33,7 +36,7 @@ Thesaurus = namedtuple("Thesaurus", ["label", "lang", "items"])
 
 _MIN_ANNOTATORS_COUNT = 2
 _TABLE_OUT_FILENAME = "stats.xlsx"
-_CMP_SJON_FILENAME = "conclusionsAnnotators"
+_CMP_SJON_FILENAME = "conclusions-annotators.json"
 
 
 def main():
@@ -272,13 +275,31 @@ def _reshape_tables(tables):
 
 
 def _write_cmp_json(tables, filename, thesaurus):
+    thesaurus_keys = list(thesaurus.items.keys())
+    annotators = list(tables.keys())
     report = OrderedDict()
-    report[Text.ANNOTATORS] = tables.keys()
-    thesaurus_keys = list(thesaurus.keys())
+    report[Text.ANNOTATORS] = annotators
     tables = _reshape_tables(tables)
+    records_data = []
     for db in tables:
-        # for 
-        pass
+        for rec in tables[db]:
+            rec_data = OrderedDict()
+            rec_data[Text.DATABASE] = db
+            rec_data[Text.RECORD_ID] = rec
+            record_anns = tables[db][rec]
+            all_anns = list(set(_to_flat(record_anns.values())))
+            all_anns.sort(key=thesaurus_keys.index)
+            ann_annrs = OrderedDict()
+            for ann in all_anns:
+                annrs_list = [x for x in annotators
+                              if x in record_anns and ann in record_anns[x]]
+                ann_annrs[ann] = annrs_list
+            rec_data[Text.CONCLUSIONS_ANNOTATORS] = ann_annrs
+            records_data.append(rec_data)
+    report[Text.THESAURUS_LABEL] = thesaurus.label
+    report[Text.RECORDS] = records_data
+    with open(filename, "w") as fout:
+        json.dump(report, fout, indent=4)
 
 
 def _create_thesaurus(label, lang=None, items=None):
