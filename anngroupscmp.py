@@ -13,6 +13,9 @@ class Text(object):
     CMPRESULT = "cmpresult"
     CONCLUSION_THESAURUS = "conclusionThesaurus"
     ANNOTATOR = "annotator"
+    GROUPS = "groups"
+    REPORTS = "reports"
+    ID = "id"
 
 
 InputData = namedtuple("InputData", ["paths", "thesaurus"])
@@ -200,3 +203,12 @@ def _check_groups(groups):
         "explicitly specify result files."
     )
     raise RuntimeError(message_format % _MIN_ANNOTATORS_COUNT)
+
+
+def _parse_thesaurus(filename):
+    data = _read_json(filename)
+    result = OrderedDict()
+    for group in data[Text.GROUPS]:
+        for ann in group[Text.REPORTS]:
+            result[ann[Text.ID]] = ann[Text.NAME]
+    return result
