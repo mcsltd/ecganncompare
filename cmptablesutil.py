@@ -263,7 +263,7 @@ def _reshape_tables(tables):
         for db in tables[annr]:
             for rec in tables[annr][db]:
                 ann_list = tables[annr][db][rec]
-                new_tables[db][rec][annr] = ann_list
+                new_tables[db][rec][annr] = set(ann_list)
     for db in new_tables:
         for rec in new_tables[db]:
             new_tables[db][rec] = dict(new_tables[db][rec])
