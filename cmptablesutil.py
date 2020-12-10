@@ -169,6 +169,7 @@ def _count_unique_anns(datatables):
 
 
 def _create_stats_dataframe(datatables, total_ann_count):
+    bad_cross_mark = "-"
     annotators = list(datatables.keys())
     cells = []
     for i, annr in enumerate(annotators):
@@ -176,11 +177,14 @@ def _create_stats_dataframe(datatables, total_ann_count):
         dtable = datatables[annr]
         for j, other_annr in enumerate(annotators):
             if i == j:
-                cells[i].append("-")
+                cells[i].append(bad_cross_mark)
                 continue
             stats = _calculate_match_stats(
                 dtable, datatables[other_annr], total_ann_count)
-            cells[i].append(_match_stats_to_str(stats))
+            if stats is None:
+                cells[i].append(bad_cross_mark)
+            else:
+                cells[i].append(_match_stats_to_str(stats))
     dframe = pandas.DataFrame(cells)
     dframe.index = annotators
     dframe.columns = annotators
