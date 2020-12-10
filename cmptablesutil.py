@@ -241,5 +241,19 @@ def _write_stats_table(tables, filename, thesaurus_path=None):
     _create_stats_dataframe(tables, total_ann_count).to_excel(filename)
 
 
+def _reshape_tables(tables):
+    new_tables = defaultdict(lambda: defaultdict(dict))
+    for annr in tables:
+        for db in tables[annr]:
+            for rec in tables[annr][db]:
+                ann_list = tables[annr][db][rec]
+                new_tables[db][rec][annr] = ann_list
+    for db in new_tables:
+        for rec in new_tables[db]:
+            new_tables[db][rec] = dict(new_tables[db][rec])
+        new_tables[db] = dict(new_tables[new_tables])
+    return new_tables
+
+
 if __name__ == "__main__":
     main()
