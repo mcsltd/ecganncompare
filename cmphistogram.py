@@ -51,9 +51,8 @@ _LANGUAGE_RUS = "ru"
 def main():
     input_data = _parse_args(sys.argv)
     cmpsets, dtables = _read_comparing_sets(input_data)
-    # thesaurus, lang = _plot_comparing_sets(cmpsets, input_data.thesaurus)
-    # _show_stats_table(dtables, thesaurus, lang)
-    _show_stats_table(dtables)
+    thesaurus, lang = _plot_comparing_sets(cmpsets, input_data.thesaurus)
+    _show_stats_table(dtables, thesaurus, lang)
     plt.show()
 
 
