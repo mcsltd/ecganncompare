@@ -273,25 +273,20 @@ def _reshape_tables(tables):
 
 def _write_cmp_json(tables, filename, thesaurus):
     thesaurus_keys = list(thesaurus.items.keys())
-    annotators = list(tables.keys())
     report = OrderedDict()
-    report[Text.ANNOTATORS] = annotators
+    report[Text.ANNOTATORS] = sorted(tables.keys())
     tables = _reshape_tables(tables)
     records_data = []
-    for db in tables:
-        for rec in tables[db]:
+    for db_name in tables:
+        for rec in tables[db_name]:
             rec_data = OrderedDict()
-            rec_data[Text.DATABASE] = db
+            rec_data[Text.DATABASE] = db_name
             rec_data[Text.RECORD_ID] = rec
-            record_anns = tables[db][rec]
-            all_anns = list(set(_to_flat(record_anns.values())))
-            all_anns.sort(key=thesaurus_keys.index)
-            ann_annrs = OrderedDict()
-            for ann in all_anns:
-                annrs_list = [x for x in annotators
-                              if x in record_anns and ann in record_anns[x]]
-                ann_annrs[ann] = annrs_list
-            rec_data[Text.CONCLUSIONS_ANNOTATORS] = ann_annrs
+            groups = _group_annotators_by_items(tables[db_name][rec])
+            rec_data[Text.CONCLUSIONS_ANNOTATORS] = OrderedDict(sorted(
+                groups.items(),
+                key=lambda p: thesaurus_keys.index(p[0]))
+            )
             records_data.append(rec_data)
     report[Text.THESAURUS_LABEL] = thesaurus.label
     report[Text.RECORDS] = records_data
