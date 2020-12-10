@@ -311,8 +311,8 @@ def _to_flat(iterable_matrix):
 
 def _group_by(items, key):
     groups = defaultdict(list)
-    for items in items:
-        groups[key(items)].append(items)
+    for item in items:
+        groups[key(item)].append(item)
     return dict(groups)
 
 
