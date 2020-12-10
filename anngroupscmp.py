@@ -21,6 +21,9 @@ InputData = namedtuple("InputData", ["paths", "thesaurus"])
 MatchStats = namedtuple("MatchStats", ["se", "sp", "ppv", "pnv", "acc"])
 
 
+_MIN_ANNOTATORS_COUNT = 2
+
+
 def _read_json_folder(dirname):
     all_paths = (os.path.join(dirname, x) for x in os.listdir(dirname))
     all_files = [p for p in all_paths
@@ -172,3 +175,13 @@ def _group_data(all_jsons):
         all_jsons, Text.CONCLUSION_THESAURUS)
     _print_removed_items(bad_json, Text.CONCLUSION_THESAURUS)
     return _group_by(all_jsons, Text.ANNOTATOR)
+
+
+def _check_groups(groups):
+    if len(groups) >= _MIN_ANNOTATORS_COUNT:
+        return True
+    message_format = (
+        "Cannot less than %d annotators. Prepare a folders or "
+        "explicitly specify result files."
+    )
+    raise RuntimeError(message_format % _MIN_ANNOTATORS_COUNT)
