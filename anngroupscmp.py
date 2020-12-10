@@ -2,6 +2,7 @@ import os
 import codecs
 from collections import OrderedDict, defaultdict, Counter, namedtuple
 import json
+import pandas
 
 
 class Text(object):
@@ -127,3 +128,22 @@ def _count_unique_anns(datatables):
                 data = datatables[annr][db][rec]
                 annotations.update(data)
     return len(annotations)
+
+
+def _create_stats_dataframe(datatables, total_ann_count):
+    annotators = list(datatables.keys())
+    cells = []
+    for i, annr in enumerate(annotators):
+        cells.append([])
+        dtable = datatables[annr]
+        for j, other_annr in enumerate(annotators):
+            if i == j:
+                cells[i].append("-")
+                continue
+            stats = _calculate_match_stats(
+                dtable, datatables[other_annr], total_ann_count)
+            cells[i].append(_match_stats_to_str(stats))
+    dframe = pandas.DataFrame(cells)
+    dframe.index = annotators
+    dframe.columns = annotators
+    return dframe
