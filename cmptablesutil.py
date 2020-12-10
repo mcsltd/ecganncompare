@@ -267,7 +267,7 @@ def _reshape_tables(tables):
     for db in new_tables:
         for rec in new_tables[db]:
             new_tables[db][rec] = dict(new_tables[db][rec])
-        new_tables[db] = dict(new_tables[new_tables])
+        new_tables[db] = dict(new_tables[db])
     return new_tables
 
 
