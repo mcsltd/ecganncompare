@@ -11,6 +11,8 @@ class Text(object):
     RECORD_ID = "record"
     TYPE = "type"
     CMPRESULT = "cmpresult"
+    CONCLUSION_THESAURUS = "conclusionThesaurus"
+    ANNOTATOR = "annotator"
 
 
 InputData = namedtuple("InputData", ["paths", "thesaurus"])
@@ -162,3 +164,11 @@ def _read_data(input_paths):
         else:
             all_jsons += _read_json_folder(path)
     return all_jsons
+
+
+def _group_data(all_jsons):
+    all_jsons = _remove_results(all_jsons)
+    all_jsons, bad_json = _remove_deviations(
+        all_jsons, Text.CONCLUSION_THESAURUS)
+    _print_removed_items(bad_json, Text.CONCLUSION_THESAURUS)
+    return _group_by(all_jsons, Text.ANNOTATOR)
