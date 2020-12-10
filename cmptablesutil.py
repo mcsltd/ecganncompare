@@ -140,7 +140,10 @@ def _calculate_match_stats(dtable, other_table, total_ann_count):
             tp += len(matches)
             fn += len(anns.difference(matches))
             fp += len(other_anns.difference(matches))
-    tn = total_ann_count - (tp + fp + fn)
+    counts_sum = sum([tp, fp, fn])
+    if counts_sum == 0:
+        return None
+    tn = total_ann_count - counts_sum
     return MatchStats(
         se=(tp / float(tp + fn)),
         sp=(tn / float(fp + tn)),
