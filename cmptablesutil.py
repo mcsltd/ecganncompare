@@ -39,9 +39,13 @@ def main():
     input_data = _parse_args(os.sys.argv)
     dataset = _read_data(input_data.paths)
     groups, thesaurus_label = _group_data(dataset)
+    if input_data.thesaurus is None:
+        thesaurus = _create_thesaurus(thesaurus_label)
+    else:
+        thesaurus = _parse_thesaurus(input_data.thesaurus)
     _check_groups(groups)
     tables = _create_datatables(groups)
-    _write_stats_table(tables, _TABLE_OUT_FILENAME, input_data.thesaurus)
+    _write_stats_table(tables, _TABLE_OUT_FILENAME, thesaurus.items)
 
 
 def _parse_args(args):
@@ -243,9 +247,9 @@ def _parse_thesaurus(filename):
     )
 
 
-def _write_stats_table(tables, filename, thesaurus_path=None):
-    if thesaurus_path is not None:
-        total_ann_count = len(_parse_thesaurus(thesaurus_path).items)
+def _write_stats_table(tables, filename, thesaurus_items):
+    if thesaurus_items:
+        total_ann_count = len(thesaurus_items)
     else:
         total_ann_count = _count_unique_anns(tables)
     _create_stats_dataframe(tables, total_ann_count).to_excel(filename)
