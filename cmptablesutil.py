@@ -45,7 +45,7 @@ def _parse_args(args):
     )
     parser.add_argument("input_paths", nargs="*",
                         default=[_get_default_input_dir()],
-                        help="paths to input files/folders")
+                        help="paths to input folders")
     parser.add_argument("--thesaurus", help="path to thesaurus")
     data = parser.parse_args(args[1:])
     return InputData(
