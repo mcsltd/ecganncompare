@@ -298,7 +298,6 @@ def _create_thesaurus(label="", lang=None, items=None, groups=None):
 
 def _plot_dataframe(dataframe, wide_ylabels):
     # NOTE: barh() plor bars in reverse order
-    plt.figure()
     dataframe[::-1].plot.barh(ax=plt.gca(), width=0.75, legend=False)
     if wide_ylabels is not None:
         plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
