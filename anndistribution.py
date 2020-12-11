@@ -223,10 +223,14 @@ def _set_y_fontsize(axes, value):
     axes.tick_params(axis="y", labelsize=value)
 
 
-def _prepare_dataframe(df, thesaurus):
-    df = df.loc[(k for k in thesaurus if k in df.index)]
-    df.index = [thesaurus[k] for k in df.index]
-    return df
+def _split_dataframe(df, thesaurus):
+    subframes = {}
+    for group in thesaurus.groups:
+        name = "{0}-{1}".format(group[0], group[-1])
+        frame = df.loc[(k for k in group if k in df.index)]
+        frame.index = [thesaurus.items[k] for k in frame.index]
+        subframes[name] = frame
+    return subframes
 
 
 def _get_title(lang=None):
