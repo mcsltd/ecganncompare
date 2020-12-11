@@ -84,11 +84,18 @@ def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
     if thesaurus_path is None:
         dataframe.sort_index(inplace=True)
         thesaurus = _create_thesaurus()
-    else:
-        thesaurus = _parse_thesaurus(thesaurus_path)
-        dataframe = _prepare_dataframe(dataframe, thesaurus)
-    _plot_dataframe(dataframe, (thesaurus_path is not None))
-    _add_info_to_plot(dataframe.columns, datagroups_info, thesaurus.lang)
+        _plot_dataframe(dataframe, False)
+        _add_info_to_plot(dataframe.columns, datagroups_info, thesaurus.lang)
+        return
+    thesaurus = _parse_thesaurus(thesaurus_path)
+    dataframes = _split_dataframe(dataframe, thesaurus)
+    if len(dataframes) > plt.rcParams["figure.max_open_warning"]:
+        plt.rcParams.update({'figure.max_open_warning': 0})
+    for name in dataframes:
+        frame = dataframes[name]
+        plt.figure()
+        _plot_dataframe(frame, True)
+        _add_info_to_plot(frame.columns, datagroups_info, thesaurus.lang)
 
 
 def _create_dataframe(codes_groups):
