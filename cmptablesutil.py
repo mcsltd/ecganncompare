@@ -320,7 +320,7 @@ def _group_annotators_by_items(ann_groups):
 
 def _write_to_formated_xlsx(dframe, filename):
     annotators = dframe.columns.values
-    first_data_column = 2
+    first_data_column = len(dframe.index.values[0])
     writer = pandas.ExcelWriter(filename)
     dframe.to_excel(writer, startrow=1, header=False)
 
@@ -341,6 +341,22 @@ def _write_to_formated_xlsx(dframe, filename):
     max_annotator_length = max(len(x) for x in annotators)
     sheet.set_column(0, 0, max_annotator_length + 2)
     sheet.set_row(0, max_annotator_length * 5.75)
+
+    bad_value_fmt = book.add_format({
+        "num_format": "",
+        "align": "center",
+        "border": 0,
+        "bg_color": "d9d9d9"
+    })
+    sheet.conditional_format(
+        1, first_data_column, len(dframe.index) + 1,
+        len(annotators) + first_data_column, {
+            "type": "cell",
+            "criteria": "==",
+            "value": '"%s"' % _EXCEL_BAD_VALUE_MARK,
+            "format": bad_value_fmt
+        }
+    )
 
     writer.save()
 
