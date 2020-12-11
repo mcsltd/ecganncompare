@@ -301,5 +301,11 @@ def _get_legend_labels(annotators, lang, datagroups_info):
     return labels
 
 
+def _create_thesaurus(label, lang=None, items=None):
+    if items is None:
+        items = {}
+    return Thesaurus(label, lang, items)
+
+
 if __name__ == "__main__":
     main()
