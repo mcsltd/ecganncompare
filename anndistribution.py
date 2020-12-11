@@ -228,6 +228,8 @@ def _split_dataframe(df, thesaurus):
     for group in thesaurus.groups:
         name = "{0}-{1}".format(group[0], group[-1])
         frame = df.loc[(k for k in group if k in df.index)]
+        if frame.empty:
+            continue
         frame.index = [thesaurus.items[k] for k in frame.index]
         subframes[name] = frame
     return subframes
