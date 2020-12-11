@@ -29,7 +29,7 @@ class Text(object):
 InputData = namedtuple("InputData", ["paths", "thesaurus"])
 
 
-MatchStats = namedtuple("MatchStats", ["se", "sp", "ppv", "pnv", "acc"])
+MatchStats = namedtuple("MatchStats", ["Se", "Sp", "PPV", "PNV", "Acc"])
 
 
 Thesaurus = namedtuple("Thesaurus", ["label", "lang", "items"])
@@ -157,11 +157,11 @@ def _calculate_match_stats(dtable, other_table, total_ann_count):
         return None
     tn = total_ann_count - counts_sum
     return MatchStats(
-        se=(tp / float(tp + fn)),
-        sp=(tn / float(fp + tn)),
-        ppv=(tp / float(tp + fp)),
-        pnv=(tn / float(tn + fn)),
-        acc=(float(tp + tn) / total_ann_count)
+        Se=(tp / float(tp + fn)),
+        Sp=(tn / float(fp + tn)),
+        PPV=(tp / float(tp + fp)),
+        PNV=(tn / float(tn + fn)),
+        Acc=(float(tp + tn) / total_ann_count)
     )
 
 
