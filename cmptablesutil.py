@@ -254,8 +254,9 @@ def _write_stats_table(tables, filename, thesaurus_items):
         total_ann_count = len(thesaurus_items)
     else:
         total_ann_count = _count_unique_anns(tables)
-    writer = _create_formated_writer(filename)
+    writer = pandas.ExcelWriter(filename)
     _create_stats_dataframe(tables, total_ann_count).to_excel(writer)
+    _format_writer(writer)
     writer.save()
 
 
@@ -319,8 +320,8 @@ def _group_annotators_by_items(ann_groups):
     return dict(groups)
 
 
-def _create_formated_writer(filename):
-    writer = pandas.ExcelWriter(filename)
+def _format_writer(writer):
+    workbook = writer.book
     return writer
 
 
