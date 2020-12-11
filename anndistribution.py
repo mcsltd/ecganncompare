@@ -79,20 +79,6 @@ def _read_folders(folders):
     return all_data
 
 
-def _get_all_codes(all_data):
-    all_codes = []
-    for folder_data in all_data:
-        codes = []
-        for rec in folder_data:
-            codes += rec[Text.CONCLUSIONS]
-        all_codes.append(codes)
-    return all_codes
-
-
-def _get_annotators(all_data):
-    return [x[0][Text.ANNOTATOR] for x in all_data]
-
-
 def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
     dataframe = _create_dataframe(codes_groups)
     if thesaurus_path is None:
