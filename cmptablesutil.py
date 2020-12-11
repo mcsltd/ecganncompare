@@ -255,8 +255,9 @@ def _write_stats_table(tables, filename, thesaurus_items):
     else:
         total_ann_count = _count_unique_anns(tables)
     writer = pandas.ExcelWriter(filename)
-    _create_stats_dataframe(tables, total_ann_count).to_excel(writer)
-    _format_writer(writer)
+    dframe = _create_stats_dataframe(tables, total_ann_count)
+    dframe.to_excel(writer)
+    _format_writer(dframe, writer)
     writer.save()
 
 
@@ -320,13 +321,13 @@ def _group_annotators_by_items(ann_groups):
     return dict(groups)
 
 
-def _format_writer(writer):
+def _format_writer(dframe, writer):
     book = writer.book
     sheet = writer.sheets.values()[0]
 
     rotated_header = book.add_format({"rotation": 90})
     sheet.set_row(0, None, rotated_header)  # TODO: fix
-    
+
     return writer
 
 
