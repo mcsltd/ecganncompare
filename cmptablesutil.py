@@ -328,6 +328,9 @@ def _format_writer(dframe, writer):
     rotated_header = book.add_format({"rotation": 90})
     sheet.set_row(0, None, rotated_header)  # TODO: fix
 
+    percents_cell = book.add_format({"num_format": "0.00%"})
+    sheet.set_column(2, len(dframe.columns), None, percents_cell)
+
     return writer
 
 
