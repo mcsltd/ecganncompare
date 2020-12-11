@@ -84,7 +84,7 @@ def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
     if thesaurus_path is None:
         dataframe.sort_index(inplace=True)
         thesaurus = _create_thesaurus()
-        _plot_dataframe(dataframe, False)
+        _plot_dataframe(dataframe)
         _add_info_to_plot(dataframe.columns, datagroups_info, thesaurus.lang)
         return
     thesaurus = _parse_thesaurus(thesaurus_path)
@@ -94,7 +94,7 @@ def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
     for name in dataframes:
         frame = dataframes[name]
         plt.figure()
-        _plot_dataframe(frame, True)
+        _plot_dataframe(frame)
         _add_info_to_plot(frame.columns, datagroups_info, thesaurus.lang)
 
 
@@ -309,12 +309,9 @@ def _create_thesaurus(label="", lang=None, items=None, groups=None):
     return Thesaurus(label, lang, items, groups)
 
 
-def _plot_dataframe(dataframe, wide_ylabels):
+def _plot_dataframe(dataframe):
     # NOTE: barh() plor bars in reverse order
     dataframe[::-1].plot.barh(ax=plt.gca(), width=0.75, legend=False)
-    if wide_ylabels is not None:
-        plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
-        _set_y_fontsize(plt.gca(), 8)
 
 
 def _add_info_to_plot(columns, datagroups_info, lang):
