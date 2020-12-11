@@ -197,6 +197,7 @@ def _create_stats_dataframe(datatables, total_ann_count):
             if stats is None:
                 subtable.append(bad_values_row)
             else:
+                stats = ("{0:.2%}".format(x) for x in stats)
                 subtable.append(list(stats))
         subframe = pandas.DataFrame(subtable).transpose()
         subframe.index = fields_names
