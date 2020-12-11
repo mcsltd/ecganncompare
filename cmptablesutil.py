@@ -335,8 +335,10 @@ def _write_to_formated_xlsx(dframe, filename):
     for i, colname in enumerate(annotators):
         sheet.write(0, i + first_data_column, colname, rotated_header)
 
-    percents_cell = book.add_format({"num_format": "0.00%"})
-    sheet.set_column(first_data_column, len(annotators), None, percents_cell)
+    cells_fmt = book.add_format({"num_format": "0.00%", "align": "center"})
+    centered = book.add_format({"align": "center"})
+    sheet.set_column(first_data_column, len(annotators) + first_data_column, 
+        None, cells_fmt)
 
     max_annotator_length = max(len(x) for x in annotators)
     sheet.set_column(0, 0, max_annotator_length + 2)
