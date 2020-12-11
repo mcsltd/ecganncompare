@@ -35,7 +35,7 @@ DatagroupInfo = namedtuple("DatagroupInfo", [
 ])
 
 
-Thesaurus = namedtuple("Thesaurus", ["label", "lang", "items"])
+Thesaurus = namedtuple("Thesaurus", ["label", "lang", "items", "groups"])
 
 
 def main():
@@ -307,9 +307,11 @@ def _get_legend_labels(annotators, lang, datagroups_info):
     return labels
 
 
-def _create_thesaurus(label, lang=None, items=None):
+def _create_thesaurus(label, lang=None, items=None, groups=None):
     if items is None:
         items = {}
+    if groups is None:
+        groups = {}
     return Thesaurus(label, lang, items)
 
 
