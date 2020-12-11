@@ -317,5 +317,10 @@ def _group_annotators_by_items(ann_groups):
     return dict(groups)
 
 
+def _create_formated_writer(filename):
+    writer = pandas.ExcelWriter(filename)
+    return writer
+
+
 if __name__ == "__main__":
     main()
