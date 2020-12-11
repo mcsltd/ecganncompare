@@ -83,7 +83,7 @@ def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
     dataframe = _create_dataframe(codes_groups)
     if thesaurus_path is None:
         dataframe.sort_index(inplace=True)
-        thesaurus = _create_thesaurus("unknown")
+        thesaurus = _create_thesaurus()
     else:
         thesaurus = _parse_thesaurus(thesaurus_path)
         dataframe = _prepare_dataframe(dataframe, thesaurus)
@@ -288,7 +288,7 @@ def _get_legend_labels(annotators, lang, datagroups_info):
     return labels
 
 
-def _create_thesaurus(label, lang=None, items=None, groups=None):
+def _create_thesaurus(label="", lang=None, items=None, groups=None):
     if items is None:
         items = {}
     if groups is None:
