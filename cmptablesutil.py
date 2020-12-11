@@ -38,6 +38,7 @@ Thesaurus = namedtuple("Thesaurus", ["label", "lang", "items"])
 _MIN_ANNOTATORS_COUNT = 2
 _TABLE_OUT_FILENAME = "stats.xlsx"
 _CMP_SJON_FILENAME = "conclusions-annotators.json"
+_EXCEL_BAD_VALUE_MARK = "x"
 
 
 def main():
@@ -177,7 +178,7 @@ def _count_unique_anns(datatables):
 
 def _create_stats_dataframe(datatables, total_ann_count):
     fields_names = MatchStats._fields
-    bad_values_row = ["x"] * len(fields_names)
+    bad_values_row = [_EXCEL_BAD_VALUE_MARK] * len(fields_names)
     annotators = list(datatables.keys())
     frames = []
     for i, annr in enumerate(annotators):
