@@ -22,6 +22,7 @@ class Text(object):
     TYPE = "type"
     CMPRESULT = "cmpresult"
     LANGUAGE = "language"
+    THESAURUS_LABEL = "thesaurus"
 
 
 class Error(Exception):
@@ -94,19 +95,20 @@ def _get_annotators(all_data):
 
 def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
     dataframe = _create_dataframe(codes_groups)
-    lang = None
     if thesaurus_path is None:
         dataframe.sort_index(inplace=True)
+        thesaurus = _create_thesaurus("unknown")
     else:
-        thesaurus, lang = _parse_thesaurus(thesaurus_path)
-        dataframe = _prepare_dataframe(dataframe, thesaurus)
+        thesaurus = _parse_thesaurus(thesaurus_path)
+        dataframe = _prepare_dataframe(dataframe, thesaurus.items)
     # NOTE: barh() plor bars in reverse order
     dataframe[::-1].plot.barh(ax=plt.gca(), width=0.75, legend=False)
-    title = _get_title(lang) + ". " + _get_title_tail(datagroups_info, lang)
+    title = (_get_title(thesaurus.lang) + ". " +
+             _get_title_tail(datagroups_info, thesaurus.lang))
     plt.title(title)
-    plt.gcf().canvas.set_window_title(_get_window_title(lang))
+    plt.gcf().canvas.set_window_title(_get_window_title(thesaurus.lang))
     legend_labels = _get_legend_labels(
-        dataframe.columns, lang, datagroups_info)
+        dataframe.columns, thesaurus.lang, datagroups_info)
     plt.legend(legend_labels)
     if thesaurus_path is not None:
         plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
@@ -220,11 +222,15 @@ def _get_max_groups_count():
 
 def _parse_thesaurus(filename):
     data = _read_json(filename)
-    result = OrderedDict()
+    items = OrderedDict()
     for group in data[Text.GROUPS]:
         for ann in group[Text.REPORTS]:
-            result[ann[Text.ID]] = ann[Text.NAME]
-    return result, data[Text.LANGUAGE].lower()
+            items[ann[Text.ID]] = ann[Text.NAME]
+    return _create_thesaurus(
+        data[Text.THESAURUS_LABEL],
+        data[Text.LANGUAGE],
+        items
+    )
 
 
 def _remove_results(dataset):
