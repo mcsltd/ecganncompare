@@ -318,17 +318,24 @@ def _group_annotators_by_items(ann_groups):
 
 
 def _write_to_formated_xlsx(dframe, filename):
+    first_data_column = 2
     writer = pandas.ExcelWriter(filename)
-    dframe.to_excel(writer)
+    dframe.to_excel(writer, startrow=1, header=False)
 
     book = writer.book
     sheet = writer.sheets.values()[0]
 
-    rotated_header = book.add_format({"rotation": 90})
-    sheet.set_row(0, None, rotated_header)  # TODO: fix
+    rotated_header = book.add_format({
+        "rotation": 90,
+        "bold": True,
+        "border": 1,
+    })
+    for i, colname in enumerate(dframe.columns.values):
+        sheet.write(0, i + first_data_column, colname, rotated_header)
 
     percents_cell = book.add_format({"num_format": "0.00%"})
-    sheet.set_column(2, len(dframe.columns), None, percents_cell)
+    sheet.set_column(
+        first_data_column, len(dframe.columns), None, percents_cell)
 
     writer.save()
 
