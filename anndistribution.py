@@ -223,13 +223,18 @@ def _get_max_groups_count():
 def _parse_thesaurus(filename):
     data = _read_json(filename)
     items = OrderedDict()
+    groups = []
     for group in data[Text.GROUPS]:
+        group_items = []
         for ann in group[Text.REPORTS]:
             items[ann[Text.ID]] = ann[Text.NAME]
+            group_items.append(ann[Text.ID])
+        groups.append(group_items)
     return _create_thesaurus(
         data[Text.THESAURUS_LABEL],
         data[Text.LANGUAGE],
-        items
+        items,
+        groups
     )
 
 
