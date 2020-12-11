@@ -253,11 +253,8 @@ def _write_stats_table(tables, filename, thesaurus_items):
         total_ann_count = len(thesaurus_items)
     else:
         total_ann_count = _count_unique_anns(tables)
-    writer = pandas.ExcelWriter(filename)
     dframe = _create_stats_dataframe(tables, total_ann_count)
-    dframe.to_excel(writer)
-    _format_writer(dframe, writer)
-    writer.save()
+    _write_to_formated_xlsx(dframe, filename)
 
 
 def _reshape_tables(tables):
@@ -320,7 +317,10 @@ def _group_annotators_by_items(ann_groups):
     return dict(groups)
 
 
-def _format_writer(dframe, writer):
+def _write_to_formated_xlsx(dframe, filename):
+    writer = pandas.ExcelWriter(filename)
+    dframe.to_excel(writer)
+
     book = writer.book
     sheet = writer.sheets.values()[0]
 
@@ -330,8 +330,7 @@ def _format_writer(dframe, writer):
     percents_cell = book.add_format({"num_format": "0.00%"})
     sheet.set_column(2, len(dframe.columns), None, percents_cell)
 
-    return writer
-
+    writer.save()
 
 if __name__ == "__main__":
     main()
