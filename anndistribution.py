@@ -303,7 +303,7 @@ def _create_thesaurus(label, lang=None, items=None, groups=None):
         items = {}
     if groups is None:
         groups = {}
-    return Thesaurus(label, lang, items)
+    return Thesaurus(label, lang, items, groups)
 
 
 if __name__ == "__main__":
