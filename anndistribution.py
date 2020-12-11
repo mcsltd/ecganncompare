@@ -227,10 +227,6 @@ def _remove_results(dataset):
             if Text.TYPE not in d or d[Text.TYPE] != Text.CMPRESULT]
 
 
-def _set_y_fontsize(axes, value):
-    axes.tick_params(axis="y", labelsize=value)
-
-
 def _split_dataframe(df, thesaurus):
     subframes = {}
     for group in thesaurus.groups:
