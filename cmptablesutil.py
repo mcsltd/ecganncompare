@@ -254,7 +254,9 @@ def _write_stats_table(tables, filename, thesaurus_items):
         total_ann_count = len(thesaurus_items)
     else:
         total_ann_count = _count_unique_anns(tables)
-    _create_stats_dataframe(tables, total_ann_count).to_excel(filename)
+    writer = _create_formated_writer(filename)
+    _create_stats_dataframe(tables, total_ann_count).to_excel(writer)
+    writer.save()
 
 
 def _reshape_tables(tables):
