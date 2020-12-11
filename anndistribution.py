@@ -95,6 +95,7 @@ def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
         frame = dataframes[name]
         plt.figure()
         _plot_dataframe(frame)
+        _wide_ylabels_padding()
         _add_info_to_plot(frame.columns, datagroups_info, thesaurus.lang)
 
 
@@ -320,6 +321,10 @@ def _add_info_to_plot(columns, datagroups_info, lang):
     plt.gcf().canvas.set_window_title(_get_window_title(lang))
     legend_labels = _get_legend_labels(columns, lang, datagroups_info)
     plt.legend(legend_labels)
+
+
+def _wide_ylabels_padding():
+    plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
 
 
 if __name__ == "__main__":
