@@ -181,24 +181,27 @@ def _count_unique_anns(datatables):
 
 
 def _create_stats_dataframe(datatables, total_ann_count):
-    bad_cross_mark = "-"
+    fields_names = MatchStats._fields
+    bad_values_row = ["x"] * len(fields_names)
     annotators = list(datatables.keys())
-    cells = []
+    frames = []
     for i, annr in enumerate(annotators):
-        cells.append([])
         dtable = datatables[annr]
+        subtable = []
         for j, other_annr in enumerate(annotators):
             if i == j:
-                cells[i].append(bad_cross_mark)
+                subtable.append(bad_values_row)
                 continue
             stats = _calculate_match_stats(
                 dtable, datatables[other_annr], total_ann_count)
             if stats is None:
-                cells[i].append(bad_cross_mark)
+                subtable.append(bad_values_row)
             else:
-                cells[i].append(_match_stats_to_str(stats))
-    dframe = pandas.DataFrame(cells)
-    dframe.index = annotators
+                subtable.append(list(stats))
+        subframe = pandas.DataFrame(subtable).transpose()
+        subframe.index = fields_names
+        frames.append(subframe)
+    dframe = pandas.concat(frames, keys=annotators)
     dframe.columns = annotators
     return dframe
 
