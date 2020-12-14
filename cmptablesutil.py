@@ -48,7 +48,10 @@ _EXCEL_BAD_VALUE_MARK = "x"
 
 def main():
     input_data = _parse_args(os.sys.argv)
-    _process_input(input_data)
+    try:
+        _process_input(input_data)
+    except Error as err:
+        print(err)
 
 
 def _parse_args(args):
@@ -373,11 +376,7 @@ def _process_input(input_data):
     else:
         thesaurus = _parse_thesaurus(input_data.thesaurus)
     tables = _create_datatables(groups)
-    try:
-        _check_groups(groups)
-    except Error as e:
-        print(e)
-        return
+    _check_groups(groups)
     _write_stats_table(tables, _TABLE_OUT_FILENAME, thesaurus.items)
     _write_cmp_json(tables, _CMP_SJON_FILENAME, thesaurus)
 
