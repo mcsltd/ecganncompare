@@ -54,8 +54,12 @@ def main():
         thesaurus = _create_thesaurus(thesaurus_label)
     else:
         thesaurus = _parse_thesaurus(input_data.thesaurus)
-    _check_groups(groups)
     tables = _create_datatables(groups)
+    try:
+        _check_groups(groups)
+    except Error as e:
+        print(e)
+        return
     _write_stats_table(tables, _TABLE_OUT_FILENAME, thesaurus.items)
     _write_cmp_json(tables, _CMP_SJON_FILENAME, thesaurus)
 
