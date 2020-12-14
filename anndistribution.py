@@ -358,14 +358,13 @@ def _process_input(data):
 
 
 def _group_dataframes(dataframes, max_sum_group_size=10):
-    all_names = sorted(dataframes.keys(), key=(lambda x: len(dataframes[x])),
-                       reverse=True)
-    groups = [{}]
-    for name in all_names:
+    # Remade groups order as in thesaurus
+    groups = [OrderedDict()]
+    for name in dataframes:
         last_group = groups[-1]
         items_len_sum = sum(len(last_group[n]) for n in last_group)
         if items_len_sum >= max_sum_group_size:
-            last_group = {}
+            last_group = OrderedDict()
             groups.append(last_group)
         last_group[name] = dataframes[name]
     return groups
