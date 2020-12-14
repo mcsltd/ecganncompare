@@ -204,14 +204,16 @@ def _create_stats_dataframe(datatables, total_ann_count):
 
 def _read_data(input_paths):
     all_jsons = []
-    # TODO: check input_path is filename or dirs list
-    warning_fmt = (
+    path_not_found_fmt = "Warning! Path {0} not found."
+    ignored_file_fmt = (
         "Warning! This program works only with data folders. File {0} will "
         "be ignored."
     )
     for path in input_paths:
-        if os.path.isfile(path):
-            print(warning_fmt.format(path))
+        if not os.path.exists(path):
+            print(path_not_found_fmt.format(path))
+        elif os.path.isfile(path):
+            print(ignored_file_fmt.format(path))
         else:
             all_jsons += _read_json_folder(path)
     return all_jsons
