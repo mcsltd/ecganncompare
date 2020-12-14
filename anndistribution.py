@@ -241,7 +241,7 @@ def _remove_results(dataset):
 
 
 def _split_dataframe(df, thesaurus):
-    subframes = {}
+    subframes = OrderedDict()
     for group in thesaurus.groups:
         name = "{0}-{1}".format(group[0], group[-1])
         frame = df.loc[(k for k in group if k in df.index)]
