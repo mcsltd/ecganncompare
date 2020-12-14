@@ -43,23 +43,7 @@ InputData = namedtuple("InputData", ["paths", "thesaurus"])
 
 def main():
     data = _parse_args(sys.argv)
-    _print_folders_names(data.paths)
-    all_data = _read_folders(data.paths)
-    all_data = _remove_results(all_data)
-    all_data, deviations = _remove_deviations(
-        all_data, Text.CONCLUSION_THESAURUS)
-    if deviations:
-        _print_removed_items(deviations, Text.CONCLUSION_THESAURUS)
-    if not all_data:
-        raise Error("Input files not found")
-    data_groups = _group_by(all_data, Text.ANNOTATOR)
-    data_groups = _remove_excess_groups(data_groups, _get_max_groups_count())
-    # TODO: print removed groups
-    groups_info = _get_datagroups_info(data_groups)
-    _print_groups_info(groups_info)
-    codes_groups = _extract_annotators_codes(data_groups)
-    _plot_histogram(codes_groups, groups_info, data.thesaurus)
-    plt.show()
+    _process_input(data)
 
 
 def _parse_args(args):
@@ -343,6 +327,26 @@ def _add_info_to_plot(columns, datagroups_info, lang):
 
 def _wide_ylabels_padding():
     plt.subplots_adjust(left=0.4, bottom=0.05, right=0.99, top=0.95)
+
+
+def _process_input(data):
+    _print_folders_names(data.paths)
+    all_data = _read_folders(data.paths)
+    all_data = _remove_results(all_data)
+    all_data, deviations = _remove_deviations(
+        all_data, Text.CONCLUSION_THESAURUS)
+    if deviations:
+        _print_removed_items(deviations, Text.CONCLUSION_THESAURUS)
+    if not all_data:
+        raise Error("Input files not found")
+    data_groups = _group_by(all_data, Text.ANNOTATOR)
+    data_groups = _remove_excess_groups(data_groups, _get_max_groups_count())
+    # TODO: print removed groups
+    groups_info = _get_datagroups_info(data_groups)
+    _print_groups_info(groups_info)
+    codes_groups = _extract_annotators_codes(data_groups)
+    _plot_histogram(codes_groups, groups_info, data.thesaurus)
+    plt.show()
 
 
 if __name__ == "__main__":
