@@ -237,10 +237,10 @@ def _check_groups(groups):
     if len(groups) >= _MIN_ANNOTATORS_COUNT:
         return True
     message_format = (
-        "Cannot less than %d annotators. Prepare a folders or "
-        "explicitly specify result files."
+        "Cannot less than %d annotators. Prepare a folders or explicitly "
+        "specify result files."
     )
-    raise RuntimeError(message_format % _MIN_ANNOTATORS_COUNT)
+    raise Error(message_format % _MIN_ANNOTATORS_COUNT)
 
 
 def _parse_thesaurus(filename):
