@@ -107,11 +107,16 @@ def _dataset_to_table(dataset):
 
 
 def _remove_deviations(dataset, fieldname):
-    counts = Counter(data[fieldname] for data in dataset)
-    common_value = counts.most_common()[0][0]
+    counts = Counter(data[fieldname] for data in dataset if fieldname in data)
+    common_value = counts.most_common()
+    if common_value:
+        common_value = common_value[0][0]
+    else:
+        return dataset, []
     good_items, others = [], []
     for data in dataset:
-        if data[fieldname] == common_value:
+        value = data.get(fieldname)
+        if value == common_value:
             good_items.append(data)
         else:
             others.append(data)
