@@ -48,20 +48,7 @@ _EXCEL_BAD_VALUE_MARK = "x"
 
 def main():
     input_data = _parse_args(os.sys.argv)
-    dataset = _read_data(input_data.paths)
-    groups, thesaurus_label = _group_data(dataset)
-    if input_data.thesaurus is None:
-        thesaurus = _create_thesaurus(thesaurus_label)
-    else:
-        thesaurus = _parse_thesaurus(input_data.thesaurus)
-    tables = _create_datatables(groups)
-    try:
-        _check_groups(groups)
-    except Error as e:
-        print(e)
-        return
-    _write_stats_table(tables, _TABLE_OUT_FILENAME, thesaurus.items)
-    _write_cmp_json(tables, _CMP_SJON_FILENAME, thesaurus)
+    _process_input(input_data)
 
 
 def _parse_args(args):
@@ -376,6 +363,23 @@ def _write_to_formated_xlsx(dframe, filename):
     )
 
     writer.save()
+
+
+def _process_input(input_data):
+    dataset = _read_data(input_data.paths)
+    groups, thesaurus_label = _group_data(dataset)
+    if input_data.thesaurus is None:
+        thesaurus = _create_thesaurus(thesaurus_label)
+    else:
+        thesaurus = _parse_thesaurus(input_data.thesaurus)
+    tables = _create_datatables(groups)
+    try:
+        _check_groups(groups)
+    except Error as e:
+        print(e)
+        return
+    _write_stats_table(tables, _TABLE_OUT_FILENAME, thesaurus.items)
+    _write_cmp_json(tables, _CMP_SJON_FILENAME, thesaurus)
 
 
 if __name__ == "__main__":
