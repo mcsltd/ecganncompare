@@ -228,6 +228,8 @@ def _group_data(all_jsons):
     all_jsons, bad_json = _remove_deviations(
         all_jsons, Text.CONCLUSION_THESAURUS)
     _print_removed_items(bad_json, Text.CONCLUSION_THESAURUS)
+    if not all_jsons:
+        raise Error("Input files not found")
     thesaurus = all_jsons[0][Text.CONCLUSION_THESAURUS]
     return _group_by_field(all_jsons, Text.ANNOTATOR), thesaurus
 
@@ -360,8 +362,6 @@ def _write_to_formated_xlsx(dframe, filename):
 
 def _process_input(input_data):
     dataset = _read_data(input_data.paths)
-    if not dataset:
-        raise Error("Input files not found")
     groups, thesaurus_label = _group_data(dataset)
     if len(groups) < _MIN_ANNOTATORS_COUNT:
         message = (
