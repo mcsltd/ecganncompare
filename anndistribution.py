@@ -353,6 +353,20 @@ def _process_input(data):
     plt.show()
 
 
+def _group_dataframes(dataframes, max_sum_group_size=10):
+    all_names = sorted(dataframes.keys(), key=(lambda x: len(dataframes[x])),
+                       reverse=True)
+    groups = [{}]
+    for name in all_names:
+        last_group = groups[-1]
+        items_len_sum = sum(len(last_group[n]) for n in last_group)
+        if items_len_sum >= max_sum_group_size:
+            last_group = {}
+            groups.append(last_group)
+        last_group[name] = dataframes[name]
+    return groups
+
+
 if __name__ == "__main__":
     try:
         main()
