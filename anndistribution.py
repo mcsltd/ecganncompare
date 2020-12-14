@@ -43,13 +43,15 @@ InputData = namedtuple("InputData", ["paths", "thesaurus"])
 
 def main():
     data = _parse_args(sys.argv)
-    all_data = _read_folders(data.paths)
     _print_folders_names(data.paths)
+    all_data = _read_folders(data.paths)
     all_data = _remove_results(all_data)
     all_data, deviations = _remove_deviations(
         all_data, Text.CONCLUSION_THESAURUS)
     if deviations:
         _print_removed_items(deviations, Text.CONCLUSION_THESAURUS)
+    if not all_data:
+        raise Error("Input files not found")
     data_groups = _group_by(all_data, Text.ANNOTATOR)
     data_groups = _remove_excess_groups(data_groups, _get_max_groups_count())
     # TODO: print removed groups
