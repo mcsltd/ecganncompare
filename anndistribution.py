@@ -93,14 +93,18 @@ def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
         return
     thesaurus = _parse_thesaurus(thesaurus_path)
     dataframes = _split_dataframe(dataframe, thesaurus)
-    if len(dataframes) > plt.rcParams["figure.max_open_warning"]:
+    df_groups = _group_dataframes(dataframes)
+    if len(df_groups) > plt.rcParams["figure.max_open_warning"]:
         plt.rcParams.update({'figure.max_open_warning': 0})
-    for name in dataframes:
-        frame = dataframes[name]
+    for group in df_groups:
         plt.figure()
-        _plot_dataframe(frame)
-        _wide_ylabels_padding()
-        _add_info_to_plot(frame.columns, datagroups_info, thesaurus.lang)
+        for i, name in enumerate(group):
+            plt.subplot(len(group), 1, i + 1)
+            frame = group[name]
+            _plot_dataframe(frame)
+            _wide_ylabels_padding()
+            _add_info_to_plot(frame.columns, datagroups_info, thesaurus.lang)
+            plt.title(name)
 
 
 def _create_dataframe(codes_groups):
