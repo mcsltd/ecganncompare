@@ -26,6 +26,11 @@ class Text(object):
     RECORDS = "records"
 
 
+class Error(Exception):
+    def __init__(self, message):
+        super(Error, self).__init__(message)
+
+
 InputData = namedtuple("InputData", ["paths", "thesaurus"])
 
 
