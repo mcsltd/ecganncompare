@@ -373,12 +373,17 @@ def _process_input(input_data):
     if not dataset:
         raise Error("Input files not found")
     groups, thesaurus_label = _group_data(dataset)
+    if len(groups) < _MIN_ANNOTATORS_COUNT:
+        message = (
+            "Cannot less than {0} annotators. Prepare a folders or explicitly "
+            "specify result files."
+        )
+        raise Error(message.format(_MIN_ANNOTATORS_COUNT))
     if input_data.thesaurus is None:
         thesaurus = _create_thesaurus(thesaurus_label)
     else:
         thesaurus = _parse_thesaurus(input_data.thesaurus)
     tables = _create_datatables(groups)
-    _check_groups(groups)
     _write_stats_table(tables, _TABLE_OUT_FILENAME, thesaurus.items)
     _write_cmp_json(tables, _CMP_SJON_FILENAME, thesaurus)
 
