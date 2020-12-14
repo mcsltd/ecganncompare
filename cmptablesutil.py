@@ -370,6 +370,8 @@ def _write_to_formated_xlsx(dframe, filename):
 
 def _process_input(input_data):
     dataset = _read_data(input_data.paths)
+    if not dataset:
+        raise Error("Input files not found")
     groups, thesaurus_label = _group_data(dataset)
     if input_data.thesaurus is None:
         thesaurus = _create_thesaurus(thesaurus_label)
