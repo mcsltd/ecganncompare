@@ -38,6 +38,9 @@ DatagroupInfo = namedtuple("DatagroupInfo", [
 Thesaurus = namedtuple("Thesaurus", ["label", "lang", "items", "groups"])
 
 
+InputData = namedtuple("InputData", ["paths", "thesaurus"])
+
+
 def main():
     data = _parse_args(sys.argv)
     all_data = _read_folders(data.input_folders)
