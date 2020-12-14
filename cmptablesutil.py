@@ -51,7 +51,7 @@ def main():
     try:
         _process_input(input_data)
     except Error as err:
-        print(err)
+        print("Error: {0}".format(err))
 
 
 def _parse_args(args):
@@ -232,16 +232,6 @@ def _group_data(all_jsons):
     return _group_by_field(all_jsons, Text.ANNOTATOR), thesaurus
 
 
-def _check_groups(groups):
-    if len(groups) >= _MIN_ANNOTATORS_COUNT:
-        return True
-    message_format = (
-        "Cannot less than %d annotators. Prepare a folders or explicitly "
-        "specify result files."
-    )
-    raise Error(message_format % _MIN_ANNOTATORS_COUNT)
-
-
 def _parse_thesaurus(filename):
     data = _read_json(filename)
     items = OrderedDict()
@@ -389,4 +379,7 @@ def _process_input(input_data):
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as exc:
+        print("Fatal error! {0}".format(exc))
