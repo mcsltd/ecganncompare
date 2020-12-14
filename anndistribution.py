@@ -79,9 +79,18 @@ def _parse_args(args):
 
 def _read_folders(folders):
     all_data = []
-    for dirname in folders:
-        folder_data = _read_json_folder(dirname)
-        all_data += folder_data
+    path_not_found_fmt = "Warning! Path {0} not found."
+    ignored_file_fmt = (
+        "Warning! This program works only with data folders. File {0} will "
+        "be ignored."
+    )
+    for path in folders:
+        if not os.path.exists(path):
+            print(path_not_found_fmt.format(path))
+        elif os.path.isfile(path):
+            print(ignored_file_fmt.format(path))
+        else:
+            all_data += _read_json_folder(path)
     return all_data
 
 
