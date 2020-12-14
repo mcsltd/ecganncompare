@@ -43,8 +43,8 @@ InputData = namedtuple("InputData", ["paths", "thesaurus"])
 
 def main():
     data = _parse_args(sys.argv)
-    all_data = _read_folders(data.input_folders)
-    _print_folders_names(data.input_folders)
+    all_data = _read_folders(data.paths)
+    _print_folders_names(data.paths)
     all_data = _remove_results(all_data)
     all_data, deviations = _remove_deviations(
         all_data, Text.CONCLUSION_THESAURUS)
@@ -71,7 +71,10 @@ def _parse_args(args):
                         help="paths to input folders")
     parser.add_argument("--thesaurus", help="path to thesaurus")
     data = parser.parse_args(args[1:])
-    return data
+    return InputData(
+        data.input_folders,
+        data.thesaurus
+    )
 
 
 def _read_folders(folders):
