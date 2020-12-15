@@ -231,7 +231,7 @@ def _parse_thesaurus(filename):
         groups.append(group_items)
     return _create_thesaurus(
         data[Text.THESAURUS_LABEL],
-        data[Text.LANGUAGE],
+        data[Text.LANGUAGE].lower(),
         items,
         groups
     )
