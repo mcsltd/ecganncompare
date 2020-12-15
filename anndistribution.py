@@ -329,7 +329,7 @@ def _plot_dataframe(dataframe):
 
 def _add_info_to_plot(columns, datagroups_info, lang):
     title = _get_title(lang) + ". " + _get_title_tail(datagroups_info, lang)
-    plt.title(title)
+    plt.suptitle(title)
     plt.gcf().canvas.set_window_title(_get_window_title(lang))
     legend_labels = _get_legend_labels(columns, lang, datagroups_info)
     plt.legend(legend_labels)
