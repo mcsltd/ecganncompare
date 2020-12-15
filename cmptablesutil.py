@@ -34,7 +34,9 @@ class Error(Exception):
 InputData = namedtuple("InputData", ["paths", "thesaurus"])
 
 
-MatchStats = namedtuple("MatchStats", ["Se", "Sp", "PPV", "PNV", "Acc"])
+MatchStats = namedtuple("MatchStats", [
+    "Se", "Sp", "PPV", "PNV", "Acc", "Records"
+])
 
 
 Thesaurus = namedtuple("Thesaurus", ["label", "lang", "items"])
@@ -144,12 +146,14 @@ def _group_by_field(iterable_data, fieldname):
 
 def _calculate_match_stats(dtable, other_table, total_ann_count):
     tp, fp, fn = 0, 0, 0
+    records_count = 0
     for db in dtable:
         if db not in other_table:
             continue
         for rec in dtable[db]:
             if rec not in other_table[db]:
                 continue
+            records_count += 1
             anns = set(dtable[db][rec])
             other_anns = set(other_table[db][rec])
 
@@ -157,6 +161,9 @@ def _calculate_match_stats(dtable, other_table, total_ann_count):
             tp += len(matches)
             fn += len(anns.difference(matches))
             fp += len(other_anns.difference(matches))
+        for rec in other_table[db]:
+            if rec not in dtable:
+                records_count += 1
     counts_sum = sum([tp, fp, fn])
     if counts_sum == 0:
         return None
@@ -166,7 +173,8 @@ def _calculate_match_stats(dtable, other_table, total_ann_count):
         Sp=(tn / float(fp + tn)),
         PPV=(tp / float(tp + fp)),
         PNV=(tn / float(tn + fn)),
-        Acc=(float(tp + tn) / total_ann_count)
+        Acc=(float(tp + tn) / total_ann_count),
+        Records=records_count
     )
 
 
