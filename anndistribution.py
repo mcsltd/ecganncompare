@@ -91,6 +91,7 @@ def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
         _plot_dataframe(dataframe)
         _add_info_to_plot(dataframe.columns, datagroups_info, thesaurus.lang)
         return
+    max_count = dataframe.to_numpy().max()
     thesaurus = _parse_thesaurus(thesaurus_path)
     dataframes = _split_dataframe(dataframe, thesaurus)
     df_groups = _group_dataframes(dataframes)
@@ -105,6 +106,7 @@ def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
             _wide_ylabels_padding()
             _add_info_to_plot(frame.columns, datagroups_info, thesaurus.lang)
             plt.title(name)
+            plt.xlim(xmax=(max_count + 2))
 
 
 def _create_dataframe(codes_groups):
