@@ -355,15 +355,12 @@ def _write_to_formated_xlsx(dframe, filename):
         "border": 0,
         "bg_color": "d9d9d9"
     })
-    sheet.conditional_format(
-        1, first_data_column, len(dframe.index) + 1,
-        len(annotators) + first_data_column, {
-            "type": "cell",
-            "criteria": "==",
-            "value": '"%s"' % _EXCEL_BAD_VALUE_MARK,
-            "format": bad_value_fmt
-        }
-    )
+    _set_conditional_format(dframe, sheet, {
+        "type": "cell",
+        "criteria": "==",
+        "value": '"%s"' % _EXCEL_BAD_VALUE_MARK,
+        "format": bad_value_fmt
+    })
 
     writer.save()
 
@@ -384,6 +381,15 @@ def _process_input(input_data):
     tables = _create_datatables(groups)
     _write_stats_table(tables, _TABLE_OUT_FILENAME, thesaurus.items)
     _write_cmp_json(tables, _CMP_SJON_FILENAME, thesaurus)
+
+
+def _set_conditional_format(dframe, sheet, conditional_format):
+    columns_count = len(dframe.columns.values)
+    first_data_column = len(dframe.index.values[0])
+    sheet.conditional_format(
+        1, first_data_column, len(dframe.index) + 1,
+        columns_count + first_data_column, conditional_format
+    )
 
 
 if __name__ == "__main__":
