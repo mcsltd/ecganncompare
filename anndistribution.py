@@ -245,7 +245,7 @@ def _remove_results(dataset):
 def _split_dataframe(df, thesaurus):
     subframes = OrderedDict()
     for group in thesaurus.groups:
-        name = "{0}-{1}".format(group[0], group[-1])
+        name = "{0}-{1}".format(min(group), max(group))
         frame = df.loc[(k for k in group if k in df.index)]
         frame = frame.loc[:, frame.sum() > 0]
         if frame.empty:
