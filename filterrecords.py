@@ -123,13 +123,14 @@ def _filter_dataset(dataset):
     _print_removed_items(bad_json, Text.CONCLUSION_THESAURUS)
     if not dataset:
         raise Error("Input files not found")
-    new_dataset = []
-    for item in dataset:
+    new_dataset = {}
+    for key in dataset:
+        item = dataset[key]
         if item[Text.ANNOTATOR] not in annotators:
             continue
         if any((x in exclude_conclusions) for x in item[Text.CONCLUSIONS]):
             continue
-        new_dataset.append(item)
+        new_dataset[key] = item
     return new_dataset
 
 
