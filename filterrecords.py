@@ -1,7 +1,7 @@
 # coding=utf-8
 import os
 import codecs
-from collections import namedtuple, OrderedDict, Counter
+from collections import namedtuple, OrderedDict
 import json
 import argparse
 from distutils import file_util
@@ -9,16 +9,9 @@ from distutils import file_util
 
 class Text(object):
     CONCLUSIONS = "conclusions"
-    DATABASE = "database"
-    RECORD_ID = "record"
     TYPE = "type"
     CMPRESULT = "cmpresult"
-    CONCLUSION_THESAURUS = "conclusionThesaurus"
     ANNOTATOR = "annotator"
-    GROUPS = "groups"
-    REPORTS = "reports"
-    ID = "id"
-    NAME = "name"
 
 
 _CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -84,23 +77,6 @@ def _read_json(filename):
         return json.load(fin, object_pairs_hook=OrderedDict)
 
 
-def _remove_deviations(dataset, fieldname):
-    counts = Counter(data[fieldname] for data in dataset if fieldname in data)
-    common_value = counts.most_common()
-    if common_value:
-        common_value = common_value[0][0]
-    else:
-        return dataset, []
-    good_items, others = [], []
-    for data in dataset:
-        value = data.get(fieldname)
-        if value == common_value:
-            good_items.append(data)
-        else:
-            others.append(data)
-    return good_items, others
-
-
 def _read_data(input_paths):
     all_jsons = {}
     path_not_found_fmt = "Warning! Path {0} not found."
@@ -130,33 +106,6 @@ def _filter_dataset(dataset):
             continue
         new_dataset[key] = item
     return new_dataset
-
-
-def _remove_deviations(dataset, fieldname):
-    counts = Counter(data[fieldname] for data in dataset if fieldname in data)
-    common_value = counts.most_common()
-    if common_value:
-        common_value = common_value[0][0]
-    else:
-        return dataset, []
-    good_items, others = [], []
-    for data in dataset:
-        value = data.get(fieldname)
-        if value == common_value:
-            good_items.append(data)
-        else:
-            others.append(data)
-    return good_items, others
-
-
-def _print_removed_items(items, fieldname):
-    for item in items:
-        message = "Removed {0}-{1} with {2} = {3}".format(
-            item[Text.DATABASE], item[Text.RECORD_ID], fieldname,
-            item[fieldname]
-        )
-        print(message)
-    print("")
 
 
 def _remove_results(dataset):
