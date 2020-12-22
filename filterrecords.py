@@ -162,8 +162,11 @@ def _print_removed_items(items, fieldname):
 
 
 def _remove_results(dataset):
-    return [d for d in dataset
-            if Text.TYPE not in d or d[Text.TYPE] != Text.CMPRESULT]
+    return dict([
+        (x, dataset[x]) for x in dataset
+        if Text.TYPE not in dataset[x] or
+        dataset[x][Text.TYPE] != Text.CMPRESULT
+    ])
 
 
 if __name__ == "__main__":
