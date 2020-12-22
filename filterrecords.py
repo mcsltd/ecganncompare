@@ -119,8 +119,6 @@ def _filter_dataset(dataset):
     exclude_conclusions = set(range(2701, 2708))
 
     dataset = _remove_results(dataset)
-    dataset, bad_json = _remove_deviations(dataset, Text.CONCLUSION_THESAURUS)
-    _print_removed_items(bad_json, Text.CONCLUSION_THESAURUS)
     if not dataset:
         raise Error("Input files not found")
     new_dataset = {}
