@@ -58,7 +58,7 @@ def main():
 
 def _parse_args(args):
     parser = argparse.ArgumentParser(
-        description="Plot histograms for annotations comparing"
+        description="Create comparing tables"
     )
     parser.add_argument("input_paths", nargs="*",
                         default=[_get_default_input_dir()],
