@@ -45,8 +45,8 @@ def _parse_args(args):
                         default=default_output)
     data = parser.parse_args(args[1:])
     return InputData(
-        data.input_paths,
-        data.output_dir
+        [os.path.abspath(x) for x in data.input_paths],
+        os.path.abspath(data.output_dir)
     )
 
 
@@ -61,7 +61,7 @@ def _process_input(input_data):
 
 def _read_json_folder(dirname):
     all_paths = (os.path.join(dirname, x) for x in os.listdir(dirname))
-    all_files = [p for p in all_paths
+    all_files = [os.path.abspath(p) for p in all_paths
                  if os.path.isfile(p) and p.lower().endswith(".json")]
     results = {}
     for fname in all_files:
