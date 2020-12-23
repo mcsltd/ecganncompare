@@ -279,16 +279,21 @@ def _get_window_title(lang=None):
 
 def _get_datagroups_info(data_groups):
     infos = {}
+    records = defaultdict(set)
     for annotator in data_groups:
         annotator_data = data_groups[annotator]
-        codes_count = sum(len(d[Text.CONCLUSIONS]) for d in annotator_data)
+        codes_count = 0
+        for data_item in annotator_data:
+            codes_count += len(data_item[Text.CONCLUSIONS])
+            records[data_item[Text.DATABASE]].add(data_item[Text.RECORD_ID])
         infos[annotator] = DatagroupInfo(
             annotator,
             len(annotator_data),
             codes_count,
             annotator_data[0][Text.CONCLUSION_THESAURUS]
         )
-    return infos
+    records_count = sum(len(records[db]) for db in records)
+    return infos, records_count
 
 
 def _get_title_tail(datagroups_info, lang=None):
@@ -356,7 +361,7 @@ def _process_input(data):
     data_groups = _group_by(all_data, Text.ANNOTATOR)
     data_groups = _remove_excess_groups(data_groups, _get_max_groups_count())
     # TODO: print removed groups
-    groups_info = _get_datagroups_info(data_groups)
+    groups_info, records_count = _get_datagroups_info(data_groups)
     _print_groups_info(groups_info)
     codes_groups = _extract_annotators_codes(data_groups)
     _plot_histogram(codes_groups, groups_info, data.thesaurus)
