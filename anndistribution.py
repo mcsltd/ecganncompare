@@ -86,13 +86,14 @@ def _read_folders(folders):
 def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
     records_count = max(d.records_count for d in datagroups_info.values())
     dataframe = _create_dataframe(codes_groups)
-    thesaurus = None
     if thesaurus_path is not None:
         thesaurus = _parse_thesaurus(thesaurus_path)
-    _plot_common_histogram(dataframe, thesaurus)
-    if thesaurus is None:
-        dataframe.sort_index(inplace=True)
+    else:
         thesaurus = _create_thesaurus()
+    _plot_common_histogram(dataframe, thesaurus)
+    plt.suptitle(_get_common_histogram_title(records_count, thesaurus.lang))
+    if not thesaurus.items:
+        dataframe.sort_index(inplace=True)
         plt.figure()
         _plot_dataframe(dataframe)
         _add_info_to_plot(
@@ -398,6 +399,17 @@ def _plot_common_histogram(dataframe, thesaurus):
 def _add_titles(figure_title, window_title):
     plt.suptitle(figure_title)
     plt.gcf().canvas.set_window_title(window_title)
+
+
+def _get_common_histogram_title(records_count, lang):
+    head = (
+        "The total number of uses of conclusions (distribution of "
+        "conclusions). "
+    )
+    if lang == "ru":
+        head =\
+            u"Общее число использования заключений (распределение заключений). "
+    return head + _get_title_tail(records_count, lang)
 
 
 if __name__ == "__main__":
