@@ -380,6 +380,8 @@ def _plot_common_histogram(dataframe, thesaurus):
         dataframe.index = [thesaurus.items[k] for k in dataframe.index]
     plt.figure()
     _plot_dataframe(dataframe)
+    if thesaurus is not None:
+        _wide_ylabels_padding()
 
 
 if __name__ == "__main__":
