@@ -91,16 +91,17 @@ def _read_data(input_paths):
 
 
 def _filter_dataset(dataset):
-    annotators = set(["d.shutov@npcmr.ru", "dmitry.shutov@bk.ru"])
+    annotators = ["d.shutov@npcmr.ru", "dmitry.shutov@bk.ru", "amebah@mail.ru"]
     exclude_conclusions = set(range(2701, 2708))
 
+    annotators = set(a.lower() for a in annotators)
     dataset = _remove_results(dataset)
     if not dataset:
         raise Error("Input files not found")
     new_dataset = {}
     for key in dataset:
         item = dataset[key]
-        if item[Text.ANNOTATOR] not in annotators:
+        if item[Text.ANNOTATOR].lower() not in annotators:
             continue
         if any((x in exclude_conclusions) for x in item[Text.CONCLUSIONS]):
             continue
