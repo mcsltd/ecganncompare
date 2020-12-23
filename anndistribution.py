@@ -89,10 +89,6 @@ def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
     if thesaurus_path is not None:
         thesaurus = _parse_thesaurus(thesaurus_path)
     _plot_common_histogram(dataframe, thesaurus)
-    plt.suptitle(
-        u"Общее число использования заключений (распределение заключений)" +
-        ". " + _get_title_tail(datagroups_info, "ru")
-    )
     if thesaurus is None:
         dataframe.sort_index(inplace=True)
         thesaurus = _create_thesaurus()
