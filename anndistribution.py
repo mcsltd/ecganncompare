@@ -387,6 +387,11 @@ def _plot_common_histogram(dataframe, thesaurus):
         _wide_ylabels_padding()
 
 
+def _add_titles(figure_title, window_title):
+    plt.suptitle(figure_title)
+    plt.gcf().canvas.set_window_title(window_title)
+
+
 if __name__ == "__main__":
     try:
         main()
