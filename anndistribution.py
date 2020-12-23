@@ -85,14 +85,17 @@ def _read_folders(folders):
 
 def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
     dataframe = _create_dataframe(codes_groups)
-    if thesaurus_path is None:
+    thesaurus = None
+    if thesaurus_path is not None:
+        thesaurus = _parse_thesaurus(thesaurus_path)
+    _plot_common_histogram(dataframe, thesaurus)
+    if thesaurus is None:
         dataframe.sort_index(inplace=True)
         thesaurus = _create_thesaurus()
         _plot_dataframe(dataframe)
         _add_info_to_plot(dataframe.columns, datagroups_info, thesaurus.lang)
         return
     max_count = dataframe.to_numpy().max()
-    thesaurus = _parse_thesaurus(thesaurus_path)
     dataframes = _split_dataframe(dataframe, thesaurus)
     df_groups = _group_dataframes(dataframes)
     if len(df_groups) > plt.rcParams["figure.max_open_warning"]:
