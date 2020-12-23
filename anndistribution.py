@@ -296,8 +296,7 @@ def _get_datagroups_info(data_groups):
     return infos, records_count
 
 
-def _get_title_tail(datagroups_info, lang=None):
-    records_count = max(d.records_count for d in datagroups_info.values())
+def _get_title_tail(records_count, lang=None):
     template = None
     if lang == "ru":
         template = u"{0} записей"
@@ -337,7 +336,8 @@ def _plot_dataframe(dataframe):
 
 
 def _add_info_to_plot(columns, datagroups_info, lang):
-    title = _get_title(lang) + ". " + _get_title_tail(datagroups_info, lang)
+    records_count = max(d.records_count for d in datagroups_info.values())
+    title = _get_title(lang) + ". " + _get_title_tail(records_count, lang)
     plt.suptitle(title)
     plt.gcf().canvas.set_window_title(_get_window_title(lang))
     legend_labels = _get_legend_labels(columns, lang, datagroups_info)
