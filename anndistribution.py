@@ -84,6 +84,7 @@ def _read_folders(folders):
 
 
 def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
+    records_count = max(d.records_count for d in datagroups_info.values())
     dataframe = _create_dataframe(codes_groups)
     thesaurus = None
     if thesaurus_path is not None:
@@ -94,7 +95,8 @@ def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
         thesaurus = _create_thesaurus()
         plt.figure()
         _plot_dataframe(dataframe)
-        _add_info_to_plot(dataframe.columns, datagroups_info, thesaurus.lang)
+        _add_info_to_plot(
+            dataframe.columns, datagroups_info, records_count, thesaurus.lang)
         return
     max_count = dataframe.to_numpy().max()
     dataframes = _split_dataframe(dataframe, thesaurus)
@@ -108,7 +110,8 @@ def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
             frame = group[name]
             _plot_dataframe(frame)
             _wide_ylabels_padding()
-            _add_info_to_plot(frame.columns, datagroups_info, thesaurus.lang)
+            _add_info_to_plot(
+                frame.columns, datagroups_info, records_count, thesaurus.lang)
             plt.title(name)
             plt.xlim(xmax=(max_count + 2))
 
@@ -335,8 +338,7 @@ def _plot_dataframe(dataframe):
     dataframe[::-1].plot.barh(ax=plt.gca(), width=0.75, legend=False)
 
 
-def _add_info_to_plot(columns, datagroups_info, lang):
-    records_count = max(d.records_count for d in datagroups_info.values())
+def _add_info_to_plot(columns, datagroups_info, records_count, lang):
     title = _get_title(lang) + ". " + _get_title_tail(records_count, lang)
     plt.suptitle(title)
     plt.gcf().canvas.set_window_title(_get_window_title(lang))
