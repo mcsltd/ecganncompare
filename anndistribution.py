@@ -92,6 +92,7 @@ def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
     if thesaurus is None:
         dataframe.sort_index(inplace=True)
         thesaurus = _create_thesaurus()
+        plt.figure()
         _plot_dataframe(dataframe)
         _add_info_to_plot(dataframe.columns, datagroups_info, thesaurus.lang)
         return
