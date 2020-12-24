@@ -155,6 +155,9 @@ def _print_dataset(dataset, thesaurus=None):
 
     print("")
     conc_counts = Counter(conclusions)
+    if thesaurus is not None:
+        conc_counts = OrderedDict((k, conc_counts[k]) for k in thesaurus_keys
+                                  if k in conc_counts)
     print(u"Счетчики использования заключений (всего использовано {0}): ".format(len(conc_counts)))
     for key in conc_counts:
         print("{0}{1}: {2}".format(indent, key, conc_counts[key]))
