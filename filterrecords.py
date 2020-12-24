@@ -23,6 +23,17 @@ class Error(Exception):
         super(Error, self).__init__(message)
 
 
+class FilterRules(object):
+    def __init__(self, dbs, annotators, ids):
+        # TODO: remade with sets
+        self.__dbs = dbs
+        self.__annotators = annotators
+        self.__ids = ids
+
+    def match_all(self, annotation_data):
+        pass
+
+
 InputData = namedtuple("InputData", ["paths", "output_dir"])
 
 
