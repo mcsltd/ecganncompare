@@ -34,7 +34,7 @@ class FilterRules(object):
         pass
 
 
-InputData = namedtuple("InputData", ["paths", "output_dir"])
+InputData = namedtuple("InputData", ["paths", "output_dir", "thesaurus_path"])
 
 
 def main():
@@ -55,12 +55,13 @@ def _parse_args(args):
     default_input = os.path.join(_CURRENT_DIR, "data")
     default_output = os.path.join(_CURRENT_DIR, "result")
     parser = argparse.ArgumentParser(
-        description="Plot histograms for annotations comparing"
+        description="Filter json-annotation files"
     )
     parser.add_argument("input_paths", nargs="*", default=[default_input],
                         help="paths to input folders/files")
     parser.add_argument("--output_dir", help="path to dir for converted files",
                         default=default_output)
+    parser.add_argument("--thesaurus", help="path to thesaurus")
     data = parser.parse_args(args[1:])
     return InputData(
         [os.path.abspath(x) for x in data.input_paths],
