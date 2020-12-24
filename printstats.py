@@ -146,7 +146,7 @@ def _group_by(items, key):
 def _print_dataset(dataset, thesaurus=None):
     old_stdout = sys.stdout
     sys.stdout = codecs.getwriter(locale.getpreferredencoding())(sys.stdout)
-    print(u"Число записей: {0}".format(len(dataset)))
+    print(u"Число записей: {0}".format(_count_records(dataset)))
     conclusions = list(_to_flat(x[Text.CONCLUSIONS] for x in dataset))
     print(u"Число поставленных заключений: {0}".format(len(conclusions)))
     indent = u"  "
@@ -194,6 +194,13 @@ def _parse_thesaurus(filename):
         for ann in group[Text.REPORTS]:
             result[ann[Text.ID]] = ann[Text.NAME]
     return result
+
+
+def _count_records(dataset):
+    records = defaultdict(set)
+    for data_item in dataset:
+        records[data_item[Text.DATABASE]].add(data_item[Text.RECORD_ID])
+    return sum(len(records[db]) for db in records)
 
 
 if __name__ == "__main__":
