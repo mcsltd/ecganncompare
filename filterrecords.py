@@ -99,7 +99,8 @@ def _read_data(input_paths):
 
 def _filter_dataset(dataset):
     annotators = [
-        "d.shutov@npcmr.ru", "dmitry.shutov@bk.ru", "a.popov@npcmr.ru"
+        "d.shutov@npcmr.ru", "dmitry.shutov@bk.ru", "a.popov@npcmr.ru",
+        "amebah@mail.ru"
     ]
     exclude_conclusions = set(range(2701, 2708))
 
