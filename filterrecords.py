@@ -122,7 +122,8 @@ def _filter_dataset(dataset, thesaurus=None):
         "d.shutov@npcmr.ru", "dmitry.shutov@bk.ru", "a.popov@npcmr.ru",
         "amebah@mail.ru"
     ]
-    exclude_conclusions = set(range(2701, 2708))
+    exclude_group_name = "02.07"
+    exclude_conclusions = thesaurus[exclude_group_name]
 
     annotators = set(a.lower() for a in annotators)
     dataset = _remove_results(dataset)
@@ -149,13 +150,13 @@ def _remove_results(dataset):
 
 def _parse_thesaurus(filename):
     data = _read_json(filename)
-    groups = defaultdict(set)
+    groups = {}
     for group in data[Text.GROUPS]:
         group_items = []
         for ann in group[Text.REPORTS]:
             group_items.append(ann[Text.ID])
         group_id = group[Text.ID]
-        groups[group_id].add(group_items)
+        groups[group_id] = set(group_items)
     return groups
 
 
