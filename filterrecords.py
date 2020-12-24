@@ -75,7 +75,10 @@ def _parse_args(args):
 
 def _process_input(input_data):
     dataset = _read_data(input_data.paths)
-    dataset = _filter_dataset(dataset)
+    thesaurus = None
+    if input_data.thesaurus_path is not None:
+        thesaurus = _parse_thesaurus(input_data.thesaurus_path)
+    dataset = _filter_dataset(dataset, thesaurus)
     if not os.path.exists(input_data.output_dir):
         os.makedirs(input_data.output_dir)
     for name in dataset:
@@ -113,7 +116,7 @@ def _read_data(input_paths):
     return all_jsons
 
 
-def _filter_dataset(dataset):
+def _filter_dataset(dataset, thesaurus=None):
     annotators = [
         "d.shutov@npcmr.ru", "dmitry.shutov@bk.ru", "a.popov@npcmr.ru",
         "amebah@mail.ru"
