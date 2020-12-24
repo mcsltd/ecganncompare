@@ -1,7 +1,7 @@
 # coding=utf-8
 import os
 import codecs
-from collections import namedtuple, OrderedDict
+from collections import namedtuple, OrderedDict, defaultdict
 import json
 import argparse
 from distutils import file_util
@@ -13,6 +13,10 @@ class Text(object):
     TYPE = "type"
     CMPRESULT = "cmpresult"
     ANNOTATOR = "annotator"
+    GROUPS = "groups"
+    REPORTS = "reports"
+    ID = "id"
+    NAME = "name"
 
 
 _CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -137,6 +141,18 @@ def _remove_results(dataset):
         if Text.TYPE not in dataset[x] or
         dataset[x][Text.TYPE] != Text.CMPRESULT
     ])
+
+
+def _parse_thesaurus(filename):
+    data = _read_json(filename)
+    groups = defaultdict(set)
+    for group in data[Text.GROUPS]:
+        group_items = []
+        for ann in group[Text.REPORTS]:
+            group_items.append(ann[Text.ID])
+        group_id = group[Text.ID]
+        groups[group_id].add(group_items)
+    return groups
 
 
 if __name__ == "__main__":
