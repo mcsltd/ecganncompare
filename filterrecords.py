@@ -69,7 +69,8 @@ def _parse_args(args):
     data = parser.parse_args(args[1:])
     return InputData(
         [os.path.abspath(x) for x in data.input_paths],
-        os.path.abspath(data.output_dir)
+        os.path.abspath(data.output_dir),
+        data.thesaurus
     )
 
 
