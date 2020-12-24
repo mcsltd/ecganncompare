@@ -4,6 +4,7 @@ import sys
 import json
 from collections import defaultdict, Counter, OrderedDict, namedtuple
 import argparse
+import traceback
 
 from matplotlib import pyplot as plt
 import pandas
@@ -47,6 +48,12 @@ def main():
         _process_input(input_data)
     except Error as err:
         print("Error: {0}".format(err))
+    except Exception as exc:
+        log_filename = "errors-log.txt"
+        message = "Fatal error! {0}: {1}. See details in file '{2}'."
+        print(message.format(type(exc).__name__, exc, log_filename))
+        with open(log_filename, "wt") as log:
+            log.write(traceback.format_exc())
 
 
 def _parse_args(args):
@@ -413,7 +420,4 @@ def _get_common_histogram_title(records_count, lang):
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except Exception as exc:
-        print("Fatal error! {0}".format(exc))
+    main()

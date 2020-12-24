@@ -5,6 +5,8 @@ import json
 from collections import namedtuple, defaultdict, Counter, OrderedDict
 import argparse
 import codecs
+import traceback
+
 from matplotlib import pyplot as plt
 import pandas
 
@@ -47,9 +49,18 @@ _LANGUAGE_RUS = "ru"
 
 def main():
     input_data = _parse_args(sys.argv)
-    cmpsets = _read_comparing_sets(input_data)
-    thesaurus, lang = _plot_comparing_sets(cmpsets, input_data.thesaurus)
-    plt.show()
+    try:
+        cmpsets = _read_comparing_sets(input_data)
+        _plot_comparing_sets(cmpsets, input_data.thesaurus)
+        plt.show()
+    except Error as err:
+        print("Error: {0}".format(err))
+    except Exception as exc:
+        log_filename = "errors-log.txt"
+        message = "Fatal error! {0}: {1}. See details in file '{2}'."
+        print(message.format(type(exc).__name__, exc, log_filename))
+        with open(log_filename, "wt") as log:
+            log.write(traceback.format_exc())
 
 
 def _parse_args(args):

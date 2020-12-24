@@ -4,6 +4,8 @@ from collections import OrderedDict, defaultdict, Counter, namedtuple
 import json
 import argparse
 from operator import itemgetter
+import traceback
+
 import pandas
 
 
@@ -54,6 +56,12 @@ def main():
         _process_input(input_data)
     except Error as err:
         print("Error: {0}".format(err))
+    except Exception as exc:
+        log_filename = "errors-log.txt"
+        message = "Fatal error! {0}: {1}. See details in file '{2}'."
+        print(message.format(type(exc).__name__, exc, log_filename))
+        with open(log_filename, "wt") as log:
+            log.write(traceback.format_exc())
 
 
 def _parse_args(args):
@@ -401,7 +409,4 @@ def _set_conditional_format(dframe, sheet, conditional_format):
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except Exception as exc:
-        print("Fatal error! {0}".format(exc))
+    main()

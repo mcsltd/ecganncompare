@@ -5,6 +5,7 @@ from collections import namedtuple, OrderedDict
 import json
 import argparse
 from distutils import file_util
+import traceback
 
 
 class Text(object):
@@ -31,6 +32,12 @@ def main():
         _process_input(input_data)
     except Error as err:
         print("Error: {0}".format(err))
+    except Exception as exc:
+        log_filename = "errors-log.txt"
+        message = "Fatal error! {0}: {1}. See details in file '{2}'."
+        print(message.format(type(exc).__name__, exc, log_filename))
+        with open(log_filename, "wt") as log:
+            log.write(traceback.format_exc())
 
 
 def _parse_args(args):

@@ -4,6 +4,7 @@ import json
 from datetime import datetime
 from collections import OrderedDict, defaultdict, Counter, namedtuple
 import argparse
+import traceback
 
 
 class Text(object):
@@ -55,6 +56,12 @@ def main():
         _write_report(cmpresult)
     except Error as exc:
         print("Error: {0}\n".format(exc))
+    except Exception as exc:
+        log_filename = "errors-log.txt"
+        message = "Fatal error! {0}: {1}. See details in file '{2}'."
+        print(message.format(type(exc).__name__, exc, log_filename))
+        with open(log_filename, "wt") as log:
+            log.write(traceback.format_exc())
 
 
 def _handle_input_data(input_data):
