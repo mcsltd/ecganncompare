@@ -90,8 +90,7 @@ def _read_folders(folders):
     return all_data
 
 
-def _plot_histogram(codes_groups, datagroups_info, thesaurus_path=None):
-    records_count = max(d.records_count for d in datagroups_info.values())
+def _plot_histogram(codes_groups, datagroups_info, records_count, thesaurus_path=None):
     dataframe = _create_dataframe(codes_groups)
     if thesaurus_path is not None:
         thesaurus = _parse_thesaurus(thesaurus_path)
@@ -374,7 +373,7 @@ def _process_input(data):
     groups_info, records_count = _get_datagroups_info(data_groups)
     _print_groups_info(groups_info)
     codes_groups = _extract_annotators_codes(data_groups)
-    _plot_histogram(codes_groups, groups_info, data.thesaurus)
+    _plot_histogram(codes_groups, groups_info, records_count, data.thesaurus)
     plt.show()
 
 
