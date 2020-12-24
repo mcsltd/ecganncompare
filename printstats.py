@@ -144,12 +144,6 @@ def _print_dataset(dataset, thesaurus=None):
     print(u"Число поставленных заключений: {0}".format(len(conclusions)))
     indent = u"  "
 
-    def prepare_concl_id(cid):
-        point = "."
-        parts = cid.split(point)
-        padded_parts = ["{0:0>2s}".format(p) for p in parts]
-        return point.join(padded_parts)
-
     if thesaurus is not None:
         thesaurus_keys = list(thesaurus.keys())
 
@@ -175,7 +169,6 @@ def _print_dataset(dataset, thesaurus=None):
                     conclusions_text = u", ".join(codes)
                 else:
                     new_indent = 2 * indent
-                    codes = [prepare_concl_id(c) for c in codes]
                     codes.sort(key=thesaurus_keys.index)
                     conclusions_text = (u",\n" + new_indent).join(
                         thesaurus[c] for c in codes
