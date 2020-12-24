@@ -42,8 +42,8 @@ InputData = namedtuple("InputData", ["paths", "output_dir", "thesaurus_path"])
 
 
 def main():
-    input_data = _parse_args(os.sys.argv)
     try:
+        input_data = _parse_args(os.sys.argv)
         _process_input(input_data)
     except Error as err:
         print("Error: {0}".format(err))
