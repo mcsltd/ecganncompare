@@ -225,6 +225,7 @@ def _read_comparing_sets(input_data):
     _print_removed_items(bad_json, Text.CONCLUSION_THESAURUS)
     groups = _group_by(all_jsons, Text.ANNOTATOR)
     if len(groups) > _MAX_ANNOTATORS_COUNT:
+        # TODO: select annotators by size of records intersection
         groups = sorted(groups.items(), key=(lambda pair: len(pair[1])),
                         reverse=True)
         ignored_annotators = (p[0] for p in groups[_MAX_ANNOTATORS_COUNT:])
@@ -238,7 +239,7 @@ def _read_comparing_sets(input_data):
         raise Error(message_format % _MIN_ANNOTATORS_COUNT)
     dtables = _create_datatables(groups)
     results += _create_comparing_sets(dtables)
-    return results
+    return [r for r in results if r.matches_counts]
 
 
 def _get_max_matches_count(cmpsets):
