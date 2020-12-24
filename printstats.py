@@ -5,6 +5,8 @@ from collections import OrderedDict, Counter, namedtuple, defaultdict
 import json
 import argparse
 from operator import itemgetter
+import sys
+import locale
 
 
 class Text(object):
@@ -135,6 +137,8 @@ def _group_by(items, key):
 
 
 def _print_dataset(dataset, thesaurus=None):
+    old_stdout = sys.stdout
+    sys.stdout = codecs.getwriter(locale.getpreferredencoding())(sys.stdout)
     print(u"Число записей: {0}".format(len(dataset)))
     conclusions = list(_to_flat(x[Text.CONCLUSIONS] for x in dataset))
     print(u"Число поставленных заключений: {0}".format(len(conclusions)))
@@ -177,6 +181,7 @@ def _print_dataset(dataset, thesaurus=None):
                 print(u"{0}{1}, {2}: {3}.".format(
                     indent, db, rec, conclusions_text
                 ))
+    sys.stdout = old_stdout
 
 
 def _parse_thesaurus(filename):
