@@ -56,6 +56,10 @@ class FilterRules(object):
     def __empty_or_contains(items_set, item):
         return (not items_set) or (item in items_set)
 
+    @staticmethod
+    def __empty_or_contains_any(items_set, keys):
+        return (not items_set) or any(x in items_set for x in keys)
+
 
 class RecordsFilter(object):
     def __init__(self, include_rules, exclude_rules):
