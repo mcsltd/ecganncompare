@@ -52,6 +52,14 @@ class FilterRules(object):
         ]
 
     @staticmethod
+    def create(rule_settings, thesaurus_groups=None):
+        return FilterRules(
+            rule_settings.get(Text.DATABASE, []),
+            rule_settings.get(Text.ANNOTATOR, []),
+            FilterRules.__get_conclusions_id(rule_settings, thesaurus_groups)
+        )
+
+    @staticmethod
     def __to_lower_str_set(items):
         return set(str(x).lower() for x in items)
 
