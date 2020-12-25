@@ -53,8 +53,8 @@ class FilterRules(object):
         return set(str(x).lower() for x in items)
 
     @staticmethod
-    def __empty_or_contains(items_set, item):
-        return (not items_set) or (item in items_set)
+    def __empty_or_contains(items_set, key):
+        return (not items_set) or (key in items_set)
 
     @staticmethod
     def __empty_or_contains_any(items_set, keys):
