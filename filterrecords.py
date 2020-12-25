@@ -38,6 +38,9 @@ class FilterRules(object):
     def match_all(self, annotation_data):
         return all(self.__check(annotation_data))
 
+    def match_any(self, annotation_data):
+        return any(self.__check(annotation_data))
+
     def __check(self, annotation_data):
         return [
             annotation_data[Text.DATABASE] in self.__dbs,
