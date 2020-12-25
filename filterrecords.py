@@ -42,10 +42,13 @@ class FilterRules(object):
         return any(self.__check(annotation_data))
 
     def __check(self, annotation_data):
+        dbase = annotation_data[Text.DATABASE]
+        annotator = annotation_data[Text.ANNOTATOR]
+        conclusions = annotation_data[Text.CONCLUSIONS]
         return [
-            annotation_data[Text.DATABASE] in self.__dbs,
-            annotation_data[Text.ANNOTATOR] in self.__annotators,
-            any(c in self.__ids for c in annotation_data[Text.CONCLUSIONS])
+            FilterRules.__empty_or_contains(self.__dbs, dbase),
+            FilterRules.__empty_or_contains(self.__annotators, annotator),
+            FilterRules.__empty_or_contains_any(self.__ids, conclusions)
         ]
 
     @staticmethod
