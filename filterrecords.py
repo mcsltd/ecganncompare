@@ -17,6 +17,7 @@ class Text(object):
     REPORTS = "reports"
     ID = "id"
     NAME = "name"
+    DATABASE = "database"
 
 
 _FILE_CONTAINING_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -36,6 +37,13 @@ class FilterRules(object):
 
     def match_all(self, annotation_data):
         pass
+
+    def __check(self, annotation_data):
+        return [
+            annotation_data[Text.DATABASE] in self.__dbs,
+            annotation_data[Text.ANNOTATOR] in self.__annotators,
+            any(c in self.__ids for c in annotation_data[Text.CONCLUSIONS])
+        ]
 
     @staticmethod
     def __to_lower_str_set(items):
