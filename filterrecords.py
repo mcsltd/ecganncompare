@@ -53,6 +53,12 @@ class FilterRules(object):
         return set(str(x).lower() for x in items)
 
 
+class RecordsFilter(object):
+    def __init__(self, include_rules, exclude_rules):
+        self.__include = include_rules
+        self.__exclude = exclude_rules
+
+
 InputData = namedtuple("InputData", ["paths", "output_dir", "thesaurus_path"])
 
 
