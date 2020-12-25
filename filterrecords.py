@@ -158,11 +158,14 @@ def _parse_args(args):
                         default=default_output)
     parser.add_argument("--thesaurus", help="path to thesaurus")
     data = parser.parse_args(args[1:])
+    thesaurus = data.thesaurus
+    if thesaurus is not None:
+        thesaurus = os.path.abspath(thesaurus)
     return InputData(
         [os.path.abspath(x) for x in data.input_paths],
         os.path.abspath(data.settings),
         os.path.abspath(data.output_dir),
-        data.thesaurus
+        thesaurus
     )
 
 
