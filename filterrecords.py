@@ -51,6 +51,8 @@ class FilterRules(object):
             FilterRules.__empty_or_contains_any(self.__ids, conclusions)
         ]
 
+    EMPTY = FilterRules([], [], [])
+
     @staticmethod
     def create(rule_settings, thesaurus_groups=None):
         return FilterRules(
