@@ -71,6 +71,23 @@ class FilterRules(object):
     def __empty_or_contains_any(items_set, keys):
         return (not items_set) or any(x in items_set for x in keys)
 
+    @staticmethod
+    def __get_conclusions_id(rule_settings, thesaurus_groups=None):
+        if Text.CONCLUSIONS not in rule_settings:
+            return []
+        conclusions_settings = rule_settings[Text.CONCLUSIONS]
+        ids = []
+        ids += conclusions_settings.get(Text.ID, [])
+        groups = conclusions_settings.get(Text.GROUPS)
+        if groups is None:
+            return ids
+        elif thesaurus_groups is None:
+            raise Error("Unable to filter items by group because no thesaurus "
+                        "is defined")
+        for gid in groups:
+            ids += thesaurus_groups[gid]
+        return ids
+
 
 class RecordsFilter(object):
     def __init__(self, include_rules, exclude_rules):
