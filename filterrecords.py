@@ -30,10 +30,9 @@ class Error(Exception):
 
 class FilterRules(object):
     def __init__(self, dbs, annotators, ids):
-        # TODO: remade with sets
-        self.__dbs = dbs
-        self.__annotators = annotators
-        self.__ids = ids
+        self.__dbs = FilterRules.__to_lower_str_set(dbs)
+        self.__annotators = FilterRules.__to_lower_str_set(annotators)
+        self.__ids = FilterRules.__to_lower_str_set(ids)
 
     def match_all(self, annotation_data):
         pass
