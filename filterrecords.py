@@ -19,7 +19,8 @@ class Text(object):
     NAME = "name"
 
 
-_CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+_FILE_CONTAINING_DIR = os.path.dirname(os.path.abspath(__file__))
+_CURRENT_WORKING_DIR = os.curdir
 
 
 class Error(Exception):
@@ -60,8 +61,12 @@ def main():
 
 
 def _parse_args(args):
-    default_input = os.path.join(_CURRENT_DIR, "data")
-    default_output = os.path.join(_CURRENT_DIR, "result")
+    default_input = "data"
+    default_input = os.path.join(_FILE_CONTAINING_DIR, default_input)
+    # TODO: remade with current working directory
+    default_output = "filter_records_result"
+    default_output = os.path.join(_CURRENT_WORKING_DIR, default_output)
+
     parser = argparse.ArgumentParser(
         description="Filter json-annotation files"
     )
