@@ -58,6 +58,10 @@ class RecordsFilter(object):
         self.__include = include_rules
         self.__exclude = exclude_rules
 
+    def pass_record(self, annotation_data):
+        return self.__include.match_all(annotation_data) and\
+            (not self.__exclude.match_any(annotation_data))
+
 
 InputData = namedtuple("InputData", ["paths", "output_dir", "thesaurus_path"])
 
