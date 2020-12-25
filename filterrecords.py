@@ -52,6 +52,10 @@ class FilterRules(object):
     def __to_lower_str_set(items):
         return set(str(x).lower() for x in items)
 
+    @staticmethod
+    def __empty_or_contains(items_set, item):
+        return (not items_set) or (item in items_set)
+
 
 class RecordsFilter(object):
     def __init__(self, include_rules, exclude_rules):
