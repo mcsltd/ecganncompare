@@ -37,6 +37,10 @@ class FilterRules(object):
     def match_all(self, annotation_data):
         pass
 
+    @staticmethod
+    def __to_lower_str_set(items):
+        return set(str(x).lower() for x in items)
+
 
 InputData = namedtuple("InputData", ["paths", "output_dir", "thesaurus_path"])
 
