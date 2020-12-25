@@ -18,6 +18,8 @@ class Text(object):
     ID = "id"
     NAME = "name"
     DATABASE = "database"
+    INCLUDE = "include"
+    EXCLUDE = "exclude"
 
 
 _FILE_CONTAINING_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -99,6 +101,17 @@ class RecordsFilter(object):
     def pass_record(self, annotation_data):
         return self.__include.match_all(annotation_data) and\
             (not self.__exclude.match_any(annotation_data))
+
+    @staticmethod
+    def read(settings_path, thesaurus_path=None):
+        settings = _read_json(settings_path)
+        ths_groups = None
+        if thesaurus_path is not None:
+            ths_groups = _parse_thesaurus(thesaurus_path)
+        return RecordsFilter(
+            RecordsFilter.__create_rules(settings, Text.INCLUDE, ths_groups),
+            RecordsFilter.__create_rules(settings, Text.EXCLUDE, ths_groups)
+        )
 
     @staticmethod
     def __create_rules(settings, key, thesaurus_groups=None):
