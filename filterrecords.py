@@ -100,6 +100,13 @@ class RecordsFilter(object):
         return self.__include.match_all(annotation_data) and\
             (not self.__exclude.match_any(annotation_data))
 
+    @staticmethod
+    def __create_rules(settings, key, thesaurus_groups=None):
+        rules_settings = settings.get(key)
+        if rules_settings is None:
+            return FilterRules.EMPTY
+        return FilterRules.create(rules_settings, thesaurus_groups)
+
 
 InputData = namedtuple("InputData", ["paths", "output_dir", "thesaurus_path"])
 
