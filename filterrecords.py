@@ -121,7 +121,9 @@ class RecordsFilter(object):
         return FilterRules.create(rules_settings, thesaurus_groups)
 
 
-InputData = namedtuple("InputData", ["paths", "output_dir", "thesaurus_path"])
+InputData = namedtuple("InputData", [
+    "paths", "settings_path", "output_dir", "thesaurus_path"
+])
 
 
 def main():
@@ -150,12 +152,15 @@ def _parse_args(args):
     )
     parser.add_argument("input_paths", nargs="*", default=[default_input],
                         help="paths to input folders/files")
+    parser.add_argument("--settings", required=True,
+                        help="path to JSON-file with filter settings")
     parser.add_argument("--output_dir", help="path to dir for converted files",
                         default=default_output)
     parser.add_argument("--thesaurus", help="path to thesaurus")
     data = parser.parse_args(args[1:])
     return InputData(
         [os.path.abspath(x) for x in data.input_paths],
+        os.path.abspath(data.settings),
         os.path.abspath(data.output_dir),
         data.thesaurus
     )
