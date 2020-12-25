@@ -36,7 +36,7 @@ class FilterRules(object):
         self.__ids = FilterRules.__to_lower_str_set(ids)
 
     def match_all(self, annotation_data):
-        pass
+        return all(self.__check(annotation_data))
 
     def __check(self, annotation_data):
         return [
