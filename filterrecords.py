@@ -144,7 +144,6 @@ def main():
 def _parse_args(args):
     default_input = "data"
     default_input = os.path.join(_FILE_CONTAINING_DIR, default_input)
-    # TODO: remade with current working directory
     default_output = "filter_records_result"
     default_output = os.path.join(_CURRENT_WORKING_DIR, default_output)
 
