@@ -1,315 +1,369 @@
 {
+  "type": "cmpresult", 
   "program": {
-    "version": "1.0",
+    "version": "1.0", 
     "name": "ecganncmp"
-  },
-  "company": "Medical computer systems (c) 2020 - www.mks.ru",
-  "date": "2020-11-10T11:46:11.121000Z",
-  "refAnnotator": "test-annotator-1",
-  "testAnnotator": "test-annotator-2",
-  "conclusionThesaurus": "MCS",
-  "recordsCount": 9,
-  "refAnnotations": 32,
-  "testAnnotations": 40,
+  }, 
+  "company": "Medical computer systems (c) 2020 - www.mks.ru", 
+  "date": "2020-12-26T14:10:09.218000Z", 
+  "refAnnotator": "test-annotator-1", 
+  "testAnnotator": "test-annotator-2", 
+  "conclusionThesaurus": "MCS", 
+  "recordsCount": 10, 
+  "refAnnotations": 36, 
+  "testAnnotations": 47, 
   "sensitivity": {
-    "matchCount": 19,
-    "value": 59.375
-  },
+    "matchCount": 19, 
+    "value": 52.77777777777778
+  }, 
   "specificity": {
-    "missesCount": 21,
-    "value": 52.5
-  },
+    "missesCount": 28, 
+    "value": 59.57446808510638
+  }, 
   "records": [
     {
-      "record": "MA1_001",
-      "database": "CSE Common Standards for ECG",
-      "refAnnotations": 6,
-      "testAnnotations": 7,
-      "matchCount": 4,
+      "record": "MA1_001", 
+      "database": "CSE Common Standards for ECG", 
+      "refAnnotations": 6, 
+      "testAnnotations": 7, 
+      "matchCount": 4, 
       "conclusions": [
         [
-          302,
+          "14.1.1", 
           null
-        ],
+        ], 
         [
-          504,
-          504
-        ],
+          "2.1.1", 
+          "2.1.1"
+        ], 
         [
-          506,
-          506
-        ],
+          "2.6.3", 
+          "2.6.3"
+        ], 
         [
-          1401,
+          "3.1.2", 
           null
-        ],
+        ], 
         [
-          2101,
-          2101
-        ],
+          "5.1.4", 
+          "5.1.4"
+        ], 
         [
-          2603,
-          2603
-        ],
+          "5.1.6", 
+          "5.1.6"
+        ], 
         [
-          null,
-          112
-        ],
+          null, 
+          "4.1.3"
+        ], 
         [
-          null,
-          9208
-        ],
+          null, 
+          "9.2.8"
+        ], 
         [
-          null,
-          403
+          null, 
+          "1.1.12"
         ]
       ]
-    },
+    }, 
     {
-      "record": "MA1_002",
-      "database": "CSE Common Standards for ECG",
-      "refAnnotations": 4,
-      "testAnnotations": 7,
-      "matchCount": 4,
+      "record": "MA1_002", 
+      "database": "CSE Common Standards for ECG", 
+      "refAnnotations": 4, 
+      "testAnnotations": 7, 
+      "matchCount": 4, 
       "conclusions": [
         [
-          302,
-          302
-        ],
+          "12.1.3", 
+          "12.1.3"
+        ], 
         [
-          401,
-          401
-        ],
+          "2.1.2", 
+          "2.1.2"
+        ], 
         [
-          1203,
-          1203
-        ],
+          "3.1.2", 
+          "3.1.2"
+        ], 
         [
-          2102,
-          2102
-        ],
+          "4.1.1", 
+          "4.1.1"
+        ], 
         [
-          null,
-          802
-        ],
+          null, 
+          "8.1.2"
+        ], 
         [
-          null,
-          506
-        ],
+          null, 
+          "5.1.6"
+        ], 
         [
-          null,
-          1310
+          null, 
+          "13.1.10"
         ]
       ]
-    },
+    }, 
     {
-      "record": "MA1_003",
-      "database": "CSE Common Standards for ECG",
-      "refAnnotations": 5,
-      "testAnnotations": 4,
-      "matchCount": 3,
+      "record": "MA1_003", 
+      "database": "CSE Common Standards for ECG", 
+      "refAnnotations": 5, 
+      "testAnnotations": 4, 
+      "matchCount": 3, 
       "conclusions": [
         [
-          302,
-          302
-        ],
-        [
-          506,
+          "12.1.4", 
           null
-        ],
+        ], 
         [
-          1204,
+          "2.1.2", 
+          "2.1.2"
+        ], 
+        [
+          "2.6.1", 
+          "2.6.1"
+        ], 
+        [
+          "3.1.2", 
+          "3.1.2"
+        ], 
+        [
+          "5.1.6", 
           null
-        ],
+        ], 
         [
-          2102,
-          2102
-        ],
-        [
-          2601,
-          2601
-        ],
-        [
-          null,
-          510
+          null, 
+          "5.1.10"
         ]
       ]
-    },
+    }, 
     {
-      "record": "MA1_004",
-      "database": "CSE Common Standards for ECG",
-      "refAnnotations": 2,
-      "testAnnotations": 2,
-      "matchCount": 1,
+      "record": "MA1_004", 
+      "database": "CSE Common Standards for ECG", 
+      "refAnnotations": 2, 
+      "testAnnotations": 2, 
+      "matchCount": 1, 
       "conclusions": [
         [
-          306,
+          "2.1.1", 
+          "2.1.1"
+        ], 
+        [
+          "3.1.6", 
           null
-        ],
+        ], 
         [
-          2101,
-          2101
-        ],
-        [
-          null,
-          305
+          null, 
+          "3.1.5"
         ]
       ]
-    },
+    }, 
     {
-      "record": "MA1_005",
-      "database": "CSE Common Standards for ECG",
-      "refAnnotations": 3,
-      "testAnnotations": 4,
-      "matchCount": 2,
+      "record": "MA1_005", 
+      "database": "CSE Common Standards for ECG", 
+      "refAnnotations": 3, 
+      "testAnnotations": 4, 
+      "matchCount": 2, 
       "conclusions": [
         [
-          304,
-          304
-        ],
+          "2.1.2", 
+          "2.1.2"
+        ], 
         [
-          401,
+          "3.1.4", 
+          "3.1.4"
+        ], 
+        [
+          "4.1.1", 
           null
-        ],
+        ], 
         [
-          2102,
-          2102
-        ],
+          null, 
+          "9.1.8"
+        ], 
         [
-          null,
-          402
-        ],
-        [
-          null,
-          9108
+          null, 
+          "4.1.2"
         ]
       ]
-    },
+    }, 
     {
-      "record": "MA1_007",
-      "database": "CSE Common Standards for ECG",
-      "refAnnotations": 3,
-      "testAnnotations": 3,
-      "matchCount": 2,
+      "record": "MA1_007", 
+      "database": "CSE Common Standards for ECG", 
+      "refAnnotations": 3, 
+      "testAnnotations": 3, 
+      "matchCount": 2, 
       "conclusions": [
         [
-          306,
+          "2.1.2", 
+          "2.1.2"
+        ], 
+        [
+          "3.1.6", 
           null
-        ],
+        ], 
         [
-          705,
-          705
-        ],
+          "7.1.5", 
+          "7.1.5"
+        ], 
         [
-          2102,
-          2102
-        ],
-        [
-          null,
-          305
+          null, 
+          "3.1.5"
         ]
       ]
-    },
+    }, 
     {
-      "record": "MA1_008",
-      "database": "CSE Common Standards for ECG",
-      "refAnnotations": 2,
-      "testAnnotations": 3,
-      "matchCount": 1,
+      "record": "MA1_008", 
+      "database": "CSE Common Standards for ECG", 
+      "refAnnotations": 2, 
+      "testAnnotations": 3, 
+      "matchCount": 1, 
       "conclusions": [
         [
-          306,
+          "2.1.1", 
+          "2.1.1"
+        ], 
+        [
+          "3.1.6", 
           null
-        ],
+        ], 
         [
-          2101,
-          2101
-        ],
+          null, 
+          "3.1.3"
+        ], 
         [
-          null,
-          510
-        ],
-        [
-          null,
-          303
+          null, 
+          "5.1.10"
         ]
       ]
-    },
+    }, 
     {
-      "record": "MA1_009",
-      "database": "CSE Common Standards for ECG",
-      "refAnnotations": 4,
-      "testAnnotations": 5,
-      "matchCount": 1,
+      "record": "MA1_009", 
+      "database": "CSE Common Standards for ECG", 
+      "refAnnotations": 4, 
+      "testAnnotations": 5, 
+      "matchCount": 1, 
       "conclusions": [
         [
-          301,
+          "12.1.6", 
           null
-        ],
+        ], 
         [
-          504,
+          "2.1.1", 
+          "2.1.1"
+        ], 
+        [
+          "3.1.1", 
           null
-        ],
+        ], 
         [
-          1206,
+          "5.1.4", 
           null
-        ],
+        ], 
         [
-          2101,
-          2101
-        ],
+          null, 
+          "3.1.3"
+        ], 
         [
-          null,
-          9608
-        ],
+          null, 
+          "9.6.8"
+        ], 
         [
-          null,
-          403
-        ],
+          null, 
+          "5.1.3"
+        ], 
         [
-          null,
-          503
-        ],
-        [
-          null,
-          303
+          null, 
+          "4.1.3"
         ]
       ]
-    },
+    }, 
     {
-      "record": "MA1_011",
-      "database": "CSE Common Standards for ECG",
-      "refAnnotations": 3,
-      "testAnnotations": 5,
-      "matchCount": 1,
+      "record": "MA1_011", 
+      "database": "CSE Common Standards for ECG", 
+      "refAnnotations": 3, 
+      "testAnnotations": 5, 
+      "matchCount": 1, 
       "conclusions": [
         [
-          306,
+          "13.1.10", 
           null
-        ],
+        ], 
         [
-          1310,
+          "2.1.1", 
+          "2.1.1"
+        ], 
+        [
+          "3.1.6", 
           null
-        ],
+        ], 
         [
-          2101,
-          2101
-        ],
+          null, 
+          "3.1.3"
+        ], 
         [
-          null,
-          1402
-        ],
+          null, 
+          "5.1.10"
+        ], 
         [
-          null,
-          403
-        ],
+          null, 
+          "14.1.2"
+        ], 
         [
-          null,
-          510
-        ],
+          null, 
+          "4.1.3"
+        ]
+      ]
+    }, 
+    {
+      "record": "MA1_012", 
+      "database": "CSE Common Standards for ECG", 
+      "refAnnotations": 4, 
+      "testAnnotations": 7, 
+      "matchCount": 0, 
+      "conclusions": [
         [
-          null,
-          303
+          "1.1.8", 
+          null
+        ], 
+        [
+          "13.1.4", 
+          null
+        ], 
+        [
+          "3.1.6", 
+          null
+        ], 
+        [
+          "4.1.3", 
+          null
+        ], 
+        [
+          null, 
+          "4.1.4"
+        ], 
+        [
+          null, 
+          "3.1.5"
+        ], 
+        [
+          null, 
+          "1.1.9"
+        ], 
+        [
+          null, 
+          "5.1.10"
+        ], 
+        [
+          null, 
+          "13.1.3"
+        ], 
+        [
+          null, 
+          "9.3.8"
+        ], 
+        [
+          null, 
+          "2.1.1"
         ]
       ]
     }
