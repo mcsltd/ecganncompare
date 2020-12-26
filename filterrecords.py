@@ -31,11 +31,11 @@ class Error(Exception):
         super(Error, self).__init__(message)
 
 
-class FilterRules(object):
+class FilterRule(object):
     def __init__(self, dbs, annotators, ids):
-        self.__dbs = FilterRules.__to_lower_str_set(dbs)
-        self.__annotators = FilterRules.__to_lower_str_set(annotators)
-        self.__ids = FilterRules.__to_lower_str_set(ids)
+        self.__dbs = FilterRule.__to_lower_str_set(dbs)
+        self.__annotators = FilterRule.__to_lower_str_set(annotators)
+        self.__ids = FilterRule.__to_lower_str_set(ids)
 
     def match_all(self, annotation_data):
         return all(self.__check(annotation_data))
@@ -48,17 +48,17 @@ class FilterRules(object):
         annotator = annotation_data[Text.ANNOTATOR].lower()
         conclusions = [x.lower() for x in annotation_data[Text.CONCLUSIONS]]
         return [
-            FilterRules.__empty_or_contains(self.__dbs, dbase),
-            FilterRules.__empty_or_contains(self.__annotators, annotator),
-            FilterRules.__empty_or_contains_any(self.__ids, conclusions)
+            FilterRule.__empty_or_contains(self.__dbs, dbase),
+            FilterRule.__empty_or_contains(self.__annotators, annotator),
+            FilterRule.__empty_or_contains_any(self.__ids, conclusions)
         ]
 
     @staticmethod
     def create(rule_settings, thesaurus_groups=None):
-        return FilterRules(
+        return FilterRule(
             rule_settings.get(Text.DATABASE, []),
             rule_settings.get(Text.ANNOTATOR, []),
-            FilterRules.__get_conclusions_id(rule_settings, thesaurus_groups)
+            FilterRule.__get_conclusions_id(rule_settings, thesaurus_groups)
         )
 
     @staticmethod
@@ -91,7 +91,7 @@ class FilterRules(object):
         return ids
 
 
-FilterRules.EMPTY = FilterRules([], [], [])
+FilterRule.EMPTY = FilterRule([], [], [])
 
 
 class RecordsFilter(object):
@@ -118,8 +118,8 @@ class RecordsFilter(object):
     def __create_rules(settings, key, thesaurus_groups=None):
         rules_settings = settings.get(key)
         if rules_settings is None:
-            return FilterRules.EMPTY
-        return FilterRules.create(rules_settings, thesaurus_groups)
+            return FilterRule.EMPTY
+        return FilterRule.create(rules_settings, thesaurus_groups)
 
 
 InputData = namedtuple("InputData", [
