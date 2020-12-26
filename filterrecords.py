@@ -35,9 +35,9 @@ class StrictFilterRule(object):
             any(c in self.__ids for c in conclusions)
         ]
 
-    @staticmethod
-    def create(rule_settings, ths_groups=None):
-        return StrictFilterRule(
+    @classmethod
+    def create(cls, rule_settings, ths_groups=None):
+        return cls(
             rule_settings.get(Text.DATABASE, []),
             rule_settings.get(Text.ANNOTATOR, []),
             StrictFilterRule.__get_conclusions_id(rule_settings, ths_groups)
@@ -78,14 +78,6 @@ class EmptyPassRule(StrictFilterRule):
             EmptyPassRule.__empty_or_contains(self.__annotators, annotator),
             EmptyPassRule.__empty_or_contains_any(self.__ids, conclusions)
         ]
-
-    @staticmethod
-    def create(rule_settings, thesaurus_groups=None):
-        return EmptyPassRule(
-            rule_settings.get(Text.DATABASE, []),
-            rule_settings.get(Text.ANNOTATOR, []),
-            EmptyPassRule.__get_conclusions_id(rule_settings, thesaurus_groups)
-        )
 
     @staticmethod
     def __empty_or_contains(items_set, key):
