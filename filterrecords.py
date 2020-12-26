@@ -86,6 +86,40 @@ class StrictFilterRule(object):
 StrictFilterRule.EMPTY = StrictFilterRule([], [], [])
 
 
+class EmptyPassRule(StrictFilterRule):
+    def __init__(self, dbs, annotators, ids):
+        pass
+
+    def _check(self, annotation_data):
+        dbase = annotation_data[Text.DATABASE].lower()
+        annotator = annotation_data[Text.ANNOTATOR].lower()
+        conclusions = [x.lower() for x in annotation_data[Text.CONCLUSIONS]]
+        return [
+            EmptyPassRule.__empty_or_contains(self.__dbs, dbase),
+            EmptyPassRule.__empty_or_contains(self.__annotators, annotator),
+            EmptyPassRule.__empty_or_contains_any(self.__ids, conclusions)
+        ]
+
+    @staticmethod
+    def create(rule_settings, thesaurus_groups=None):
+        return EmptyPassRule(
+            rule_settings.get(Text.DATABASE, []),
+            rule_settings.get(Text.ANNOTATOR, []),
+            EmptyPassRule.__get_conclusions_id(rule_settings, thesaurus_groups)
+        )
+
+    @staticmethod
+    def __empty_or_contains(items_set, key):
+        return (not items_set) or (key in items_set)
+
+    @staticmethod
+    def __empty_or_contains_any(items_set, keys):
+        return (not items_set) or any(x in items_set for x in keys)
+
+
+EmptyPassRule.EMPTY = EmptyPassRule([], [], [])
+
+
 class RecordFilter(object):
     def __init__(self, include_rules, exclude_rules):
         self.__include = include_rules
