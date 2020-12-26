@@ -53,8 +53,6 @@ class FilterRules(object):
             FilterRules.__empty_or_contains_any(self.__ids, conclusions)
         ]
 
-    EMPTY = FilterRules([], [], [])
-
     @staticmethod
     def create(rule_settings, thesaurus_groups=None):
         return FilterRules(
@@ -91,6 +89,9 @@ class FilterRules(object):
         for gid in groups:
             ids += thesaurus_groups[gid]
         return ids
+
+
+FilterRules.EMPTY = FilterRules([], [], [])
 
 
 class RecordsFilter(object):
