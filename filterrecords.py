@@ -94,7 +94,7 @@ class FilterRule(object):
 FilterRule.EMPTY = FilterRule([], [], [])
 
 
-class RecordsFilter(object):
+class RecordFilter(object):
     def __init__(self, include_rules, exclude_rules):
         self.__include = include_rules
         self.__exclude = exclude_rules
@@ -109,9 +109,9 @@ class RecordsFilter(object):
         ths_groups = None
         if thesaurus_path is not None:
             ths_groups = _parse_thesaurus(thesaurus_path)
-        return RecordsFilter(
-            RecordsFilter.__create_rules(settings, Text.INCLUDE, ths_groups),
-            RecordsFilter.__create_rules(settings, Text.EXCLUDE, ths_groups)
+        return RecordFilter(
+            RecordFilter.__create_rules(settings, Text.INCLUDE, ths_groups),
+            RecordFilter.__create_rules(settings, Text.EXCLUDE, ths_groups)
         )
 
     @staticmethod
@@ -170,7 +170,7 @@ def _parse_args(args):
 
 
 def _process_input(input_data):
-    records_filter = RecordsFilter.read(
+    records_filter = RecordFilter.read(
         input_data.settings_path, input_data.thesaurus_path)
     dataset = _filter_dataset(_read_data(input_data.paths), records_filter)
     if not os.path.exists(input_data.output_dir):
