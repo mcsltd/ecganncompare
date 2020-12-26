@@ -150,6 +150,9 @@ def main():
     except Error as err:
         print("Error: {0}".format(err))
     except Exception as exc:
+        gettrace = getattr(os.sys, 'gettrace', None)
+        if gettrace():
+            raise
         log_filename = "errors-log.txt"
         message = "Fatal error! {0}: {1}. See details in file '{2}'."
         print(message.format(type(exc).__name__, exc, log_filename))
