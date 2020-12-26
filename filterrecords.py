@@ -15,9 +15,9 @@ class Error(Exception):
 
 class StrictFilterRule(object):
     def __init__(self, dbs, annotators, ids):
-        self.__dbs = StrictFilterRule.__to_lower_str_set(dbs)
-        self.__annotators = StrictFilterRule.__to_lower_str_set(annotators)
-        self.__ids = StrictFilterRule.__to_lower_str_set(ids)
+        self._dbs = StrictFilterRule.__to_lower_str_set(dbs)
+        self._annotators = StrictFilterRule.__to_lower_str_set(annotators)
+        self._ids = StrictFilterRule.__to_lower_str_set(ids)
 
     def match_all(self, annotation_data):
         return all(self._check(annotation_data))
@@ -30,9 +30,9 @@ class StrictFilterRule(object):
         annotator = annotation_data[Text.ANNOTATOR].lower()
         conclusions = [x.lower() for x in annotation_data[Text.CONCLUSIONS]]
         return [
-            dbase in self.__dbs, dbase,
-            annotator in self.__annotators,
-            any(c in self.__ids for c in conclusions)
+            dbase in self._dbs, dbase,
+            annotator in self._annotators,
+            any(c in self._ids for c in conclusions)
         ]
 
     @classmethod
@@ -67,16 +67,16 @@ class StrictFilterRule(object):
 
 class EmptyPassRule(StrictFilterRule):
     def __init__(self, dbs, annotators, ids):
-        pass
+        super(EmptyPassRule, self).__init__(dbs, annotators, ids)
 
     def _check(self, annotation_data):
         dbase = annotation_data[Text.DATABASE].lower()
         annotator = annotation_data[Text.ANNOTATOR].lower()
         conclusions = [x.lower() for x in annotation_data[Text.CONCLUSIONS]]
         return [
-            EmptyPassRule.__empty_or_contains(self.__dbs, dbase),
-            EmptyPassRule.__empty_or_contains(self.__annotators, annotator),
-            EmptyPassRule.__empty_or_contains_any(self.__ids, conclusions)
+            EmptyPassRule.__empty_or_contains(self._dbs, dbase),
+            EmptyPassRule.__empty_or_contains(self._annotators, annotator),
+            EmptyPassRule.__empty_or_contains_any(self._ids, conclusions)
         ]
 
     @staticmethod
