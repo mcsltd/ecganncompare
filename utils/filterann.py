@@ -163,7 +163,7 @@ def main():
 def _parse_args(args):
     default_input = "data"
     default_input = os.path.join(_FILE_CONTAINING_DIR, default_input)
-    default_output = "filter_records_result"
+    default_output = os.path.basename(__file__)[:-3] + "_result"
     default_output = os.path.join(_CURRENT_WORKING_DIR, default_output)
 
     parser = argparse.ArgumentParser(
