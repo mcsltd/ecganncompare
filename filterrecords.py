@@ -8,24 +8,6 @@ from distutils import file_util
 import traceback
 
 
-class Text(object):
-    CONCLUSIONS = "conclusions"
-    TYPE = "type"
-    CMPRESULT = "cmpresult"
-    ANNOTATOR = "annotator"
-    GROUPS = "groups"
-    REPORTS = "reports"
-    ID = "id"
-    NAME = "name"
-    DATABASE = "database"
-    INCLUDE = "include"
-    EXCLUDE = "exclude"
-
-
-_FILE_CONTAINING_DIR = os.path.dirname(os.path.abspath(__file__))
-_CURRENT_WORKING_DIR = os.curdir
-
-
 class Error(Exception):
     def __init__(self, message):
         super(Error, self).__init__(message)
@@ -54,11 +36,11 @@ class StrictFilterRule(object):
         ]
 
     @staticmethod
-    def create(rule_settings, thesaurus_groups=None):
+    def create(rule_settings, ths_groups=None):
         return StrictFilterRule(
             rule_settings.get(Text.DATABASE, []),
             rule_settings.get(Text.ANNOTATOR, []),
-            StrictFilterRule.__get_conclusions_id(rule_settings, thesaurus_groups)
+            StrictFilterRule.__get_conclusions_id(rule_settings, ths_groups)
         )
 
     @staticmethod
@@ -81,9 +63,6 @@ class StrictFilterRule(object):
         for gid in groups:
             ids += thesaurus_groups[gid]
         return ids
-
-
-StrictFilterRule.EMPTY = StrictFilterRule([], [], [])
 
 
 class EmptyPassRule(StrictFilterRule):
@@ -117,9 +96,6 @@ class EmptyPassRule(StrictFilterRule):
         return (not items_set) or any(x in items_set for x in keys)
 
 
-EmptyPassRule.EMPTY = EmptyPassRule([], [], [])
-
-
 class RecordFilter(object):
     def __init__(self, include_rules, exclude_rules):
         self.__include = include_rules
@@ -151,6 +127,26 @@ class RecordFilter(object):
 InputData = namedtuple("InputData", [
     "paths", "settings_path", "output_dir", "thesaurus_path"
 ])
+
+
+class Text(object):
+    CONCLUSIONS = "conclusions"
+    TYPE = "type"
+    CMPRESULT = "cmpresult"
+    ANNOTATOR = "annotator"
+    GROUPS = "groups"
+    REPORTS = "reports"
+    ID = "id"
+    NAME = "name"
+    DATABASE = "database"
+    INCLUDE = "include"
+    EXCLUDE = "exclude"
+
+
+StrictFilterRule.EMPTY = StrictFilterRule([], [], [])
+EmptyPassRule.EMPTY = EmptyPassRule([], [], [])
+_FILE_CONTAINING_DIR = os.path.dirname(os.path.abspath(__file__))
+_CURRENT_WORKING_DIR = os.curdir
 
 
 def main():
