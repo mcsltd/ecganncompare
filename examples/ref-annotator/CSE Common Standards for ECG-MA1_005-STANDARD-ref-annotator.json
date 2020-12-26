@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "type": "STANDARD",
+  "date": "2020-11-28T13:05:27.861Z",
+  "annotator": "ref-annotator",
+  "database": "CSE Common Standards for ECG",
+  "record": "MA1_005",
+  "conclusionThesaurus": "MCS",
+  "conclusions": [
+    "2.1.2",
+    "3.1.4",
+    "4.1.2"
+  ]
+}
