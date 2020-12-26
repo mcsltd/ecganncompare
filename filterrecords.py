@@ -104,16 +104,18 @@ class RecordFilter(object):
         if thesaurus_path is not None:
             ths_groups = _parse_thesaurus(thesaurus_path)
         return RecordFilter(
-            RecordFilter.__create_rules(settings, Text.INCLUDE, ths_groups),
-            RecordFilter.__create_rules(settings, Text.EXCLUDE, ths_groups)
+            RecordFilter.__create_rules(settings, Text.INCLUDE,
+                                        EmptyPassRule, ths_groups),
+            RecordFilter.__create_rules(settings, Text.EXCLUDE,
+                                        StrictFilterRule, ths_groups)
         )
 
     @staticmethod
-    def __create_rules(settings, key, thesaurus_groups=None):
+    def __create_rules(settings, key, rule_class, thesaurus_groups=None):
         rules_settings = settings.get(key)
         if rules_settings is None:
-            return StrictFilterRule.EMPTY
-        return StrictFilterRule.create(rules_settings, thesaurus_groups)
+            return rule_class.EMPTY
+        return rule_class.create(rules_settings, thesaurus_groups)
 
 
 InputData = namedtuple("InputData", [
