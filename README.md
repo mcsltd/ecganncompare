@@ -10,9 +10,9 @@ https://ecg.ru/
 
 ## Documentation and examples
 
-See the input and output [`format description`](./formats.md).
+See the input and output [`format description`](./docs/formats.md).
 
-See file [`usage.md`](./usage.md) for an example of using the comparison results.
+See file [`usage.md`](./docs/usage.md) for an example of using the comparison results.
 
 ## Usage
 
