@@ -30,7 +30,7 @@ class StrictFilterRule(object):
         annotator = annotation_data[Text.ANNOTATOR].lower()
         conclusions = [x.lower() for x in annotation_data[Text.CONCLUSIONS]]
         return [
-            dbase in self._dbs, dbase,
+            dbase in self._dbs,
             annotator in self._annotators,
             any(c in self._ids for c in conclusions)
         ]
