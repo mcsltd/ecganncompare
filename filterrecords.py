@@ -44,9 +44,9 @@ class FilterRules(object):
         return any(self.__check(annotation_data))
 
     def __check(self, annotation_data):
-        dbase = annotation_data[Text.DATABASE]
-        annotator = annotation_data[Text.ANNOTATOR]
-        conclusions = annotation_data[Text.CONCLUSIONS]
+        dbase = annotation_data[Text.DATABASE].lower()
+        annotator = annotation_data[Text.ANNOTATOR].lower()
+        conclusions = [x.lower() for x in annotation_data[Text.CONCLUSIONS]]
         return [
             FilterRules.__empty_or_contains(self.__dbs, dbase),
             FilterRules.__empty_or_contains(self.__annotators, annotator),
