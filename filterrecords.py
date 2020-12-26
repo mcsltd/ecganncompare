@@ -31,47 +31,39 @@ class Error(Exception):
         super(Error, self).__init__(message)
 
 
-class FilterRule(object):
+class StrictFilterRule(object):
     def __init__(self, dbs, annotators, ids):
-        self.__dbs = FilterRule.__to_lower_str_set(dbs)
-        self.__annotators = FilterRule.__to_lower_str_set(annotators)
-        self.__ids = FilterRule.__to_lower_str_set(ids)
+        self.__dbs = StrictFilterRule.__to_lower_str_set(dbs)
+        self.__annotators = StrictFilterRule.__to_lower_str_set(annotators)
+        self.__ids = StrictFilterRule.__to_lower_str_set(ids)
 
     def match_all(self, annotation_data):
-        return all(self.__check(annotation_data))
+        return all(self._check(annotation_data))
 
     def match_any(self, annotation_data):
-        return any(self.__check(annotation_data))
+        return any(self._check(annotation_data))
 
-    def __check(self, annotation_data):
+    def _check(self, annotation_data):
         dbase = annotation_data[Text.DATABASE].lower()
         annotator = annotation_data[Text.ANNOTATOR].lower()
         conclusions = [x.lower() for x in annotation_data[Text.CONCLUSIONS]]
         return [
-            FilterRule.__empty_or_contains(self.__dbs, dbase),
-            FilterRule.__empty_or_contains(self.__annotators, annotator),
-            FilterRule.__empty_or_contains_any(self.__ids, conclusions)
+            dbase in self.__dbs, dbase,
+            annotator in self.__annotators,
+            any(c in self.__ids for c in conclusions)
         ]
 
     @staticmethod
     def create(rule_settings, thesaurus_groups=None):
-        return FilterRule(
+        return StrictFilterRule(
             rule_settings.get(Text.DATABASE, []),
             rule_settings.get(Text.ANNOTATOR, []),
-            FilterRule.__get_conclusions_id(rule_settings, thesaurus_groups)
+            StrictFilterRule.__get_conclusions_id(rule_settings, thesaurus_groups)
         )
 
     @staticmethod
     def __to_lower_str_set(items):
         return set(str(x).lower() for x in items)
-
-    @staticmethod
-    def __empty_or_contains(items_set, key):
-        return (not items_set) or (key in items_set)
-
-    @staticmethod
-    def __empty_or_contains_any(items_set, keys):
-        return (not items_set) or any(x in items_set for x in keys)
 
     @staticmethod
     def __get_conclusions_id(rule_settings, thesaurus_groups=None):
@@ -91,7 +83,7 @@ class FilterRule(object):
         return ids
 
 
-FilterRule.EMPTY = FilterRule([], [], [])
+StrictFilterRule.EMPTY = StrictFilterRule([], [], [])
 
 
 class RecordFilter(object):
@@ -118,8 +110,8 @@ class RecordFilter(object):
     def __create_rules(settings, key, thesaurus_groups=None):
         rules_settings = settings.get(key)
         if rules_settings is None:
-            return FilterRule.EMPTY
-        return FilterRule.create(rules_settings, thesaurus_groups)
+            return StrictFilterRule.EMPTY
+        return StrictFilterRule.create(rules_settings, thesaurus_groups)
 
 
 InputData = namedtuple("InputData", [
