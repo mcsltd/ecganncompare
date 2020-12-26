@@ -1,7 +1,7 @@
 # coding=utf-8
 import os
 import codecs
-from collections import namedtuple, OrderedDict, defaultdict
+from collections import namedtuple, OrderedDict
 import json
 import argparse
 from distutils import file_util
@@ -171,11 +171,9 @@ def _parse_args(args):
 
 
 def _process_input(input_data):
-    dataset = _read_data(input_data.paths)
-    thesaurus = None
-    if input_data.thesaurus_path is not None:
-        thesaurus = _parse_thesaurus(input_data.thesaurus_path)
-    dataset = _filter_dataset(dataset, thesaurus)
+    records_filter = RecordsFilter.read(
+        input_data.settings_path, input_data.thesaurus_path)
+    dataset = _filter_dataset(_read_data(input_data.paths), records_filter)
     if not os.path.exists(input_data.output_dir):
         os.makedirs(input_data.output_dir)
     for name in dataset:
@@ -213,27 +211,12 @@ def _read_data(input_paths):
     return all_jsons
 
 
-def _filter_dataset(dataset, thesaurus=None):
-    annotators = [
-        "d.shutov@npcmr.ru", "dmitry.shutov@bk.ru", "a.popov@npcmr.ru",
-        "amebah@mail.ru"
-    ]
-    exclude_group_name = "02.07"
-    exclude_conclusions = thesaurus[exclude_group_name]
-
-    annotators = set(a.lower() for a in annotators)
+def _filter_dataset(dataset, record_filter):
     dataset = _remove_results(dataset)
     if not dataset:
         raise Error("Input files not found")
-    new_dataset = {}
-    for key in dataset:
-        item = dataset[key]
-        if item[Text.ANNOTATOR].lower() not in annotators:
-            continue
-        if any((x in exclude_conclusions) for x in item[Text.CONCLUSIONS]):
-            continue
-        new_dataset[key] = item
-    return new_dataset
+    return dict((k, dataset[k]) for k in dataset
+                if record_filter.pass_record(dataset[k]))
 
 
 def _remove_results(dataset):
