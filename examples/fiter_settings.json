@@ -1,0 +1,12 @@
+{
+  "include": {
+    "database": ["CSE Common Standards for ECG"],
+    "annotator": ["ref-annotator", "test-annotator-1"]
+  },
+  "exclude": {
+    "conclusions": {
+      "groups": ["02.07"],
+      "id": ["1.1.12", "2.1.1"]
+    }
+  }
+}
