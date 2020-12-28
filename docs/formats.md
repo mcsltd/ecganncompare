@@ -61,50 +61,70 @@ Each object in array `records` contains the following fields
 
 ```json
 {
-  "type": "cmpresult",
+  "type": "cmpresult", 
   "program": {
-    "version": "1.0",
+    "version": "1.0", 
     "name": "ecganncmp"
-  },
-  "company": "Medical computer systems (c) 2020 - www.mks.ru",
-  "date": "2020-11-10T11:46:11.121000Z",
-  "refAnnotator": "test-annotator-1",
-  "testAnnotator": "test-annotator-2",
-  "conclusionThesaurus": "test-thesaurus",
-  "recordsCount": 2,
-  "refAnnotations": 4,
-  "testAnnotations": 3,
+  }, 
+  "company": "Medical computer systems (c) 2020 - www.mks.ru", 
+  "date": "2020-12-26T14:10:09.218000Z", 
+  "refAnnotator": "test-annotator-1", 
+  "testAnnotator": "test-annotator-2", 
+  "conclusionThesaurus": "MCS", 
+  "recordsCount": 2, 
+  "refAnnotations": 4, 
+  "testAnnotations": 5, 
   "sensitivity": {
-    "matchCount": 3,
+    "matchCount": 3, 
     "value": 75.0
-  },
+  }, 
   "specificity": {
-    "missesCount": 1,
-    "value": 25.0
-  },
+    "missesCount": 3, 
+    "value": 40.0
+  }, 
   "records": [
     {
-      "record": "MA1_001",
-      "database": "CSE Common Standards for ECG",
-      "refAnnotations": 2,
-      "testAnnotations": 1,
-      "matchCount": 1,
+      "record": "MA1_001", 
+      "database": "CSE Common Standards for ECG", 
+      "refAnnotations": 2, 
+      "testAnnotations": 2, 
+      "matchCount": 1, 
       "conclusions": [
-        [302, null],
-        [504, 504]
+        [
+          "14.1.1", 
+          null
+        ], 
+        [
+          "2.1.1", 
+          "2.1.1"
+        ], 
+        [
+          null, 
+          "4.1.3"
+        ]
       ]
-    },
+    }, 
     {
-      "record": "MA1_002",
-      "database": "CSE Common Standards for ECG",
-      "refAnnotations": 2,
-      "testAnnotations": 2,
-      "matchCount": 2,
+      "record": "MA1_002", 
+      "database": "CSE Common Standards for ECG", 
+      "refAnnotations": 2, 
+      "testAnnotations": 3, 
+      "matchCount": 2, 
       "conclusions": [
-        [302, 302],
-        [401, 401]
+        [
+          "12.1.3", 
+          "12.1.3"
+        ], 
+        [
+          "2.1.2", 
+          "2.1.2"
+        ], 
+        [
+          null, 
+          "8.1.2"
+        ]
       ]
-    }
+    }, 
   ]
 }
 ```
