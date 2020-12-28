@@ -193,3 +193,80 @@ If you used criteria `group` for files selection, thesaurus file should be speci
 
 - `path_to_thesaurus` is a path to thesaurus file. Thesaurus format is described in [`formats.md`](./formats.md);
 - `other_arguments` is implies other command line arguments that has been described above (don't need angle brackets for real using).
+
+## PrintStats
+
+Utility [`printstats`](../utils/printstats.py) reads folders with annotation files.
+It print summary about input annotation files.
+
+To run the program, run the following command
+
+    python printstats.py input_path1 input_path2
+
+- `input_path1` and `input_path1` are paths to folders with annotation files;
+- one or more paths can be passed;
+- if input paths not passed, `filterann` try to find input data jast like a `anndistribution`.
+
+Following listing shows part of `printstats` output:
+
+```
+Число записей: 101
+Число поставленных заключений: 1151
+
+Счетчики использования заключений (всего использовано 90): 
+  3.1.3: 26
+  3.1.2: 56
+  3.1.1: 15
+  6.1.2: 1
+  3.1.6: 140
+  3.1.5: 30
+  ...
+
+Поставленные заключения:
+ref-annotator
+  CSE Common Standards for ECG, MA1_005: 2.1.2, 3.1.4, 4.1.2.
+  CSE Common Standards for ECG, MA1_004: 2.1.1, 3.1.6.
+  CSE Common Standards for ECG, MA1_007: 2.1.1, 3.1.6, 7.1.5.
+  ...
+```
+
+Program `printstats` has an optional command line argument `thesaurus` that allows you to specify the path to the thesaurus file. 
+If you specified a thesaurus file, the text values of conclusion codes will be displayed and items will be ordered.
+
+To use it, run the program as follows
+
+    python printstats.py --thesaurus=path_to_thesaurus input_folder_path
+
+- `path_to_thesaurus` is a path to thesaurus file. Thesaurus format is described in [`formats.md`](./formats.md);
+- `input_folder_path` using has been described above.
+
+Following listing shows part of `printstats` output with thesaurus specified:
+
+```
+Число записей: 101
+Число поставленных заключений: 1151
+
+Счетчики использования заключений (всего использовано 88): 
+  1.1.8: 1
+  1.1.9: 6
+  1.1.12: 13
+  2.1.1: 224
+  2.1.2: 34
+  2.1.3: 27
+  ...
+
+Поставленные заключения:
+ref-annotator
+  CSE Common Standards for ECG, MA1_005: 
+    Sinus tachycardia,
+    Right axis deviation,
+    Right atrial enlargement.
+  CSE Common Standards for ECG, MA1_004: 
+    Sinus rhythm,
+    Normal axis.
+  CSE Common Standards for ECG, MA1_007: 
+    Sinus rhythm,
+    Normal axis,
+    Possible left ventricular hypertrophy by voltage criteria.
+  ...
+```
