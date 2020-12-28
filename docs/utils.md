@@ -28,6 +28,23 @@ Results of `anndistribution` shown on the following images.
 
 - The graph legend contains the name of the annotator and the corresponding color of the bars.
 
+Program `anndistribution` has an optional command line argument `thesaurus` that allows you to specify the path to the thesaurus file. 
+If you specified a thesaurus file, the text values of conclusion codes will be displayed on the histogram, the bars will be grouped and ordered.
+
+To use it, run the program as follows
+
+    python anndistribution.py --thesaurus=path_to_thesaurus input_folder_path
+
+- `path_to_thesaurus` is a path to thesaurus file. Thesaurus format is described in [`formats.md`](./formats.md);
+- `input_folder_path` using has been described above.
+
+Results of using `anndistribution` with `thesaurus` argement shown on the following images.
+
+![Common histogram with thesaurus](./images/common_histogram_thesaurus.png)
+
+![Grouped histogram bars](./images/grouped_distribution.png)
+    
+
 ## CmpHistogram
 
 The program `cmphistogram` reads the `ecganncmp` result and makes histogram that contains distributions of annotations matches and misses.
