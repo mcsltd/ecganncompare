@@ -175,7 +175,7 @@ Following listing shows `cmptablesutil` result file.
 ## FilterAnn
 
 The program [`filterann`](../utils/filterann.py) recieve paths to annotation files or to folders with its.
-The program
+The program select annotation files by specified conditions.
 
 To run the program, run the following command
 
