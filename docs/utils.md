@@ -80,3 +80,94 @@ To use it, run the program as follows
 Results of using `cmphistogram` with `thesaurus` argument shown on the following images.
 
 ![Matches distribution with thesaurus](./images/cmphistogram_thesaurus.png)
+
+## CmpTablesUtil
+
+The program [`cmptablesutil`](../utils/cmptablesutil.py) reads folders with annotation files. 
+Data is grouped by thesaurus. The largest group is selected for processing, the rest are ignored.
+The program creates two files: 
+  - excel-table with following annotators comparing statistics:
+    - sensitivity,
+    - specfificity,
+    - PPV,
+    - PNV,
+    - accuracy,
+    - records number.
+  - JSON file containing, for each conclusion, a list of annotators that used it.
+
+To run the program, run the following command
+
+    python cmptablesutil.py folder_path1 folder_path2
+
+- `folder_path1` and `folder_path2` is a paths to folders with annotation files;
+- one or more folder paths can be passed;
+- paths of input folders may not be specified, then the program will try to find input files in the `data` folder, if it is in the same folder with the program file.
+
+Program `cmptablesutil` has an optional command line argument `thesaurus` that allows you to specify the path to the thesaurus file. 
+If you specified a thesaurus file, the aggregates will be more accurate and the items in the annotator file will also be ordered.
+
+To use it, run the program as follows
+
+    python cmptablesutil.py --thesaurus=path_to_thesaurus input_folder_path
+
+- `path_to_thesaurus` is a path to thesaurus file. Thesaurus format is described in [`formats.md`](./formats.md);
+- `input_folder_path` using has been described above.
+
+Following listing shows `cmptablesutil` result file.
+
+```json
+{
+    "annotators": [
+        "ref-annotator", 
+        "test-annotator-1", 
+        "test-annotator-2"
+    ], 
+    "thesaurus": "MCS", 
+    "records": [
+        {
+            "database": "CSE Common Standards for ECG", 
+            "record": "MA1_005", 
+            "conclusionsAnnotators": {
+                "2.1.2": [
+                    "ref-annotator", 
+                    "test-annotator-1", 
+                    "test-annotator-2"
+                ], 
+                "3.1.4": [
+                    "ref-annotator", 
+                    "test-annotator-1", 
+                    "test-annotator-2"
+                ], 
+                "4.1.1": [
+                    "test-annotator-1"
+                ], 
+                "4.1.2": [
+                    "ref-annotator", 
+                    "test-annotator-2"
+                ], 
+                "9.1.8": [
+                    "test-annotator-2"
+                ]
+            }
+        }, 
+        {
+            "database": "CSE Common Standards for ECG", 
+            "record": "MA1_004", 
+            "conclusionsAnnotators": {
+                "2.1.1": [
+                    "ref-annotator", 
+                    "test-annotator-1", 
+                    "test-annotator-2"
+                ], 
+                "3.1.5": [
+                    "test-annotator-2"
+                ], 
+                "3.1.6": [
+                    "ref-annotator", 
+                    "test-annotator-1"
+                ]
+            }
+        }
+    ]
+}
+```
