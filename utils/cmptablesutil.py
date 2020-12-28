@@ -291,6 +291,12 @@ def _reshape_tables(tables):
 
 def _write_cmp_json(tables, filename, thesaurus):
     thesaurus_keys = list(thesaurus.items.keys())
+    if thesaurus_keys:
+        def conclusion_map(id_):
+            return thesaurus_keys.index(id_)
+    else:
+        def conclusion_map(id_):
+            return id_
     report = OrderedDict()
     report[Text.ANNOTATORS] = sorted(tables.keys())
     tables = _reshape_tables(tables)
@@ -303,7 +309,7 @@ def _write_cmp_json(tables, filename, thesaurus):
             groups = _group_annotators_by_items(tables[db_name][rec])
             rec_data[Text.CONCLUSIONS_ANNOTATORS] = OrderedDict(sorted(
                 groups.items(),
-                key=lambda p: thesaurus_keys.index(p[0]))
+                key=lambda p: conclusion_map(p[0]))
             )
             records_data.append(rec_data)
     report[Text.THESAURUS_LABEL] = thesaurus.label
