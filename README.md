@@ -12,7 +12,7 @@ https://ecg.ru/
 
 See the input and output [`format description`](./docs/formats.md).
 
-See file [`utils.md`](./docs/utils.md) for an example of using the comparison results.
+See file [`utils.md`](./docs/utils.md) for an examples of using the comparison results and some utility scripts description.
 
 ## Usage
 
