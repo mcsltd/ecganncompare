@@ -176,7 +176,7 @@ def _print_dataset(dataset, thesaurus=None):
             for rec in tables[annr][db]:
                 codes = tables[annr][db][rec]
                 if thesaurus is None:
-                    conclusions_text = u", ".join(codes)
+                    conclusions_text = u", ".join(str(c) for c in codes)
                 else:
                     new_indent = 2 * indent
                     codes.sort(key=thesaurus_keys.index)
