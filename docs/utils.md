@@ -68,8 +68,6 @@ Results of `cmphistogram` shown on the following image.
 - The graph legend describe colors of the bars: annotator name and conclusion numbers.
 
 Program `cmphistogram` has an optional command line argument `thesaurus` that allows you to specify the path to the thesaurus file.
-
-Both programs can be run without parameters, then the input data search will be performed in the folder `data` in the current folder. 
 If you specified a thesaurus file, the text values of conclusion codes will be displayed on the histogram and the bars will be ordered.
 
 To use it, run the program as follows
