@@ -171,3 +171,25 @@ Following listing shows `cmptablesutil` result file.
     ]
 }
 ```
+
+## FilterAnn
+
+The program [`filterann`](../utils/filterann.py) recieve paths to annotation files or to folders with its.
+The program
+
+To run the program, run the following command
+
+    python filterann.py input_path1 input_path2 --settings=path_to_settings_file --output_dir=path_to_results
+
+- `input_path1` and `input_path1` are paths to annotation files or to folders with its;
+- one or more paths can be passed;
+- if input paths not passed, `filterann` try to find input data jast like a `anndistribution`;
+- `path_to_settings_file` is path to JSON-file for filter settings, file format is described in [`formats.md`](./formats.md);
+- `path_to_results` is path to the directory where files that meet the specified conditions will be copied (if not specified, files wil be copied to derectory `filterann_result`).
+
+If you used criteria `group` for files selection, thesaurus file should be specified by optional command line argument `thesaurus` as follows
+
+    python filterann.py --thesaurus=path_to_thesaurus <other_arguments...>
+
+- `path_to_thesaurus` is a path to thesaurus file. Thesaurus format is described in [`formats.md`](./formats.md);
+- `other_arguments` is implies other command line arguments that has been described above (don't need angle brackets for real using).
