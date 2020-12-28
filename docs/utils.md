@@ -28,6 +28,8 @@ Results of `anndistribution` shown on the following images.
 
 - The graph legend contains the name of the annotator and the corresponding color of the bars.
 
+## CmpHistogram
+
 The program `cmphistogram` reads the `ecganncmp` result and makes histogram that contains distributions of annotations matches and misses.
 
 To run the program, run the following command
