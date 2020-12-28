@@ -61,70 +61,52 @@ Each object in array `records` contains the following fields
 
 ```json
 {
-  "type": "cmpresult", 
+  "type": "cmpresult",
   "program": {
-    "version": "1.0", 
+    "version": "1.0",
     "name": "ecganncmp"
-  }, 
-  "company": "Medical computer systems (c) 2020 - www.mks.ru", 
-  "date": "2020-12-26T14:10:09.218000Z", 
-  "refAnnotator": "test-annotator-1", 
-  "testAnnotator": "test-annotator-2", 
-  "conclusionThesaurus": "MCS", 
-  "recordsCount": 2, 
-  "refAnnotations": 4, 
-  "testAnnotations": 5, 
+  },
+  "company": "Medical computer systems (c) 2020 - www.mks.ru",
+  "date": "2020-12-26T14:10:09.218000Z",
+  "refAnnotator": "test-annotator-1",
+  "testAnnotator": "test-annotator-2",
+  "conclusionThesaurus": "MCS",
+  "recordsCount": 2,
+  "refAnnotations": 4,
+  "testAnnotations": 5,
   "sensitivity": {
-    "matchCount": 3, 
+    "matchCount": 3,
     "value": 75.0
-  }, 
+  },
   "specificity": {
-    "missesCount": 3, 
+    "missesCount": 3,
     "value": 40.0
-  }, 
+  },
   "records": [
     {
-      "record": "MA1_001", 
-      "database": "CSE Common Standards for ECG", 
-      "refAnnotations": 2, 
-      "testAnnotations": 2, 
-      "matchCount": 1, 
+      "record": "MA1_001",
+      "database": "CSE Common Standards for ECG",
+      "refAnnotations": 2,
+      "testAnnotations": 2,
+      "matchCount": 1,
       "conclusions": [
-        [
-          "14.1.1", 
-          null
-        ], 
-        [
-          "2.1.1", 
-          "2.1.1"
-        ], 
-        [
-          null, 
-          "4.1.3"
-        ]
+        ["14.1.1", null],
+        ["2.1.1", "2.1.1"],
+        [null, "4.1.3"]
       ]
-    }, 
+    },
     {
-      "record": "MA1_002", 
-      "database": "CSE Common Standards for ECG", 
-      "refAnnotations": 2, 
-      "testAnnotations": 3, 
-      "matchCount": 2, 
+      "record": "MA1_002",
+      "database": "CSE Common Standards for ECG",
+      "refAnnotations": 2,
+      "testAnnotations": 3,
+      "matchCount": 2,
       "conclusions": [
-        [
-          "12.1.3", 
-          "12.1.3"
-        ], 
-        [
-          "2.1.2", 
-          "2.1.2"
-        ], 
-        [
-          null, 
-          "8.1.2"
-        ]
+        ["12.1.3", "12.1.3"],
+        ["2.1.2", "2.1.2"],
+        [null, "8.1.2"]
       ]
-    }, 
+    }
   ]
 }
 ```
@@ -189,3 +171,32 @@ Each object in array `groups` contains the following fields
   ]
 }
 ```
+
+# Filter settings file format
+
+Filter settings file is used by utility `filterann` and specify confitions for select annotation files.
+This file is in JSON format and contain the following data
+
+| Name    | Type   | Description                                        |
+| ------- | ------ | -------------------------------------------------- |
+| include | object | Object that specify conditions for including files |
+| exclude | object | Object that specify conditions for excluding files |
+
+Conditions `include` (if its specified) are have greater than` exclude` priority.
+Objects `include`, `exclude` contains the following fields
+
+| Name        | Type   | Description                                           |
+| ----------- | ------ | ----------------------------------------------------- |
+| database    | array  | Values for check field `database`                     |
+| annotator   | array  | Values for check field `annotator`                    |
+| conclusions | object | Specify conditions for include/exclude by conclusions |
+
+Object `conclusions` contains the following fields
+
+| Name   | Type  | Description                                  |
+| ------ | ----- | -------------------------------------------- |
+| groups | array | Values for check conclusion group field `id` |
+| id     | array | Values for check field `conclusion`          |
+
+All fields described in tables above are optional and can be missed or contain empty value (`[]` or `{}`).
+Empty or missing values will not be used to decide whether to include or exclude a file.
