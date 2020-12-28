@@ -17,8 +17,9 @@ To run the program, run the following command
 
     python anndistribution.py folder_path1 folder_path2
 
-- `folder_path1` and `folder_path2` is a paths to folders with annotation files.
-- more folder paths can be passed.
+- `folder_path1` and `folder_path2` is a paths to folders with annotation files;
+- one or more folder paths can be passed;
+- paths of input folders may not be specified, then the program will try to find input files in the `data` folder, if it is in the same folder with the program file.
 
 Results of `anndistribution` shown on the following images.  
 
