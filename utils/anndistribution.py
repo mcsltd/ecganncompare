@@ -395,13 +395,13 @@ def _group_dataframes(dataframes, max_sum_group_size=10):
 
 def _plot_common_histogram(dataframe, thesaurus):
     dataframe = dataframe.sum(axis=1)
-    if thesaurus is not None:
+    if thesaurus.items:
         sorted_index = (k for k in thesaurus.items if k in dataframe.index)
         dataframe = dataframe.loc[sorted_index]
         dataframe.index = [thesaurus.items[k] for k in dataframe.index]
     plt.figure()
     _plot_dataframe(dataframe)
-    if thesaurus is not None:
+    if thesaurus.items:
         _wide_ylabels_padding()
 
 
