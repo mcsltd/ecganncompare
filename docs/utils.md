@@ -7,10 +7,11 @@ To install them, you need to run the following command
 
     pip install matplotlib pandas
 
-The program `anndistribution` reads folders with annotation files. 
-All files in one folder should be made by the same annotator. 
-All files should be made with the same thesaurus.
-The program makes histogram that contains distributions annotations for each annotator.
+## AnnDistribution
+
+The program [`anndistribution`](../utils/anndistribution.py) reads folders with annotation files. 
+Data is grouped by thesaurus. The largest group is selected for display, the rest are ignored.
+The program makes a histogram containing the distribution of conclusions for each annotator, and also makes a common histogram, without dividing by annotators.
 
 To run the program, run the following command
 
@@ -19,9 +20,11 @@ To run the program, run the following command
 - `folder_path1` and `folder_path2` is a paths to folders with annotation files.
 - more folder paths can be passed.
 
-Results of `anndistribution` shown on the following image.  
+Results of `anndistribution` shown on the following images.  
 
-![Annotations distribution](./images/annotations_distribution.png)
+![Common histogram](./images/common_histogram.png)
+
+![Conclusions distribution](./images/conclusions_distribution.png)
 
 - The graph legend contains the name of the annotator and the corresponding color of the bars.
 
