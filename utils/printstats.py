@@ -50,7 +50,7 @@ def main():
 
 def _parse_args(args):
     parser = argparse.ArgumentParser(
-        description="Plot histograms for annotations comparing"
+        description="Print summary about input records"
     )
     parser.add_argument("input_paths", nargs="*",
                         default=[_get_default_input_dir()],
