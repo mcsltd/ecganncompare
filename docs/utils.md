@@ -174,7 +174,7 @@ Following listing shows `cmptablesutil` result file.
 
 ## FilterAnn
 
-The program [`filterann`](../utils/filterann.py) recieve paths to annotation files or to folders with its.
+The program [`filterann`](../utils/filterann.py) recieve paths to annotation files or to folders with its.  
 The program select annotation files by specified conditions.
 
 To run the program, run the following command
@@ -197,7 +197,9 @@ If you used criteria `group` for files selection, thesaurus file should be speci
 ## PrintStats
 
 Utility [`printstats`](../utils/printstats.py) reads folders with annotation files.
-It print summary about input annotation files.
+It print summary about input annotation files.  
+
+_Note: program output will be fully translated into English in a future version_
 
 To run the program, run the following command
 
