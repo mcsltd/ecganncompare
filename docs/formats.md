@@ -200,3 +200,20 @@ Object `conclusions` contains the following fields
 
 All fields described in tables above are optional and can be missed or contain empty value (`[]` or `{}`).
 Empty or missing values will not be used to decide whether to include or exclude a file.
+
+## Filter settings example
+
+```json
+{
+  "include": {
+    "database": ["CSE Common Standards for ECG"],
+    "annotator": ["ref-annotator", "test-annotator-1"]
+  },
+  "exclude": {
+    "conclusions": {
+      "groups": ["02.07"],
+      "id": ["1.1.12", "2.1.1"]
+    }
+  }
+}
+```
