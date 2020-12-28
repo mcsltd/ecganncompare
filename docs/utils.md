@@ -39,7 +39,7 @@ To use it, run the program as follows
 - `path_to_thesaurus` is a path to thesaurus file. Thesaurus format is described in [`formats.md`](./formats.md);
 - `input_folder_path` using has been described above.
 
-Results of using `anndistribution` with `thesaurus` argement shown on the following images.
+Results of using `anndistribution` with `thesaurus` argument shown on the following images.
 
 ![Common histogram with thesaurus](./images/common_histogram_thesaurus.png)
 
@@ -48,22 +48,38 @@ Results of using `anndistribution` with `thesaurus` argement shown on the follow
 
 ## CmpHistogram
 
-The program `cmphistogram` reads the `ecganncmp` result and makes histogram that contains distributions of annotations matches and misses.
+The program `cmphistogram` reads the `ecganncmp` results or folders with annotation files. For each annotator in the dataset, the program makes a histogram that contains the distributions of the conclusions matches of the other annotators with the selected annotator.  
+_For better view, the program compares **no more than five** annotators._
 
 To run the program, run the following command
 
-    python cmphistogram.py cmp_result1 cmp_result2
+    python cmphistogram.py input_path1 input_path2
 
-- `cmp_result1` and `cmp_result2` are paths to files with `ecganncmp` result
-- more filepaths can be passed.
+- `input_path1` and `input_path1` are paths to file with `ecganncmp` result or to folder annotation files;
+- one or more paths can be passed;
+- if input paths not passed, `cmphistogram` try to find input data jast like a `anndistribution`.
 
 Results of `cmphistogram` shown on the following image.
 
-![Annotations comparing](./images/annotations_comparing.png)
+![Matches distribution](./images/cmphistogram.png)
 
-- The graph legend describe colors of the bars (matches and misses).
+- The graph legend describe colors of the bars: annotator name and conclusion numbers.
 
-Both programs can be run without parameters, then the input data search will be performed in the folder `data` in the current folder.
+Program `cmphistogram` has an optional command line argument `thesaurus` that allows you to specify the path to the thesaurus file.
+
+Both programs can be run without parameters, then the input data search will be performed in the folder `data` in the current folder. 
+If you specified a thesaurus file, the text values of conclusion codes will be displayed on the histogram and the bars will be ordered.
+
+To use it, run the program as follows
+
+    python cmphistogram.py --thesaurus=path_to_thesaurus input_folder_path
+
+- `path_to_thesaurus` is a path to thesaurus file. Thesaurus format is described in [`formats.md`](./formats.md);
+- `input_folder_path` using has been described above.
+
+Results of using `cmphistogram` with `thesaurus` argument shown on the following images.
+
+![Matches distribution with thesaurus](./images/cmphistogram_thesaurus.png)
 
 Also both parameters can be run with parameter `--thesaurus` as follows
 
