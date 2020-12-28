@@ -80,13 +80,3 @@ To use it, run the program as follows
 Results of using `cmphistogram` with `thesaurus` argument shown on the following images.
 
 ![Matches distribution with thesaurus](./images/cmphistogram_thesaurus.png)
-
-Also both parameters can be run with parameter `--thesaurus` as follows
-
-    python utility_name.py input_path --thesaurus=path_to_thesaurus
-
-- `path_to_thesaurus` is a path to thesaurus file
-
-In this case, along with histograms, text values corresponding to annotations will be displayed on the screen, as shown in the screenshot below.
-
-![Annotations description](./images/annotations_description.png)
