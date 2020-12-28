@@ -99,13 +99,13 @@ def _plot_histogram(codes_groups, datagroups_info, records_count, thesaurus_path
         thesaurus = _parse_thesaurus(thesaurus_path)
     else:
         thesaurus = _create_thesaurus()
+        dataframe.sort_index(inplace=True)
     _plot_common_histogram(dataframe, thesaurus)
     _add_titles(
         _get_common_histogram_title(records_count, thesaurus.lang),
         _get_window_title(thesaurus.lang)
     )
     if not thesaurus.items:
-        dataframe.sort_index(inplace=True)
         plt.figure()
         _plot_dataframe(dataframe)
         _add_info_to_plot(
