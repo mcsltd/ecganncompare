@@ -1,0 +1,984 @@
+{
+  "thesaurus": "MCS",
+  "language": "EN",
+  "groups": [
+    {
+      "id": "01.01",
+      "name": "General Conditions",
+      "multiple": true,
+      "reports": [
+        {
+          "id": "1.1.1",
+          "name": "Short record, analysis not possible"
+        },
+        {
+          "id": "1.1.2",
+          "name": "Short record, partial analysis performed"
+        },
+        {
+          "id": "1.1.3",
+          "name": "Lead I or II absent"
+        },
+        {
+          "id": "1.1.4",
+          "name": "High noise level"
+        },
+        {
+          "id": "1.1.5",
+          "name": "Not enough QRS, errors are possible"
+        },
+        {
+          "id": "1.1.6",
+          "name": "Limb lead(s) break"
+        },
+        {
+          "id": "1.1.7",
+          "name": "Chest lead(s) break"
+        },
+        {
+          "id": "1.1.8",
+          "name": "QRS low voltage"
+        },
+        {
+          "id": "1.1.9",
+          "name": "Limb QRS low voltage"
+        },
+        {
+          "id": "1.1.10",
+          "name": "Low voltage of QRS in chest leads"
+        },
+        {
+          "id": "1.1.11",
+          "name": "Similar QRS in the chest leads"
+        },
+        {
+          "id": "1.1.12",
+          "name": "SI – SII – SIII type of ECG"
+        },
+        {
+          "id": "1.1.13",
+          "name": "Dextrocardia"
+        },
+        {
+          "id": "1.1.14",
+          "name": "R and L leads reversal"
+        },
+        {
+          "id": "1.1.15",
+          "name": "No data on patient’s gender or age"
+        }
+      ]
+    },
+    {
+      "id": "02.01",
+      "name": "Sinus node rhythms and arrhythmias",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "2.1.1",
+          "name": "Sinus rhythm"
+        },
+        {
+          "id": "2.1.2",
+          "name": "Sinus tachycardia"
+        },
+        {
+          "id": "2.1.3",
+          "name": "Sinus bradycardia"
+        },
+        {
+          "id": "2.1.4",
+          "name": "Sinus arrhythmia"
+        },
+        {
+          "id": "2.1.5",
+          "name": "Sinoatrial block, type I"
+        },
+        {
+          "id": "2.1.6",
+          "name": "Sinoatrial block, type II"
+        },
+        {
+          "id": "2.1.7",
+          "name": "Sinus pause or arrest"
+        },
+        {
+          "id": "2.1.8",
+          "name": "Uncertain supraventricular rhythm"
+        }
+      ]
+    },
+    {
+      "id": "02.02",
+      "name": "Supraventricular arrhythmias",
+      "multiple": true,
+      "reports": [
+        {
+          "id": "2.2.1",
+          "name": "Atrial premature complex(es)"
+        },
+        {
+          "id": "2.2.2",
+          "name": "Atrial premature bigemeny"
+        },
+        {
+          "id": "2.2.3",
+          "name": "Atrial premature trigemeny"
+        },
+        {
+          "id": "2.2.4",
+          "name": "Atrial premature complexes, nonconducted"
+        },
+        {
+          "id": "2.2.5",
+          "name": "Retrograde atrial activation"
+        },
+        {
+          "id": "2.2.6",
+          "name": "Wandering atrial pacemaker"
+        },
+        {
+          "id": "2.2.7",
+          "name": "Ectopic atrial rhythm"
+        },
+        {
+          "id": "2.2.8",
+          "name": "Ectopic atrial rhythm, multifocal"
+        },
+        {
+          "id": "2.2.9",
+          "name": "Junctional premature complex(es)"
+        },
+        {
+          "id": "2.2.10",
+          "name": "Junctional escape complex(es)"
+        },
+        {
+          "id": "2.2.11",
+          "name": "Junctional rhythm"
+        },
+        {
+          "id": "2.2.12",
+          "name": "Accelerated junctional rhythm"
+        },
+        {
+          "id": "2.2.13",
+          "name": "Supraventricular rhythm"
+        },
+        {
+          "id": "2.2.14",
+          "name": "Supraventricular complex(es)"
+        },
+        {
+          "id": "2.2.15",
+          "name": "Nonsinus supraventricular bradycardia"
+        }
+      ]
+    },
+    {
+      "id": "02.03",
+      "name": "Supraventricular tachyarrhythmias",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "2.3.1",
+          "name": "Atrial fibrillation"
+        },
+        {
+          "id": "2.3.2",
+          "name": "Atrial flutter"
+        },
+        {
+          "id": "2.3.3",
+          "name": "Ectopic atrial tachycardia, unifocal"
+        },
+        {
+          "id": "2.3.4",
+          "name": "Ectopic atrial tachycardia, multifocal"
+        },
+        {
+          "id": "2.3.5",
+          "name": "Junctional tachycardia"
+        },
+        {
+          "id": "2.3.6",
+          "name": "Supraventricular tachycardia"
+        },
+        {
+          "id": "2.3.7",
+          "name": "Narrow-QRS tachycardia"
+        }
+      ]
+    },
+    {
+      "id": "02.04",
+      "name": "Ventricular arrhythmias",
+      "multiple": true,
+      "reports": [
+        {
+          "id": "2.4.1",
+          "name": "Ventricular premature complex(es)"
+        },
+        {
+          "id": "2.4.2",
+          "name": "Ventricular bigemeny"
+        },
+        {
+          "id": "2.4.3",
+          "name": "Ventricular trigemeny"
+        },
+        {
+          "id": "2.4.4",
+          "name": "Fusion complex(es)"
+        },
+        {
+          "id": "2.4.5",
+          "name": "Ventricular escape complex(es)"
+        },
+        {
+          "id": "2.4.6",
+          "name": "Idioventricular rhythm"
+        },
+        {
+          "id": "2.4.7",
+          "name": "Accelerated idioventricular rhythm"
+        },
+        {
+          "id": "2.4.8",
+          "name": "Fascicular rhythm"
+        },
+        {
+          "id": "2.4.9",
+          "name": "Parasystole"
+        }
+      ]
+    },
+    {
+      "id": "02.05",
+      "name": "Ventricular tachyarrhythmias",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "2.5.1",
+          "name": "Ventricular tachycardia"
+        },
+        {
+          "id": "2.5.2",
+          "name": "Ventricular tachycardia, unsustained"
+        },
+        {
+          "id": "2.5.3",
+          "name": "Ventricular tachycardia, polymorphous"
+        },
+        {
+          "id": "2.5.4",
+          "name": "Ventricular tachycardia, torsades de pointes"
+        },
+        {
+          "id": "2.5.5",
+          "name": "Ventricular fibrillation"
+        },
+        {
+          "id": "2.5.6",
+          "name": "Fascicular tachycardia"
+        },
+        {
+          "id": "2.5.7",
+          "name": "Wide-QRS tachycardia"
+        }
+      ]
+    },
+    {
+      "id": "02.06",
+      "name": "Atrioventricular conduction",
+      "multiple": true,
+      "reports": [
+        {
+          "id": "2.6.1",
+          "name": "Short PR interval"
+        },
+        {
+          "id": "2.6.2",
+          "name": "AV conduction ratio N:D"
+        },
+        {
+          "id": "2.6.3",
+          "name": "Prolonged PR interval"
+        },
+        {
+          "id": "2.6.4",
+          "name": "Second-degree AV block, Mobitz type I (Wenckebach)"
+        },
+        {
+          "id": "2.6.5",
+          "name": "Second-degree AV block, Mobitz type II"
+        },
+        {
+          "id": "2.6.6",
+          "name": "2:1 AV block"
+        },
+        {
+          "id": "2.6.7",
+          "name": "AV block, varying conduction"
+        },
+        {
+          "id": "2.6.8",
+          "name": "AV block, advanced (high-grade)"
+        },
+        {
+          "id": "2.6.9",
+          "name": "AV block, complete (third-degree)"
+        },
+        {
+          "id": "2.6.10",
+          "name": "AV dissociation"
+        }
+      ]
+    },
+    {
+      "id": "02.07",
+      "name": "Paced rhythm",
+      "multiple": true,
+      "reports": [
+        {
+          "id": "2.7.1",
+          "name": "Ventricular pacing of non–right ventricular apical origin"
+        },
+        {
+          "id": "2.7.2",
+          "name": "AV dual-paced rhythm"
+        },
+        {
+          "id": "2.7.3",
+          "name": "Atrial-sensed ventricular-paced rhythm"
+        },
+        {
+          "id": "2.7.4",
+          "name": "Atrial-paced rhythm"
+        },
+        {
+          "id": "2.7.5",
+          "name": "Ventricular paced rhythm"
+        },
+        {
+          "id": "2.7.6",
+          "name": "Failure to capture"
+        },
+        {
+          "id": "2.7.7",
+          "name": "Failure to pace"
+        }
+      ]
+    },
+    {
+      "id": "03.01",
+      "name": "Axis",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "3.1.1",
+          "name": "Indeterminate axis"
+        },
+        {
+          "id": "3.1.2",
+          "name": "Left axis deviation"
+        },
+        {
+          "id": "3.1.3",
+          "name": "Moderate Left axis deviation"
+        },
+        {
+          "id": "3.1.4",
+          "name": "Right axis deviation"
+        },
+        {
+          "id": "3.1.5",
+          "name": "Moderate Right axis deviation"
+        },
+        {
+          "id": "3.1.6",
+          "name": "Normal axis"
+        }
+      ]
+    },
+    {
+      "id": "04.01",
+      "name": "Atrial Hypertrophy",
+      "multiple": true,
+      "reports": [
+        {
+          "id": "4.1.1",
+          "name": "Possible right atrial enlargement"
+        },
+        {
+          "id": "4.1.2",
+          "name": "Right atrial enlargement"
+        },
+        {
+          "id": "4.1.3",
+          "name": "Possible left atrial enlargement"
+        },
+        {
+          "id": "4.1.4",
+          "name": "Left atrial enlargement"
+        },
+        {
+          "id": "4.1.5",
+          "name": "Exclude pulmonary disease"
+        }
+      ]
+    },
+    {
+      "id": "05.01",
+      "name": "Ventricular Blocks",
+      "multiple": true,
+      "reports": [
+        {
+          "id": "5.1.1",
+          "name": "RsR’ (QR) in V1/V2 consistent with right ventricular conduction delay"
+        },
+        {
+          "id": "5.1.2",
+          "name": "Incomplete right bundle branch block"
+        },
+        {
+          "id": "5.1.3",
+          "name": "Right bundle branch block"
+        },
+        {
+          "id": "5.1.4",
+          "name": "Right bundle branch block plus possible Right Ventricular Hypertrophy"
+        },
+        {
+          "id": "5.1.5",
+          "name": "Incomplete left bundle branch block"
+        },
+        {
+          "id": "5.1.6",
+          "name": "Left anterior fascicular block"
+        },
+        {
+          "id": "5.1.7",
+          "name": "Left posterior fascicular block"
+        },
+        {
+          "id": "5.1.8",
+          "name": "Left bundle branch block"
+        },
+        {
+          "id": "5.1.9",
+          "name": "Nonspecific intraventricular conduction delay"
+        },
+        {
+          "id": "5.1.10",
+          "name": "Nonspecific intraventricular conduction block"
+        }
+      ]
+    },
+    {
+      "id": "06.01",
+      "name": "WPW syndrome",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "6.1.1",
+          "name": "Type A Wolff-Parkinson-White Pattern"
+        },
+        {
+          "id": "6.1.2",
+          "name": "Type B Wolff-Parkinson-White Pattern"
+        }
+      ]
+    },
+    {
+      "id": "07.01",
+      "name": "Ventricular hypertrophy",
+      "multiple": true,
+      "reports": [
+        {
+          "id": "7.1.1",
+          "name": "Right ventricular hypertrophy with repolarization abnormality"
+        },
+        {
+          "id": "7.1.2",
+          "name": "Right ventricular hypertrophy"
+        },
+        {
+          "id": "7.1.3",
+          "name": "Possible right ventricular hypertrophy"
+        },
+        {
+          "id": "7.1.4",
+          "name": "Voltage criteria for left ventricular hypertrophy"
+        },
+        {
+          "id": "7.1.5",
+          "name": "Possible left ventricular hypertrophy by voltage criteria"
+        },
+        {
+          "id": "7.1.6",
+          "name": "Romhilt–Estes criteria for left ventricular hypertrophy"
+        },
+        {
+          "id": "7.1.7",
+          "name": "Probably left ventricular hypertrophy by Romhilt–Estes criteria"
+        }
+      ]
+    },
+    {
+      "id": "08.01",
+      "name": "QT abnormalities",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "8.1.1",
+          "name": "Short QT"
+        },
+        {
+          "id": "8.1.2",
+          "name": "Long QT"
+        }
+      ]
+    },
+    {
+      "id": "09.01",
+      "name": "Anterior infarct",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "9.1.1",
+          "name": "Cannot rule out recent anterior infarct"
+        },
+        {
+          "id": "9.1.2",
+          "name": "Cannot rule out old anterior infarct"
+        },
+        {
+          "id": "9.1.3",
+          "name": "Possible anterior ST elevation infarct"
+        },
+        {
+          "id": "9.1.4",
+          "name": "Possible anterior recent infarct"
+        },
+        {
+          "id": "9.1.5",
+          "name": "Possible anterior old infarct"
+        },
+        {
+          "id": "9.1.6",
+          "name": "Anterior ST elevation infarct"
+        },
+        {
+          "id": "9.1.7",
+          "name": "Anterior recent infarct"
+        },
+        {
+          "id": "9.1.8",
+          "name": "Anterior old infarct"
+        }
+      ]
+    },
+    {
+      "id": "09.02",
+      "name": "Septal infarct",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "9.2.1",
+          "name": "Cannot rule out recent septal infarct"
+        },
+        {
+          "id": "9.2.2",
+          "name": "Cannot rule out old septal infarct"
+        },
+        {
+          "id": "9.2.3",
+          "name": "Possible septal ST elevation infarct"
+        },
+        {
+          "id": "9.2.4",
+          "name": "Possible septal recent infarct"
+        },
+        {
+          "id": "9.2.5",
+          "name": "Possible septal old infarct"
+        },
+        {
+          "id": "9.2.6",
+          "name": "Septal ST elevation infarct"
+        },
+        {
+          "id": "9.2.7",
+          "name": "Septal recent infarct"
+        },
+        {
+          "id": "9.2.8",
+          "name": "Septal old infarct"
+        }
+      ]
+    },
+    {
+      "id": "09.03",
+      "name": "Anteroseptal infarct",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "9.3.1",
+          "name": "Cannot rule out recent anteroseptal infarct"
+        },
+        {
+          "id": "9.3.2",
+          "name": "Cannot rule out old anteroseptal infarct"
+        },
+        {
+          "id": "9.3.3",
+          "name": "Possible anteroseptal ST elevation infarct"
+        },
+        {
+          "id": "9.3.4",
+          "name": "Possible anteroseptal recent infarct"
+        },
+        {
+          "id": "9.3.5",
+          "name": "Possible anteroseptal old infarct"
+        },
+        {
+          "id": "9.3.6",
+          "name": "Anteroseptal ST elevation infarct"
+        },
+        {
+          "id": "9.3.7",
+          "name": "Anteroseptal recent infarct"
+        },
+        {
+          "id": "9.3.8",
+          "name": "Anteroseptal old infarct"
+        }
+      ]
+    },
+    {
+      "id": "09.04",
+      "name": "Lateral infarct",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "9.4.1",
+          "name": "Cannot rule out recent lateral infarct"
+        },
+        {
+          "id": "9.4.2",
+          "name": "Cannot rule out old lateral infarct"
+        },
+        {
+          "id": "9.4.3",
+          "name": "Possible lateral ST elevation infarct"
+        },
+        {
+          "id": "9.4.4",
+          "name": "Possible lateral recent infarct"
+        },
+        {
+          "id": "9.4.5",
+          "name": "Possible lateral old infarct"
+        },
+        {
+          "id": "9.4.6",
+          "name": "Lateral ST elevation infarct"
+        },
+        {
+          "id": "9.4.7",
+          "name": "Lateral recent infarct"
+        },
+        {
+          "id": "9.4.8",
+          "name": "Lateral old infarct"
+        }
+      ]
+    },
+    {
+      "id": "09.05",
+      "name": "Anterolateral infarct",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "9.5.1",
+          "name": "Cannot rule out recent anterolateral infarct"
+        },
+        {
+          "id": "9.5.2",
+          "name": "Cannot rule out old anterolateral infarct"
+        },
+        {
+          "id": "9.5.3",
+          "name": "Possible anterolateral ST elevation infarct"
+        },
+        {
+          "id": "9.5.4",
+          "name": "Possible anterolateral recent infarct"
+        },
+        {
+          "id": "9.5.5",
+          "name": "Possible anterolateral old infarct"
+        },
+        {
+          "id": "9.5.6",
+          "name": "Anterolateral ST elevation infarct"
+        },
+        {
+          "id": "9.5.7",
+          "name": "Anterolateral recent infarct"
+        },
+        {
+          "id": "9.5.8",
+          "name": "Anterolateral old infarct"
+        }
+      ]
+    },
+    {
+      "id": "09.06",
+      "name": "Inferior infarct",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "9.6.1",
+          "name": "Cannot rule out recent Inferior infarct"
+        },
+        {
+          "id": "9.6.2",
+          "name": "Cannot rule out old Inferior infarct"
+        },
+        {
+          "id": "9.6.3",
+          "name": "Possible Inferior ST elevation infarct"
+        },
+        {
+          "id": "9.6.4",
+          "name": "Possible Inferior recent infarct"
+        },
+        {
+          "id": "9.6.5",
+          "name": "Possible Inferior old infarct"
+        },
+        {
+          "id": "9.6.6",
+          "name": "Inferior ST elevation infarct"
+        },
+        {
+          "id": "9.6.7",
+          "name": "Inferior recent infarct"
+        },
+        {
+          "id": "9.6.8",
+          "name": "Inferior old infarct"
+        },
+        {
+          "id": "9.6.9",
+          "name": "with posterior extension"
+        }
+      ]
+    },
+    {
+      "id": "10.01",
+      "name": "ST elevation, early repolarization",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "10.1.1",
+          "name": "Nonspecific ST segment elevation"
+        },
+        {
+          "id": "10.1.2",
+          "name": "Early repolarization"
+        },
+        {
+          "id": "10.1.3",
+          "name": "ST elevation, probably early repolarization"
+        },
+        {
+          "id": "10.1.4",
+          "name": "ST elevation, consistent with epicardial injury, pericarditis, or early repolarization"
+        },
+        {
+          "id": "10.1.5",
+          "name": "Possible acute pericarditis"
+        },
+        {
+          "id": "10.1.6",
+          "name": "Acute pericarditis"
+        }
+      ]
+    },
+    {
+      "id": "11.01",
+      "name": "Myocardial injury",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "11.1.1",
+          "name": "ST elevation, consider septal injury"
+        },
+        {
+          "id": "11.1.2",
+          "name": "Marked ST elevation, consider septal injury"
+        },
+        {
+          "id": "11.1.3",
+          "name": "ST elevation, consider anterior injury"
+        },
+        {
+          "id": "11.1.4",
+          "name": "Marked ST elevation, consider septal injury"
+        },
+        {
+          "id": "11.1.5",
+          "name": "ST elevation, consider anteroseptal injury"
+        },
+        {
+          "id": "11.1.6",
+          "name": "Marked ST elevation, consider anteroseptal injury"
+        },
+        {
+          "id": "11.1.7",
+          "name": "ST elevation, consider lateral injury"
+        },
+        {
+          "id": "11.1.8",
+          "name": "Marked ST elevation, consider lateral injury"
+        },
+        {
+          "id": "11.1.9",
+          "name": "ST elevation, consider anterolateral injury"
+        },
+        {
+          "id": "11.1.10",
+          "name": "Marked ST elevation, consider anterolateral injury"
+        },
+        {
+          "id": "11.1.11",
+          "name": "ST elevation, consider inferior injury"
+        },
+        {
+          "id": "11.1.12",
+          "name": "Marked ST elevation, consider inferior injury"
+        }
+      ]
+    },
+    {
+      "id": "12.01",
+      "name": "ST depression",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "12.1.1",
+          "name": "Marked ST depression, consider subendocardial injury"
+        },
+        {
+          "id": "12.1.2",
+          "name": "ST depression, consider subendocardial injury"
+        },
+        {
+          "id": "12.1.3",
+          "name": "Moderate ST depression"
+        },
+        {
+          "id": "12.1.4",
+          "name": "Minimal ST depression"
+        },
+        {
+          "id": "12.1.5",
+          "name": "Marked junctional ST depression"
+        },
+        {
+          "id": "12.1.6",
+          "name": "Junctional ST depression, consider normal variant"
+        }
+      ]
+    },
+    {
+      "id": "13.01",
+      "name": "T wave abnormality",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "13.1.1",
+          "name": "Marked T wave abnormality, consider anterior ischemia"
+        },
+        {
+          "id": "13.1.2",
+          "name": "Moderate T wave abnormality, consider anterior ischemia"
+        },
+        {
+          "id": "13.1.3",
+          "name": "Marked T wave abnormality, consider lateral ischemia"
+        },
+        {
+          "id": "13.1.4",
+          "name": "Moderate T wave abnormality, consider lateral ischemia"
+        },
+        {
+          "id": "13.1.5",
+          "name": "Marked T wave abnormality, consider anterolateral ischemia"
+        },
+        {
+          "id": "13.1.6",
+          "name": "Moderate T wave abnormality, consider anterolateral ischemia"
+        },
+        {
+          "id": "13.1.7",
+          "name": "Moderate T wave abnormality, consider inferior ischemia"
+        },
+        {
+          "id": "13.1.8",
+          "name": "Marked T wave abnormality, consider inferior ischemia"
+        },
+        {
+          "id": "13.1.9",
+          "name": "Tall T waves, possible hyperkalemia"
+        },
+        {
+          "id": "13.1.10",
+          "name": "Nonspecific T wave abnormality"
+        },
+        {
+          "id": "13.1.11",
+          "name": "Abnormal QRS-T angle"
+        }
+      ]
+    },
+    {
+      "id": "14.01",
+      "name": "Transition zone shift",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "14.1.1",
+          "name": "Left transition zone shift"
+        },
+        {
+          "id": "14.1.2",
+          "name": "Right transition zone shift"
+        }
+      ]
+    },
+    {
+      "id": "15.01",
+      "name": "Brugada pattern",
+      "multiple": false,
+      "reports": [
+        {
+          "id": "15.1.1",
+          "name": "Type 3 Brugada pattern (non-diagnostic)"
+        },
+        {
+          "id": "15.1.2",
+          "name": "Type 2 Brugada pattern (non-diagnostic)"
+        },
+        {
+          "id": "15.1.3",
+          "name": "Type 1 Brugada pattern, exclude recent infarction, myocarditis, or drug effect"
+        }
+      ]
+    }
+  ]
+}
