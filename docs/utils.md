@@ -48,7 +48,7 @@ Results of using `anndistribution` with `thesaurus` argument shown on the follow
 
 ## CmpHistogram
 
-The program `cmphistogram` reads the `ecganncmp` results or folders with annotation files. For each annotator in the dataset, the program makes a histogram that contains the distributions of the conclusions matches of the other annotators with the selected annotator.  
+The program [`cmphistogram`](../utils/cmphistogram.py) reads the `ecganncmp` results or folders with annotation files. For each annotator in the dataset, the program makes a histogram that contains the distributions of the conclusions matches of the other annotators with the selected annotator.  
 _For better view, the program compares **no more than five** annotators._
 
 To run the program, run the following command
