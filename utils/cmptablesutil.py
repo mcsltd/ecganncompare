@@ -420,5 +420,15 @@ def _set_conditional_format(dframe, sheet, conditional_format):
     )
 
 
+def _filter_annotations(tables, annotations):
+    for annr in tables:
+        for db in tables[annr]:
+            for record in tables[annr][db]:
+                tables[annr][db][record] = [
+                    x for x in tables[annr][db][record] if x in annotations
+                ]
+    return tables
+
+
 if __name__ == "__main__":
     main()
