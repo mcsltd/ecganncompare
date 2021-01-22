@@ -5,7 +5,6 @@ import json
 import argparse
 from operator import itemgetter
 import traceback
-import copy
 
 import pandas
 
