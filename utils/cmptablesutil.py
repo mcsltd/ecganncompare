@@ -95,9 +95,12 @@ def _read_json_folder(dirname):
     return results
 
 
-def _read_json(filename):
+def _read_json(filename, ordered=False):
+    hook = None
+    if ordered:
+        hook = OrderedDict
     with codecs.open(filename, "r", encoding="utf-8") as fin:
-        return json.load(fin, object_pairs_hook=OrderedDict)
+        return json.load(fin, object_pairs_hook=hook)
 
 
 def _dataset_to_table(dataset):
@@ -254,7 +257,7 @@ def _group_data(all_jsons):
 
 
 def _parse_thesaurus(filename):
-    data = _read_json(filename)
+    data = _read_json(filename, ordered=True)
     items = OrderedDict()
     for group in data[Text.GROUPS]:
         for ann in group[Text.REPORTS]:
