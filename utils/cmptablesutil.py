@@ -5,6 +5,7 @@ import json
 import argparse
 from operator import itemgetter
 import traceback
+import copy
 
 import pandas
 
@@ -274,6 +275,7 @@ def _write_stats_table(tables, filename, thesaurus_items):
         total_ann_count = len(thesaurus_items)
     else:
         total_ann_count = _count_unique_anns(tables)
+    tables = _filter_annotations(copy.deepcopy(tables), set(thesaurus_items))
     dframe = _create_stats_dataframe(tables, total_ann_count)
     _write_to_formated_xlsx(dframe, filename)
 
