@@ -173,7 +173,7 @@ def _parse_args(args):
                         help="paths to input folders/files")
     parser.add_argument("--settings", required=True,
                         help="path to JSON-file with filter settings")
-    parser.add_argument("--output_dir", help="path to dir for converted files",
+    parser.add_argument("--output_dir", help="path to dir for selected files",
                         default=default_output)
     parser.add_argument("--thesaurus", help="path to thesaurus")
     data = parser.parse_args(args[1:])
