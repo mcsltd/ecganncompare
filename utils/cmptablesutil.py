@@ -159,7 +159,7 @@ def _group_by_field(iterable_data, fieldname):
 
 
 def _calculate_match_stats(dtable, other_table, total_ann_count):
-    tp, fp, fn = 0, 0, 0
+    tp, fp, fn, tn = 0, 0, 0, 0
     records_count = 0
     for db in dtable:
         if db not in other_table:
@@ -169,16 +169,21 @@ def _calculate_match_stats(dtable, other_table, total_ann_count):
                 continue
             anns = set(dtable[db][rec])
             other_anns = set(other_table[db][rec])
-
             matches = anns.intersection(other_anns)
-            tp += len(matches)
-            fn += len(anns.difference(matches))
-            fp += len(other_anns.difference(matches))
+
+            rec_tp = len(matches)
+            rec_fn = len(anns.difference(matches))
+            rec_fp = len(other_anns.difference(matches))
+            rec_tn = total_ann_count - (rec_tp + rec_fn + rec_fp)
+
+            tp += rec_tp
+            fn += rec_fn
+            fp += rec_fp
+            tn += rec_tn
         records_count += len(set(dtable[db]).union(other_table[db]))
     counts_sum = sum([tp, fp, fn])
     if counts_sum == 0:
         return None
-    tn = total_ann_count - counts_sum
     return MatchStats(
         Se=(tp / float(tp + fn)),
         Sp=(tn / float(fp + tn)),
