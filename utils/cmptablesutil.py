@@ -189,7 +189,7 @@ def _calculate_match_stats(dtable, other_table, total_ann_count):
         Sp=(tn / float(fp + tn)),
         PPV=(tp / float(tp + fp)),
         PNV=(tn / float(tn + fn)),
-        Acc=(float(tp + tn) / total_ann_count),
+        Acc=(float(tp + tn) / (records_count * total_ann_count)),
         Records=records_count
     )
 
