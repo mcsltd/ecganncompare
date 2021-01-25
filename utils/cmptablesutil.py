@@ -167,7 +167,6 @@ def _calculate_match_stats(dtable, other_table, total_ann_count):
         for rec in dtable[db]:
             if rec not in other_table[db]:
                 continue
-            records_count += 1
             anns = set(dtable[db][rec])
             other_anns = set(other_table[db][rec])
 
@@ -175,9 +174,7 @@ def _calculate_match_stats(dtable, other_table, total_ann_count):
             tp += len(matches)
             fn += len(anns.difference(matches))
             fp += len(other_anns.difference(matches))
-        for rec in other_table[db]:
-            if rec not in dtable:
-                records_count += 1
+        records_count += len(set(dtable[db]).union(other_table[db]))
     counts_sum = sum([tp, fp, fn])
     if counts_sum == 0:
         return None
