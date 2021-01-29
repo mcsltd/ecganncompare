@@ -353,7 +353,7 @@ def _write_to_formated_xlsx(dframe, filename):
     dframe.to_excel(writer, startrow=1, header=False)
 
     book = writer.book
-    sheet = writer.sheets.values()[0]
+    sheet = list(writer.sheets.values())[0]
 
     rotated_header = book.add_format({
         "rotation": 90,
