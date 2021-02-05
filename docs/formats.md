@@ -5,6 +5,7 @@ Input files must be in JSON format. The files contain the following data
 | Name                | Type    | Description                                             |
 | ------------------- | ------- | ------------------------------------------------------- |
 | version             | integer | Version of format                                       |
+| type                | string  | one of the options: AUTO, MANUAL or STANDARD            |
 | date                | string  | Date and time of file creation in UTC format            |
 | annotator           | string  | Annotator's name                                        |
 | database            | string  | Database name                                           |
@@ -17,6 +18,7 @@ Input files must be in JSON format. The files contain the following data
 ```json
 {
   "version": 1,
+  "type": "MANUAL",
   "date": "2020-10-22T10:18:35.091Z",
   "annotator": "annotator1@ecg.ru",
   "database": "Moscow Day #67",
