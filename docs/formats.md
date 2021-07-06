@@ -12,6 +12,7 @@ Input files must be in JSON format. The files contain the following data
 | record              | string  | Record's name                                           |
 | conclusionThesaurus | string  | Version of conclusions thesaurus                        |
 | conclusions         | array   | Array of ids of conclusions that was set for the record |
+| comment             | string  | Text comment or annotation                              |
 
 ## Input files examples
 
@@ -24,7 +25,8 @@ Input files must be in JSON format. The files contain the following data
   "database": "Moscow Day #67",
   "record": "patient_00001",
   "conclusionThesaurus": "MCS",
-  "conclusions": ["1.1.1", "3.1.5", "6.1.1"]
+  "conclusions": ["1.1.1", "3.1.5", "6.1.1"],
+  "comment": ""
 }
 ```
 
